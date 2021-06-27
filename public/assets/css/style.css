@@ -1,0 +1,14 @@
+.form-control[readonly] {
+    background: #fff!important;
+    border-color: #e8e8e8!important;
+    color: #000 !important;
+    cursor: not-allowed;
+}
+
+.elips{
+    border-radius: 30% !important;
+}
+
+#pelanggan-datatables_wrapper{
+    padding: 20px !important;
+}
