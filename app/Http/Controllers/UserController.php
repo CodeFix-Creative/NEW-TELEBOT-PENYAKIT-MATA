@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
@@ -15,8 +16,9 @@ class UserController extends Controller
     public function index()
     {
         // $user = User::all();
-        $user = [];
-        return view('admin.user.index', compact('user'));
+        $adminAktif = User::whereStatus('Aktif')->where('role' , '!=' , 'Customer Service')->get();
+        $adminTidakAktif = User::whereStatus('Tidak Aktif')->where('role' , '!=' , 'Customer Service')->get();
+        return view('admin.user.index', compact('adminAktif' , 'adminTidakAktif'));
     }
 
     /**
@@ -37,29 +39,16 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        // $validated = $request->validate(
-        //     [
-        //         'nama'      => 'required',
-        //         'no_telp'   => 'required',
-        //         'jk'        => 'required',
-        //         'alamat'    => 'required',
-        //         'email'     => 'required|email|unique:users',
-        //         'password'  => 'required|min:8',
-        //         'role'      => 'required',
-        //     ]
-        // );
+         $user = new User;
+         $user->nama = $request->nama;
+         $user->email = $request->email;
+         $user->password = bcrypt('Admin123');
+         $user->remember_token = Str::random(60);
+         $user->role = $request->role;
+         $user->status = 'Aktif' ;
+         $user->save();
 
-        // $validated['status_user'] = 1;
-        // $validated['password'] = bcrypt($request->password);
-
-        // $user = User::create($validated);
-
-        return redirect()
-            ->route('user.index')
-            ->with([
-                'message' => 'Data berhasil ditambahkan.', 
-                'status' => 'success'
-            ]);
+         return redirect()->route('user.index')->with('toast_success', 'Admin berhasil ditambahkan!');
     }
 
     /**
@@ -99,25 +88,17 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, /* User */ $user)
+    public function update(Request $request, User $user)
     {
-        // $validated = $request->validate(
-        //     [
-        //         'nama'      => 'required',
-        //         'no_telp'   => 'required',
-        //         'jk'        => 'required',
-        //         'alamat'    => 'required',
-        //     ]
-        // );
+         // dd($request->all());
+         $user->update([
+            'nama' => $request->nama,
+            'email' => $request->email,
+            'role' => $request->role,
+            'status' => $request->status,
+         ]);
 
-        // $user->update($request->only(['nama','no_telp','jk','alamat','status_user']));
-
-        return redirect()
-            ->route('user.index')
-            ->with([
-                'message' => 'Data berhasil diubah.', 
-                'status' => 'success'
-            ]);
+         return redirect()->route('user.index')->with('toast_success', 'Admin berhasil diubah!');
     }
 
     /**

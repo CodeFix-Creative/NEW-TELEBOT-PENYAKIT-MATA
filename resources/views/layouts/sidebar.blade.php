@@ -9,7 +9,7 @@
                     <a data-toggle="collapse" href="#collapseExample" aria-expanded="true">
                         <span class="ellipsis">
                             {{ Auth::user()->nama ?? 'User' }}
-                            <span class="user-level">{{ Auth::user()->roles->role ?? 'Guest' }}</span>
+                            <span class="user-level">{{ Auth::user()->role ?? 'Guest' }}</span>
                         </span>
                     </a>
                     <div class="clearfix"></div>
@@ -24,26 +24,38 @@
                 </li>
                 <li class="nav-item {{ (request()->is('*user*')) ? 'active' : '' }}">
                     <a href="{{ route('user.index') }}" class="collapsed" aria-expanded="false">
-                        <i class="fas fa-user"></i>
-                        <p>User</p>
+                        <i class="fas fa-users-cog"></i>
+                        <p>Admin</p>
                     </a>
                 </li>
-                <li class="nav-item {{ (request()->is('*jenis_desain*')) ? 'active' : '' }}">
-                    <a href="#" class="collapsed" aria-expanded="false">
-                        <i class="fas fa-list"></i>
-                        <p>Menu 2</p>
+                <li class="nav-item {{ (request()->is('*customerservice*')) ? 'active' : '' }}">
+                    <a href="{{ route('customerservice.index') }}" class="collapsed" aria-expanded="false">
+                        <i class="fas fa-headset"></i>
+                        <p>Customer Service</p>
                     </a>
                 </li>
-                <li class="nav-item {{ (request()->is('*desain*') && !request()->is('*jenis_desain*')) ? 'active' : '' }}">
-                    <a href="#" class="collapsed" aria-expanded="false">
-                        <i class="fas fa-palette"></i>
-                        <p>Menu 3</p>
+                <li class="nav-item {{ (request()->is('*sparepart*')) ? 'active' : '' }}">
+                    <a href="{{ route('sparepart.index') }}" class="collapsed" aria-expanded="false">
+                        <i class="fas fa-cogs"></i>
+                        <p>Spare Part</p>
+                    </a>
+                </li>
+                <li class="nav-item {{ (request()->is('*service*')) ? 'active' : '' }}">
+                    <a href="{{ route('service.index') }}" class="collapsed" aria-expanded="false">
+                        <i class="fas fa-clipboard-check"></i>
+                        <p>Service Status</p>
+                    </a>
+                </li>
+                <li class="nav-item {{ (request()->is('*bookingtime*')) ? 'active' : '' }}">
+                    <a href="{{ route('bookingtime.index') }}" class="collapsed" aria-expanded="false">
+                        <i class="fas fa-calendar-alt"></i>
+                        <p>Booking Time</p>
                     </a>
                 </li>
                 <li class="nav-item {{ (request()->is('*pesanan*')) ? 'active' : '' }}">
                     <a href="#" class="collapsed" aria-expanded="false">
-                        <i class="fas fa-shopping-cart"></i>
-                        <p>Menu 4</p>
+                        <i class="fas fa-calendar-check"></i>
+                        <p>Booking Request List</p>
                     </a>
                 </li>
             </ul>

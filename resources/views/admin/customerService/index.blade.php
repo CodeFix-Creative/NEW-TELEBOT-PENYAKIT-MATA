@@ -4,7 +4,7 @@
 <div class="page-inner py-5">
     <div class="d-flex align-items-left align-items-md-center flex-column flex-md-row">
         <div>
-            <h2 class="text-white pb-2 fw-bold">Admin</h2>
+            <h2 class="text-white pb-2 fw-bold">Customer Service</h2>
             <ul class="breadcrumbs text-white ml-0">
                 <li class="nav-home">
                     <a href="#!" class="text-white">
@@ -15,7 +15,7 @@
                     <i class="flaticon-right-arrow"></i>
                 </li>
                 <li class="nav-item">
-                    <a href="#!" class="text-white">Data Admin Asus Service Center</a>
+                    <a href="#!" class="text-white">Data Customer Service Asus Service Center</a>
                 </li>
             </ul>
         </div>
@@ -73,21 +73,21 @@
                                         @php
                                         $nomor = 1;
                                         @endphp
-                                        @foreach($adminAktif as $admin)
+                                        @foreach($CustomerServiceAktif as $CustomerService)
                                         <tr>
                                             <td>{{ $nomor }}</td>
-                                            <td>{{ $admin->nama }}</td>
-                                            <td>{{ $admin->email }}</td>
-                                            <td>{{ $admin->role }}</td>
-                                            <td><span class="badge badge-success">{{ $admin->status }}</span></td>
+                                            <td>{{ $CustomerService->nama }}</td>
+                                            <td>{{ $CustomerService->email }}</td>
+                                            <td>{{ $CustomerService->role }}</td>
+                                            <td><span class="badge badge-success">{{ $CustomerService->status }}</span></td>
                                             <td>
                                                 <div class="btn-group">
                                                     <a href="#!" class="btn btn-success btn-sm ubah-data float-left"
                                                         data-toggle="modal" data-target="#editdata"
-                                                        data-id-admin="{{ $admin->id }}" data-nama="{{ $admin->nama }}"
-                                                        data-email="{{ $admin->email }}" data-role="{{ $admin->role }}"
-                                                        data-status="{{ $admin->status }}"
-                                                        data-password="{{ $admin->password }}"><i
+                                                        data-id-admin="{{ $CustomerService->id }}" data-nama="{{ $CustomerService->nama }}"
+                                                        data-email="{{ $CustomerService->email }}" data-role="{{ $CustomerService->role }}"
+                                                        data-status="{{ $CustomerService->status }}"
+                                                        data-password="{{ $CustomerService->password }}"><i
                                                             class="far fa-edit"></i>
                                                     </a>
                                                     {{-- <a href="#!" class="btn btn-danger btn-sm ml-2 delete"
@@ -133,21 +133,21 @@
                                         @php
                                         $nomor = 1;
                                         @endphp
-                                        @foreach($adminTidakAktif as $admin)
+                                        @foreach($CustomerServiceTidakAktif as $CustomerService)
                                         <tr>
                                             <td>{{ $nomor }}</td>
-                                            <td>{{ $admin->nama }}</td>
-                                            <td>{{ $admin->email }}</td>
-                                            <td>{{ $admin->role }}</td>
-                                            <td><span class="badge badge-danger">{{ $admin->status }}</span></td>
+                                            <td>{{ $CustomerService->nama }}</td>
+                                            <td>{{ $CustomerService->email }}</td>
+                                            <td>{{ $CustomerService->role }}</td>
+                                            <td><span class="badge badge-danger">{{ $CustomerService->status }}</span></td>
                                             <td>
                                                 <div class="btn-group">
                                                     <a href="#!" class="btn btn-success btn-sm ubah-data float-left"
                                                         data-toggle="modal" data-target="#editdata"
-                                                        data-id-admin="{{ $admin->id }}" data-nama="{{ $admin->nama }}"
-                                                        data-email="{{ $admin->email }}" data-role="{{ $admin->role }}"
-                                                        data-status="{{ $admin->status }}"
-                                                        data-password="{{ $admin->password }}"><i
+                                                        data-id-admin="{{ $CustomerService->id }}" data-nama="{{ $CustomerService->nama }}"
+                                                        data-email="{{ $CustomerService->email }}" data-role="{{ $CustomerService->role }}"
+                                                        data-status="{{ $CustomerService->status }}"
+                                                        data-password="{{ $CustomerService->password }}"><i
                                                             class="far fa-edit"></i>
                                                     </a>
                                                     {{-- <a href="#!" class="btn btn-danger btn-sm ml-2 delete"
@@ -178,7 +178,7 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="tabahdatalabel">Tambah Admin</h5>
+                <h5 class="modal-title" id="tabahdatalabel">Tambah Customer Service</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -186,30 +186,20 @@
             <div class="modal-body">
 
                 <!-- FORM -->
-                <form action="{{ route('user.store') }}" method="post">
+                <form action="{{ route('customerservice.store') }}" method="post">
                     @csrf
 
                     <!-- Nama -->
                     <div class="form-group">
                         <label for="nama">Nama</label>
-                        <input type="text" class="form-control" id="nama" placeholder="Nama Admin" name="nama" required>
+                        <input type="text" class="form-control" id="nama" placeholder="Nama Customer Service" name="nama" required>
                     </div>
 
                     <!-- Email -->
                     <div class="form-group">
                         <label for="email">Email</label>
-                        <input type="text" class="form-control" id="email" placeholder="Email Admin" name="email"
+                        <input type="text" class="form-control" id="email" placeholder="Email Customer Service" name="email"
                             required>
-                    </div>
-
-                    <!-- Role -->
-                    <div class="form-group">
-                        <label for="role" class="">Role Admin</label>
-                        <select class="custom-select" name="role">
-                            <option selected>-- Role Admin --</option>
-                            <option value="Super Admin">Super Admin</option>
-                            <option value="Admin">Admin</option>
-                        </select>
                     </div>
 
             </div>
@@ -230,13 +220,13 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="tabahdatalabel">Ubah Data Admin</h5>
+                <h5 class="modal-title" id="tabahdatalabel">Ubah Data Customer Service</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
             </div>
             <!-- FORM -->
-            <form id="edit-form" action="{{ route('user.update', '') }}" method="post" enctype="multipart/form-data">
+            <form id="edit-form" action="{{ route('customerservice.update', '') }}" method="post" enctype="multipart/form-data">
             <div class="modal-body">
                @method('PUT')
                @csrf
@@ -251,16 +241,6 @@
                <div class="form-group">
                   <label for="email">Email</label>
                   <input type="text" class="form-control" id="edit-email" placeholder="Email Admin" name="email" required>
-               </div>
-
-               <!-- Role -->
-               <div class="form-group">
-                  <label for="role" class="">Role Admin</label>
-                  <select class="custom-select" name="role" id="edit-role">
-                        <option selected>-- Role Admin --</option>
-                        <option value="Super Admin">Super Admin</option>
-                        <option value="Admin">Admin</option>
-                  </select>
                </div>
 
                <!-- status -->

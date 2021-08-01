@@ -3,8 +3,9 @@
 
 <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>{{ config('app.name', 'ASUS SERVICE CENTER') }}</title>
     <meta content='width=device-width, initial-scale=1.0, shrink-to-fit=no' name='viewport' />
+    <link rel="icon" href="{{ asset('assets/img/asus-fav.ico') }}" type="image/x-icon" />
     <link rel="icon" href="" type="image/x-icon" />
 
     <!-- Fonts and icons -->
@@ -42,11 +43,11 @@
     <div class="wrapper">
         <div class="main-header">
             <!-- Logo Header -->
-            <div class="logo-header" data-background-color="blue">
+            <div class="logo-header" data-background-color="white">
 
                 <a href="#!" class="logo text-white fw-bold">
-                    <!-- <img src="{{asset('assets/img/logo.svg')}}" alt="navbar brand" class="navbar-brand" width="150"> -->
-                    < Insert Web Name >
+                    <img src="{{asset('assets/img/Asus.png')}}" alt="navbar brand" class="navbar-brand" width="150">
+                    {{-- < Insert Web Name > --}}
                 </a>
                 <button class="navbar-toggler sidenav-toggler ml-auto" type="button" data-toggle="collapse"
                     data-target="collapse" aria-expanded="false" aria-label="Toggle navigation">
