@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Booking;
 use Illuminate\Http\Request;
-use Telegram\Bot\Api;
-use Telegram;
 
-class BotController extends Controller
+class BookingController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,18 +14,9 @@ class BotController extends Controller
      */
     public function index()
     {
-      //   $telegram = new Api(env("TELEGRAM_BOT_TOKEN"));
-        $telegram = new Api('1907491983:AAGY5f9Cm-JNc2g1TswjHrpWSmU2_YZJWYA');
+        $booking = Booking::all();
 
-         // dd($response = $telegram->getMe());
-
-         // $response = $telegram->getUpdates();
-
-         // $response = Telegram::getWebhookUpdates();
-
-         $response = Telegram::getWebhookInfo();
-
-         dd($response);
+        return view('admin.bookingList.index', compact('booking'));
     }
 
     /**
@@ -53,10 +43,10 @@ class BotController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Booking  $booking
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Booking $booking)
     {
         //
     }
@@ -64,10 +54,10 @@ class BotController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
+     * @param  \App\Models\Booking  $booking
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Booking $booking)
     {
         //
     }
@@ -76,10 +66,10 @@ class BotController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  \App\Models\Booking  $booking
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Booking $booking)
     {
         //
     }
@@ -87,10 +77,10 @@ class BotController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  \App\Models\Booking  $booking
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Booking $booking)
     {
         //
     }

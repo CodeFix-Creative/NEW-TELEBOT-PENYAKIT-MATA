@@ -52,8 +52,8 @@
                         <p>Booking Time</p>
                     </a>
                 </li>
-                <li class="nav-item {{ (request()->is('*pesanan*')) ? 'active' : '' }}">
-                    <a href="#" class="collapsed" aria-expanded="false">
+                <li class="nav-item {{ (request()->is('*bookingList*')) ? 'active' : '' }}">
+                    <a href="{{ route('bookingList.index') }}" class="collapsed" aria-expanded="false">
                         <i class="fas fa-calendar-check"></i>
                         <p>Booking Request List</p>
                     </a>

@@ -19,6 +19,8 @@ class CreateBookingTable extends Migration
             $table->string('no_telp');
             $table->unsignedBigInteger('id_customer_service');
             $table->unsignedBigInteger('id_booking_time');
+            $table->date('booking_date');
+            $table->string('status');
             $table->timestamps();
             $table->softDeletes();
 

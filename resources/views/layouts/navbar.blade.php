@@ -39,16 +39,16 @@
                         </li>
                         <li>
                             <div class="dropdown-divider"></div>
-                            <form action="#!" method="get">
+                            <form action="{{ route('change_password.index') }}" method="get">
                                 @csrf
-                                <button type="submit" class="dropdown-item" href="#!">Change Password</button>
+                                <button type="submit" class="dropdown-item" href="{{ route('change_password.index') }}">Change Password</button>
                             </form>
                         </li>
                         <li>
                             <div class="dropdown-divider"></div>
-                            <form action="#!" method="POST">
+                            <form action="{{ route('logout') }}" method="POST">
                                 @csrf
-                                <button type="submit" class="dropdown-item" href="#!">Logout</button>
+                                <button type="submit" class="dropdown-item" href="{{ route('logout') }}">Logout</button>
                             </form>
                         </li>
                     </div>

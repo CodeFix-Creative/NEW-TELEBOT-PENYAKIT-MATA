@@ -15,10 +15,7 @@ class UserController extends Controller
      */
     public function index()
     {
-        // $user = User::all();
-        $adminAktif = User::whereStatus('Aktif')->where('role' , '!=' , 'Customer Service')->get();
-        $adminTidakAktif = User::whereStatus('Tidak Aktif')->where('role' , '!=' , 'Customer Service')->get();
-        return view('admin.user.index', compact('adminAktif' , 'adminTidakAktif'));
+        return view('auth.passwords.changePassword');
     }
 
     /**
@@ -39,16 +36,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-         $user = new User;
-         $user->nama = $request->nama;
-         $user->email = $request->email;
-         $user->password = bcrypt('Admin123');
-         $user->remember_token = Str::random(60);
-         $user->role = $request->role;
-         $user->status = 'Aktif' ;
-         $user->save();
-
-         return redirect()->route('user.index')->with('toast_success', 'Admin berhasil ditambahkan!');
+         
     }
 
     /**
@@ -70,15 +58,7 @@ class UserController extends Controller
      */
     public function edit(/* User */ $user)
     {
-        $user = (object) [
-            'id' => 1,
-            'nama' => 'User',
-            'no_telp' => '081222333444',
-            'jk' => 'Laki-laki',
-            'alamat' => 'Denpasar',
-        ];
-
-        return view('admin.user.edit', compact('user'));
+        
     }
 
     /**
@@ -90,15 +70,19 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-         // dd($request->all());
-         $user->update([
-            'nama' => $request->nama,
-            'email' => $request->email,
-            'role' => $request->role,
-            'status' => $request->status,
-         ]);
+         if($request->password_baru == $request->confirm_password_baru){
+          if (Hash::check($request->password_lama, Auth::user()->password)) {
+             auth()->user()->update([
+                'password' => bcrypt($request->password_baru),
+             ]);
 
-         return redirect()->route('user.index')->with('toast_success', 'Admin berhasil diubah!');
+             return redirect()->route('change_password.index')->with('toast_success', 'Password Anda Berhasil Di Ubah!!');
+          }else{
+             return back()->with('toast_error', 'Password Lama Anda Tidak Sama !!');
+          }
+        } else {
+            return back()->with('toast_error', 'Confirmasi Password Tidak Sama !!');
+        }
     }
 
     /**

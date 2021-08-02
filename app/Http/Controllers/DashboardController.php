@@ -3,10 +3,8 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use Telegram\Bot\Api;
-use Telegram;
 
-class BotController extends Controller
+class DashboardController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -15,18 +13,7 @@ class BotController extends Controller
      */
     public function index()
     {
-      //   $telegram = new Api(env("TELEGRAM_BOT_TOKEN"));
-        $telegram = new Api('1907491983:AAGY5f9Cm-JNc2g1TswjHrpWSmU2_YZJWYA');
-
-         // dd($response = $telegram->getMe());
-
-         // $response = $telegram->getUpdates();
-
-         // $response = Telegram::getWebhookUpdates();
-
-         $response = Telegram::getWebhookInfo();
-
-         dd($response);
+        return view('admin.dashboard.index');
     }
 
     /**
