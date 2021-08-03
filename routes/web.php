@@ -14,6 +14,8 @@ use Illuminate\Support\Facades\Route;
 */
 Route::get('/', [App\Http\Controllers\DashboardController::class, 'index'])->middleware('auth')->name('dashboard');
 
+Route::get('/', [App\Http\Controllers\TelegramController::class, 'webhook']);
+
 Route::prefix('admin')->middleware('auth')->group(function(){
 
    // Service
