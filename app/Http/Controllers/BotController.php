@@ -22,7 +22,7 @@ class BotController extends Controller
 
          // $response = $telegram->getUpdates();
 
-         $response = Telegram::getWebhookUpdates();
+         // $response = Telegram::getWebhookUpdates();
 
          // $response = Telegram::getMe();
 
@@ -30,7 +30,7 @@ class BotController extends Controller
 
          // $response = Telegram::getUpdates();
 
-         $response = Telegram::getWebhookUpdates();
+         $response = Telegram::getWebhookInfo();
 
          // $response = $telegram->setWebhook([
          //    'url' => 'https://asus-service-center.online/admin/test-bot',
