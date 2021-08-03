@@ -25,7 +25,7 @@ class TelegramController extends Controller
         $userId = $result->message->from->id;
 
         if($action == '/start') {
-            $text = "Selamat datang di Bot Telegram ASUS Service Center. Silahkan pilih menu di bawah ini: ";
+            $text = $result;
 
             $this->apiRequest('sendMessage', [
                 'chat_id' => $userId,
