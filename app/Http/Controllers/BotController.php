@@ -26,16 +26,16 @@ class BotController extends Controller
 
          // $response = Telegram::getMe();
 
-         // $response = $telegram->removeWebhook();
+         $response = $telegram->removeWebhook();
 
          // $response = Telegram::getUpdates();
 
+         $response = $telegram->setWebhook([
+            'url' => 'https://asus-service-center.online/admin/test-bot',
+            // 'certificate' => '/path/to/public_key_certificate.pub'
+         ]);
+         
          $response = Telegram::getWebhookInfo();
-
-         // $response = $telegram->setWebhook([
-         //    'url' => 'https://asus-service-center.online/admin/test-bot',
-         //    // 'certificate' => '/path/to/public_key_certificate.pub'
-         // ]);
 
          dd($response);
     }
