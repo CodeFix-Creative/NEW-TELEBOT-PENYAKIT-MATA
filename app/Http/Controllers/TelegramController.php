@@ -31,6 +31,14 @@ class TelegramController extends Controller
                 'reply_markup' => $this->keyboardBtn($option),
             ]);
         }
+
+        if($action == '/test') {
+           $this->apiRequest('sendMessage', [
+                'chat_id' => $userId,
+                'text' => 'test terrrooooosss!!',
+               //  'reply_markup' => $this->keyboardBtn($option),
+            ]);
+        }
     }
 
     public function webhook()
