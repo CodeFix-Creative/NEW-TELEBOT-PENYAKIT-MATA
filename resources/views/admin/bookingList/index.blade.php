@@ -23,7 +23,7 @@
             <a href="#" data-toggle="modal" data-target="#tambahdata"
                 class="btn btn-secondary btn-round button-shadow mr-3"><i class="far fa-calendar-alt" title="Edit"></i> Pilih Tanggal</a>
             <a href="{{ route('sparepartExcel') }}" class="btn btn-success btn-round button-shadow mr-3"><i
-                    class="fas fa-download" title="Edit"></i> Print PDF</a>
+                    class="fas fa-download" title="Edit"></i> Download Excel</a>
             {{-- <a href="#" class="btn btn-danger btn-round button-shadow delete"><i class="fas fa-trash-alt" title="Edit"></i> Clear Data</a> --}}
             {{-- <form id="delete-user-form" action="{{route('sparepart.destroy', '1')}}" method="POST" class="d-inline">
                 @csrf
@@ -115,7 +115,7 @@
     <div class="modal-dialog modal-lg" role="document">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="tabahdatalabel">Upload Data Excel Spare Part</h5>
+                <h5 class="modal-title" id="tabahdatalabel">Filter Booking List Sesuai Tanggal</h5>
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                 </button>
@@ -128,10 +128,11 @@
 
                     <!-- Nama -->
                     <div class="form-group">
-                        <label for="nama">Upload File Excel</label>
-                        <input type="file" class="form-control" id="booking_time"
-                            placeholder="Booking Time (00:00 - 00:00)" name="file" required>
+                        <label for="nama">Pilih Tanggal</label>
+                        <input type="date" class="form-control" id="edit-booking_time"
+                            placeholder="Booking Time (00:00 - 00:00)" name="booking_time" required>
                     </div>
+
             </div>
             <div class="modal-footer">
                 {{-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> --}}
@@ -164,8 +165,8 @@
 
                     <!-- Nama -->
                     <div class="form-group">
-                        <label for="nama">Booking Time</label>
-                        <input type="text" class="form-control" id="edit-booking_time"
+                        <label for="nama">Pilih Tanggal</label>
+                        <input type="date" class="form-control" id="edit-booking_time"
                             placeholder="Booking Time (00:00 - 00:00)" name="booking_time" required>
                     </div>
 
