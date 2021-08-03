@@ -43,12 +43,12 @@ class TelegramController extends Controller
         } else if ($action == "Cek Spare Part") {
             $part = Part::select('product_group')->distinct()->get();
 
-            $text = "Silahkan pilih product group: (1-" . count($part) . "): ";
+            $text = "Silahkan pilih product group: (1-" . count($part) . "): \n";
 
             $numberOption = [];
 
             foreach($part as $key => $value) {
-                $text .= "\n " . $key + 1 . ". " . $value->product_group;
+                $text .= $key + 1 . ". " . $value->product_group . "\n ";
             }
 
             $this->apiRequest('sendMessage', [
