@@ -13,9 +13,9 @@ class TelegramController extends Controller
     use RequestTrait, MakeComponents;
 
     private $mainMenu = [
-        ["Cek Service"],
-        ["Cek Spare Part"],
-        ["Booking Service"],
+        ['text' => "Cek Service", 'callback_data' => '1'],
+        ['text' => "Cek Spare Part", 'callback_data' => '2'],
+        ['text' => "Booking Service", 'callback_data' => '3'],
     ];
 
     public function index()
@@ -25,7 +25,7 @@ class TelegramController extends Controller
         $userId = $result->message->from->id;
 
         if($action == '/start') {
-            $text = $result['callback_query']['data'];
+            $text = "Selamat datang di Bot Telegram ASUS Service Center. Silahkan pilih menu di bawah ini: ";
 
             $this->apiRequest('sendMessage', [
                 'chat_id' => $userId,
