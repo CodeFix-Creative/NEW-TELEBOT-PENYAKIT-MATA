@@ -13,9 +13,9 @@ class TelegramController extends Controller
     use RequestTrait, MakeComponents;
 
     private $mainMenu = [
-        ['Cek Service'],
-        ['Cek Spare Part'],
-        ['Booking Service'],
+        ["Cek Service"],
+        ["Cek Spare Part"],
+        ["Booking Service"],
     ];
 
     public function index()
@@ -33,8 +33,14 @@ class TelegramController extends Controller
                 'reply_markup' => $this->keyboardBtn($this->mainMenu),
             ]);
 
-        } else if ($action == 'Cek Service') {
-        } else if (strpos(strtolower($action), 'cek spare part') !== false) {
+        } else if ($action == "Cek Service") {
+            $text = "Anda memilih menu cek service.";
+
+            $this->apiRequest('sendMessage', [
+                'chat_id' => $userId,
+                'text' => $text,
+            ]);
+        } else if ($action == "Cek Spare Part") {
             $text = "Silahkan pilih product group: ";
 
             $part = Part::select('product_group')->distinct()->get()->toArray();
@@ -51,7 +57,13 @@ class TelegramController extends Controller
                 'text' => $text,
                 'reply_markup' => $this->keyboardBtn($productGroup),
             ]);
-        } else if ($action == 'Booking Service') {
+        } else if ($action == "Booking Service") {
+            $text = "Anda memilih menu booking service.";
+
+            $this->apiRequest('sendMessage', [
+                'chat_id' => $userId,
+                'text' => $text,
+            ]);
         } else {
             $text = "Maaf, menu yang Anda pilih tidak tersedia. Silahkan pilih menu di bawah ini: ";
             $option = [
