@@ -13,9 +13,9 @@ class TelegramController extends Controller
     use RequestTrait, MakeComponents;
 
     private $mainMenu = [
-        ['text' => "Cek Service", 'callback_data' => '1'],
-        ['text' => "Cek Spare Part", 'callback_data' => '2'],
-        ['text' => "Booking Service", 'callback_data' => '3'],
+        ["Cek Service"],
+        ["Cek Spare Part"],
+        ["Booking Service"],
     ];
 
     public function index()
