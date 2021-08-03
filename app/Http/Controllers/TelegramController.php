@@ -47,6 +47,8 @@ class TelegramController extends Controller
                   'text' => $text,
                   'reply_markup' => $this->keyboardBtn($btn),
                ]);
+
+               die();
             }
          }
 
