@@ -19,15 +19,10 @@ trait RequestTrait {
             curl_close($handle);
             return false;
         }
-
-        $response = json_decode($response, true);
+        
         curl_close($handle);
+        $response = json_decode($response, true);
         
-        if($response['ok'] == false) {
-            return false;
-        }
-        
-        $response = $response['result'];
         return $response;
     }
 
