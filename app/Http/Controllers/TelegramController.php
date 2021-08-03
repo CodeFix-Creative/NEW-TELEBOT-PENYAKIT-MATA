@@ -46,15 +46,17 @@ class TelegramController extends Controller
             $text = "Silahkan pilih product group: (1-" . count($part) . "): \n";
 
             $numberOption = [];
+            $btn = [];
 
             foreach($part as $key => $value) {
                //  $text .= $key + 1 . ". " . $value->product_group . "\n";
-                $text .= "/" . $value->product_group . "\n";
+               $btn[] = ["$value->product_group"] ;
             }
 
             $this->apiRequest('sendMessage', [
                 'chat_id' => $userId,
                 'text' => $text,
+                'reply_markup' => $this->keyboardBtn($btn),
             ]);
 
         } else if ($action == "Booking Service") {
