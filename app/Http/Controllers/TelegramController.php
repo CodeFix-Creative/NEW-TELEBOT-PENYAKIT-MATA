@@ -11,6 +11,12 @@ class TelegramController extends Controller
 {
     use RequestTrait, MakeComponents;
 
+    private $mainMenu = [
+        ['Cek Service'],
+        ['Cek Spare Part'],
+        ['Booking Service'],
+    ];
+
     public function index()
     {
         $result = json_decode(file_get_contents('php://input'));
@@ -18,7 +24,19 @@ class TelegramController extends Controller
         $userId = $result->message->from->id;
 
         if($action == '/start') {
-            $text = "Silahkan pilih menu di bawah ini:";
+            $text = "Selamat datang di Bot Telegram ASUS Service Center. Silahkan pilih menu di bawah ini: ";
+
+            $this->apiRequest('sendMessage', [
+                'chat_id' => $userId,
+                'text' => $text,
+                'reply_markup' => $this->keyboardBtn($mainMenu),
+            ]);
+
+        } else if ($action == 'Cek Service') {
+        } else if ($action == 'Cek Spare Part') {
+        } else if ($action == 'Booking Service') {
+        } else {
+            $text = "Maaf, menu yang Anda pilih tidak tersedia. Silahkan pilih menu di bawah ini: ";
             $option = [
                 ['Cek Service'],
                 ['Cek Spare Part'],
@@ -28,7 +46,7 @@ class TelegramController extends Controller
             $this->apiRequest('sendMessage', [
                 'chat_id' => $userId,
                 'text' => $text,
-                'reply_markup' => $this->keyboardBtn($option),
+                'reply_markup' => $this->keyboardBtn($mainMenu),
             ]);
         }
 
