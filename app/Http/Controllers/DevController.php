@@ -11,13 +11,14 @@ class DevController extends Controller
     public function part()
     {
         $part = Part::select('product_group')->distinct()->get();
-        $product_group = [];
+        $btn = [];
 
-        foreach($part as $value) {
-            $product_group[] = [$value->product_group];
+        foreach($part as $key => $value) {
+            //  $text .= $key + 1 . ". " . $value->product_group . "\n";
+            $btn[] = ["text" => "$value->product_group", "callback_data" => "product_group:" . $value->product_group];
         }
 
-        return $product_group;
+        return $btn;
     }
 
 }

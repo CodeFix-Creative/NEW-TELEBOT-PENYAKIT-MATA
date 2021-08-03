@@ -16,6 +16,18 @@ trait MakeComponents {
         return $keyboard;
     }
 
+    private function inlineKeyboardBtn($option) {
+        $keyboard = [
+            'inline_keyboard' => $option,
+            'resize_keyboard' => true,
+            'one_time_keyboard' => true,
+            'selective' => true
+        ];
+
+        $keyboard = json_encode($keyboard);
+        return $keyboard;
+    }
+
 }
 
 ?>
