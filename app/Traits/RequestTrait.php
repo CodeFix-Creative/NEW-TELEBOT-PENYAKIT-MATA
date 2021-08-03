@@ -20,7 +20,7 @@ trait RequestTrait {
             return false;
         }
 
-        $response = json_decode($handle, true);
+        $response = json_decode($response, true);
         curl_close($handle);
         
         if($response['ok'] == false) {
