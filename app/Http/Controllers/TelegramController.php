@@ -34,7 +34,7 @@ class TelegramController extends Controller
             ]);
 
         } else if ($action == 'Cek Service') {
-        } else if ($action == 'Cek Spare Part') {
+        } else if (strpos(strtolower($action), 'cek spare part') !== false) {
             $text = "Silahkan pilih product group: ";
 
             $part = Part::select('product_group')->distinct()->get()->toArray();
