@@ -20,12 +20,13 @@ trait RequestTrait {
             return false;
         }
 
-        curl_close($handle);
         $response = json_decode($handle, true);
+        curl_close($handle);
+        
         if($response['ok'] == false) {
             return false;
         }
-
+        
         $response = $response['result'];
         return $response;
     }
