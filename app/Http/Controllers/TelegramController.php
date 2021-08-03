@@ -43,7 +43,7 @@ class TelegramController extends Controller
         } else if ($action == "Cek Spare Part") {
             $text = "Silahkan pilih product group: ";
 
-            $part = Part::select('product_group')->distinct()->get()->toArray();
+            $part = Part::select('product_group')->distinct()->get();
             $productGroup = [];
 
             foreach($part as $value) {
