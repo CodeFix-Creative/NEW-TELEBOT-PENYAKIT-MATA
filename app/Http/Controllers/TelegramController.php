@@ -46,14 +46,9 @@ class TelegramController extends Controller
             $part = Part::select('product_group')->distinct()->get();
             $productGroup = [];
 
-            foreach($part as $value) {
-                $productGroup[] = [$value];
-            }
-
             $this->apiRequest('sendMessage', [
                 'chat_id' => $userId,
                 'text' => $text,
-                'reply_markup' => $this->keyboardBtn($productGroup),
             ]);
         } else if ($action == "Booking Service") {
             $text = "Anda memilih menu booking service.";
