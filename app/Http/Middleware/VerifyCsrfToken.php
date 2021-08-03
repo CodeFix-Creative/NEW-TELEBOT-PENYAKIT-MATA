@@ -13,9 +13,6 @@ class VerifyCsrfToken extends Middleware
      */
     protected $except = [
         '/1907491983:AAGY5f9Cm-JNc2g1TswjHrpWSmU2_YZJWYA/webhook',
-        '/admin/test-bot',
-        '/*',
-        '/webhook',
-      //   'https://asus-service-center.online/admin/test-bot',
+        'test-bot'
     ];
 }
