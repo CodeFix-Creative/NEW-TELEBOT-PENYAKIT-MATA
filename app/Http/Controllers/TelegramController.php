@@ -25,7 +25,7 @@ class TelegramController extends Controller
         $userId = $result->message->from->id;
 
         if($action == '/start') {
-            $text = $result['callback_query'];
+            $text = $result['callback_query']['data'];
 
             $this->apiRequest('sendMessage', [
                 'chat_id' => $userId,
