@@ -24,7 +24,7 @@ class BotController extends Controller
 
          // $response = Telegram::getWebhookUpdates();
 
-         $response = Telegram::getUpdate();
+         $response = Telegram::getUpdates();
 
          dd($response);
     }
