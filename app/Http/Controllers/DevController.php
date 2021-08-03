@@ -10,13 +10,11 @@ class DevController extends Controller
 
     public function part()
     {
-        $part = Part::select('product_group')->distinct()->get()->toArray();
+        $part = Part::select('product_group')->distinct()->get();
         $product_group = [];
 
         foreach($part as $value) {
-            foreach($value as $v) {
-                $product_group[] = $v;
-            }
+            $product_group[] = [$value->product_group];
         }
 
         return $product_group;
