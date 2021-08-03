@@ -164,8 +164,8 @@
 
                     <!-- Nama -->
                     <div class="form-group">
-                        <label for="nama">Booking Time</label>
-                        <input type="text" class="form-control" id="edit-booking_time"
+                        <label for="nama">Pilih Tanggal</label>
+                        <input type="date" class="form-control" id="edit-booking_time"
                             placeholder="Booking Time (00:00 - 00:00)" name="booking_time" required>
                     </div>
 
