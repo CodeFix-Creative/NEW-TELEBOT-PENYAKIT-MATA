@@ -128,10 +128,11 @@
 
                     <!-- Nama -->
                     <div class="form-group">
-                        <label for="nama">Upload File Excel</label>
-                        <input type="file" class="form-control" id="booking_time"
-                            placeholder="Booking Time (00:00 - 00:00)" name="file" required>
+                        <label for="nama">Pilih Tanggal</label>
+                        <input type="date" class="form-control" id="edit-booking_time"
+                            placeholder="Booking Time (00:00 - 00:00)" name="booking_time" required>
                     </div>
+
             </div>
             <div class="modal-footer">
                 {{-- <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button> --}}
