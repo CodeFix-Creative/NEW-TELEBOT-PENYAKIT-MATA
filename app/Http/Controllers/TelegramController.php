@@ -47,9 +47,7 @@ class TelegramController extends Controller
             $productGroup = [];
 
             foreach($part as $value) {
-                foreach($value as $v) {
-                    $productGroup[] = $v;
-                }
+                $productGroup[] = [$value];
             }
 
             $this->apiRequest('sendMessage', [
