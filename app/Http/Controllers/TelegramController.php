@@ -30,7 +30,7 @@ class TelegramController extends Controller
             $this->apiRequest('sendMessage', [
                 'chat_id' => $userId,
                 'text' => $text,
-                'reply_markup' => $this->keyboardBtn($mainMenu),
+                'reply_markup' => $this->keyboardBtn($this->mainMenu),
             ]);
 
         } else if ($action == 'Cek Service') {
@@ -63,7 +63,7 @@ class TelegramController extends Controller
             $this->apiRequest('sendMessage', [
                 'chat_id' => $userId,
                 'text' => $text,
-                'reply_markup' => $this->keyboardBtn($mainMenu),
+                'reply_markup' => $this->keyboardBtn($this->mainMenu),
             ]);
         }
     }
