@@ -48,7 +48,8 @@ class TelegramController extends Controller
             $numberOption = [];
 
             foreach($part as $key => $value) {
-                $text .= $key + 1 . ". " . $value->product_group . "\n";
+               //  $text .= $key + 1 . ". " . $value->product_group . "\n";
+                $text .= "/" . $value->product_group . "\n";
             }
 
             $this->apiRequest('sendMessage', [
