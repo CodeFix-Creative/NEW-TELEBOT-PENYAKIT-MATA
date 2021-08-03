@@ -52,69 +52,58 @@ class TelegramController extends Controller
         //     }
         // }
 
-        if(isset($result->callback_query)) {
-            $callbackQuery = $result->callback_query->data;
+        if($action == "/start") {
+            $text = "Selamat datang di Bot Telegram ASUS Service Center. Silahkan pilih menu di bawah ini: ";
 
-            $text = "Anda memilih " . $callbackQuery;
+            $this->apiRequest('sendMessage', [
+                'chat_id' => $userId,
+                'text' => $text,
+                'reply_markup' => $this->keyboardBtn($this->mainMenu),
+            ]);
+
+        } else if ($action == "Cek Service") {
+            $text = "Anda memilih menu cek service.";
+
+            $this->apiRequest('sendMessage', [
+                'chat_id' => $userId,
+                'text' => $text,
+            ]);
+        } else if ($action == "Cek Spare Part") {
+            $part = Part::select('product_group')->distinct()->get();
+            $text = "Silahkan pilih product group: \n";
+            $btn = [];
+
+            foreach($part as $key => $value) {
+                //  $text .= $key + 1 . ". " . $value->product_group . "\n";
+                $btn[] = ["text" => "$value->product_group", "callback_data" => "product_group:" . $value->product_group];
+            }
+
+            $this->apiRequest('sendMessage', [
+                'chat_id' => $userId,
+                'text' => $text,
+                'reply_markup' => $this->keyboardBtn($btn),
+            ]);
+
+        } else if ($action == "Booking Service") {
+            $text = "Anda memilih menu booking service.";
 
             $this->apiRequest('sendMessage', [
                 'chat_id' => $userId,
                 'text' => $text,
             ]);
         } else {
-            if($action == "/start") {
-                $text = "Selamat datang di Bot Telegram ASUS Service Center. Silahkan pilih menu di bawah ini: ";
+            $text = "Maaf, menu yang Anda pilih tidak tersedia. Silahkan pilih menu di bawah ini: ";
+            $option = [
+                ['Cek Service'],
+                ['Cek Spare Part'],
+                ['Booking Service'],
+            ];
 
-                $this->apiRequest('sendMessage', [
-                    'chat_id' => $userId,
-                    'text' => $text,
-                    'reply_markup' => $this->keyboardBtn($this->mainMenu),
-                ]);
-
-            } else if ($action == "Cek Service") {
-                $text = "Anda memilih menu cek service.";
-
-                $this->apiRequest('sendMessage', [
-                    'chat_id' => $userId,
-                    'text' => $text,
-                ]);
-            } else if ($action == "Cek Spare Part") {
-                $part = Part::select('product_group')->distinct()->get();
-                $text = "Silahkan pilih product group: \n";
-                $btn = [];
-
-                foreach($part as $key => $value) {
-                    //  $text .= $key + 1 . ". " . $value->product_group . "\n";
-                    $btn[] = ["$value->product_group"];
-                }
-
-                $this->apiRequest('sendMessage', [
-                    'chat_id' => $userId,
-                    'text' => $text,
-                    'reply_markup' => $this->inlineKeyboardBtn($btn),
-                ]);
-
-            } else if ($action == "Booking Service") {
-                $text = "Anda memilih menu booking service.";
-
-                $this->apiRequest('sendMessage', [
-                    'chat_id' => $userId,
-                    'text' => $text,
-                ]);
-            } else {
-                $text = "Maaf, menu yang Anda pilih tidak tersedia. Silahkan pilih menu di bawah ini: ";
-                $option = [
-                    ['Cek Service'],
-                    ['Cek Spare Part'],
-                    ['Booking Service'],
-                ];
-
-                $this->apiRequest('sendMessage', [
-                    'chat_id' => $userId,
-                    'text' => $text,
-                    'reply_markup' => $this->keyboardBtn($this->mainMenu),
-                ]);
-            }
+            $this->apiRequest('sendMessage', [
+                'chat_id' => $userId,
+                'text' => $text,
+                'reply_markup' => $this->keyboardBtn($this->mainMenu),
+            ]);
         }
     }
 
