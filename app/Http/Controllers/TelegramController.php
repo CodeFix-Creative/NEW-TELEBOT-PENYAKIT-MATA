@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Telegram;
 use App\Traits\RequestTrait;
 use App\Traits\MakeComponents;
+use App\Models\Part;
 
 class TelegramController extends Controller
 {
@@ -34,6 +35,22 @@ class TelegramController extends Controller
 
         } else if ($action == 'Cek Service') {
         } else if ($action == 'Cek Spare Part') {
+            $text = "Silahkan pilih product group: ";
+
+            $part = Part::select('product_group')->distinct()->get()->toArray();
+            $productGroup = [];
+
+            foreach($part as $value) {
+                foreach($value as $v) {
+                    $productGroup[] = $v;
+                }
+            }
+
+            $this->apiRequest('sendMessage', [
+                'chat_id' => $userId,
+                'text' => $text,
+                'reply_markup' => $this->keyboardBtn($productGroup),
+            ]);
         } else if ($action == 'Booking Service') {
         } else {
             $text = "Maaf, menu yang Anda pilih tidak tersedia. Silahkan pilih menu di bawah ini: ";

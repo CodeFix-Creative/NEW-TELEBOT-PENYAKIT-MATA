@@ -16,6 +16,8 @@ Route::get('/', [App\Http\Controllers\DashboardController::class, 'index'])->mid
 
 Route::get('/webhook', [App\Http\Controllers\TelegramController::class, 'webhook']);
 
+Route::get('/dev/part', [App\Http\Controllers\DevController::class, 'part']);
+
 Route::prefix('admin')->middleware('auth')->group(function(){
 
    // Service
