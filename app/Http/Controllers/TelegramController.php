@@ -210,12 +210,13 @@ class TelegramController extends Controller
 
         } else {
             
-               $text = "Maaf, menu yang Anda pilih tidak tersedia. Silahkan pilih menu di bawah ini: ";
-               $option = [
-                  ['Cek Service'],
-                  ['Cek Spare Part'],
-                  ['Booking Service'],
-               ];
+               $text = $result;
+               // $text = "Maaf, menu yang Anda pilih tidak tersedia. Silahkan pilih menu di bawah ini: ";
+               // $option = [
+               //    ['Cek Service'],
+               //    ['Cek Spare Part'],
+               //    ['Booking Service'],
+               // ];
 
                $this->apiRequest('sendMessage', [
                   'chat_id' => $userId,
