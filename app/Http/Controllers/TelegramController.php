@@ -130,23 +130,9 @@ class TelegramController extends Controller
             $text .= "Silahkan pilih waktu yang tersedia. \n";
             $text .= "Jika tidak muncul , berarti booking service sudah full. silahkan datang langsung ke Asus Service Center terdekat. \n";
 
-            $keyboard = [
-               ['7', '8', '9'],
-               ['4', '5', '6'],
-               ['1', '2', '3'],
-                     ['0']
-            ];
-
-            $reply_markup = $telegram->replyKeyboardMarkup([
-               'keyboard' => $keyboard, 
-               'resize_keyboard' => true, 
-               'one_time_keyboard' => true
-            ]);
-
             $this->apiRequest('sendMessage', [
                 'chat_id' => $userId,
                 'text' => $text,
-                'reply_markup' => $reply_markup
             ]);
         }else if ($action == "Booking Service") {
             $text = "Anda memilih menu booking service.";
