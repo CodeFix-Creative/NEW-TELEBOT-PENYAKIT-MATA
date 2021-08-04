@@ -150,6 +150,7 @@ class TelegramController extends Controller
           $this->apiRequest('sendMessage', [
               'chat_id' => $userId,
               'text' => $text,
+              'reply_markup' => $this->keyboardBtn($this->mainMenu),
           ]);
 
         } else {
