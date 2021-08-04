@@ -135,11 +135,14 @@ class TelegramController extends Controller
           $text = "Daftar part berdasarkan filter Anda: \n";
 
           foreach($part as $key => $value) {
-               $text .= $key + 1 . ". Part No: " . $value->part_number . "\n";
-               $text .= "Nama Part: " . $value->part_name . "\n";
-               $text .= "Deskripsi: " . $value->part_description . "\n";
-               $text .= "Harga: " . number_format($value->price, 0, '', '.') . "\n";
-               $text .= "Stok: " . $value->stock_part . "\n\n";
+             $text .= $key + 1 . ". Part No: " . $value->part_number . "\n";
+             $text .= "Nama Part: " . $value->part_name . "\n";
+             $text .= "Deskripsi: " . $value->part_description . "\n";
+             $text .= "Harga: " . number_format($value->price, 0, '', '.') . "\n";
+             $text .= "Stok: " . $value->stock_part . "\n\n";
+             if(isset($value->picture)) { 
+              $text .= "Foto: " . $value->picture . "\n\n";
+             }
           }
 
           $this->apiRequest('sendMessage', [
