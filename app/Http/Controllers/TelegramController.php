@@ -132,16 +132,18 @@ class TelegramController extends Controller
         } else if (in_array($action, $arrUnit)) {
           $part = Part::where('type_unit', $action)->get();
 
-          $text = "Daftar part berdasarkan filter Anda: \n";
+          $text = "Daftar part berdasarkan filter Anda: \n\n";
 
           foreach($part as $key => $value) {
              $text .= $key + 1 . ". Part No: " . $value->part_number . "\n";
              $text .= "Nama Part: " . $value->part_name . "\n";
              $text .= "Deskripsi: " . $value->part_description . "\n";
              $text .= "Harga: " . number_format($value->price, 0, '', '.') . "\n";
-             $text .= "Stok: " . $value->stock_part . "\n\n";
+             $text .= "Stok: " . $value->stock_part . "\n";
              if($value->picture != NULL) { 
               $text .= "Foto: " . $value->picture . "\n\n";
+             } else {
+              $text .= "\n";
              }
           }
 
