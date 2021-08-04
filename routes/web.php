@@ -20,7 +20,7 @@ Route::get('/dev/part', [App\Http\Controllers\DevController::class, 'part']);
 
 Route::prefix('admin')->middleware('auth')->group(function(){
 
-   // Service
+   // admin
    Route::resource('user', App\Http\Controllers\UserController::class);
 
    // Customer Service
