@@ -78,36 +78,52 @@ class TelegramController extends Controller
                 'chat_id' => $userId,
                 'text' => $text,
             ]);
-        }else if (in_array($action, $arrPart)) {
-           $partSelect2 = Part::select('product_group')->distinct()->get();
+        } else if (in_array($action, $arrPart)) {
+           // $partSelect2 = Part::select('product_group')->distinct()->get();
            
-           foreach($partSelect2 as $key => $value) {
-               //  $text .= $key + 1 . ". " . $value->product_group . "\n";
-               // $btn[] = ["$value->product_group"] ;
-               if($action == $value->product_group) {
-                  // $type = Part::where('product_group' , $value->product_group)->distinct()->get();
-                  $part = Part::select('type_unit')->distinct()->where('product_group', $value->product_group)->get();
+           // foreach($partSelect2 as $key => $value) {
+           //     //  $text .= $key + 1 . ". " . $value->product_group . "\n";
+           //     // $btn[] = ["$value->product_group"] ;
+           //     if($action == $value->product_group) {
+           //        // $type = Part::where('product_group' , $value->product_group)->distinct()->get();
+           //        $part = Part::select('type_unit')->distinct()->where('product_group', $value->product_group)->get();
 
-                  $text = "Silahkan pilih type unit anda: \n";
+           //        $text = "Silahkan pilih type unit anda: \n";
 
-                  $numberOption = [];
-                  $btn = [];
+           //        $numberOption = [];
+           //        $btn = [];
 
-                  foreach($type as $key => $value) {
-                     //  $text .= $key + 1 . ". " . $value->product_group . "\n";
-                     $btn[] = ["$value->type_unit"] ;
-                  }
+           //        foreach($type as $key => $value) {
+           //           //  $text .= $key + 1 . ". " . $value->product_group . "\n";
+           //           $btn[] = ["$value->type_unit"] ;
+           //        }
 
-                  $this->apiRequest('sendMessage', [
-                     'chat_id' => $userId,
-                     'text' => $text,
-                     'reply_markup' => $this->keyboardBtn($btn),
-                  ]);
+           //        $this->apiRequest('sendMessage', [
+           //           'chat_id' => $userId,
+           //           'text' => $text,
+           //           'reply_markup' => $this->keyboardBtn($btn),
+           //        ]);
 
-                  // die();
-               }
-            }
-        }else {
+           //        // die();
+           //     }
+           //  }
+          $part = Part::select('type_unit')->distinct()->where('product_group', $action)->get();
+
+          $text = "Silahkan pilih tipe unit Anda: \n";
+          $btn = [];
+
+          foreach($part as $key => $value) {
+              //  $text .= $key + 1 . ". " . $value->product_group . "\n";
+              $btn[] = ["$value->type_unit"];
+          }
+
+          $this->apiRequest('sendMessage', [
+              'chat_id' => $userId,
+              'text' => $text,
+              'reply_markup' => $this->keyboardBtn($btn),
+          ]);
+
+        } else {
             
                $text = "Maaf, menu yang Anda pilih tidak tersedia. Silahkan pilih menu di bawah ini: ";
                $option = [
