@@ -14,7 +14,7 @@ class VerifyCsrfToken extends Middleware
     protected $except = [
         '/1907491983:AAGY5f9Cm-JNc2g1TswjHrpWSmU2_YZJWYA/*',
         '/test-bot',
-        '/',
-        'https://api.telegram.org/bot1907491983:AAGY5f9Cm-JNc2g1TswjHrpWSmU2_YZJWYA/',
+        '/*',
+        'https://api.telegram.org/bot1907491983:AAGY5f9Cm-JNc2g1TswjHrpWSmU2_YZJWYA/*',
     ];
 }
