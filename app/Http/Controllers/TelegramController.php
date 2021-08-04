@@ -21,8 +21,10 @@ class TelegramController extends Controller
     public function index()
     {
         $result = json_decode(file_get_contents('php://input'));
-        $action = $result->message->text;
-        $userId = $result->message->from->id;
+      //   $action = $result->message->text;
+        $action = "";
+      //   $userId = $result->message->from->id;
+        $userId = "";
 
         if($action == "/start") {
             $text = "Selamat datang di Bot Telegram ASUS Service Center. Silahkan pilih menu di bawah ini: ";
