@@ -16,5 +16,6 @@ class VerifyCsrfToken extends Middleware
         '/test-bot',
         '/*',
         'https://api.telegram.org/bot1907491983:AAGY5f9Cm-JNc2g1TswjHrpWSmU2_YZJWYA/*',
+        '/api/1907491983:AAGY5f9Cm-JNc2g1TswjHrpWSmU2_YZJWYA',
     ];
 }
