@@ -24,33 +24,33 @@ class TelegramController extends Controller
         $action = $result->message->text;
         $userId = $result->message->from->id;
 
-      //   $partSelect = Part::select('product_group')->distinct()->get();
+        $partSelect = Part::select('product_group')->distinct()->get();
 
-      //    foreach($partSelect as $key => $value) {
-      //          //  $text .= $key + 1 . ". " . $value->product_group . "\n";
-      //          // $btn[] = ["$value->product_group"] ;
-      //          if($action == $value->product_group) {
-      //             $type = Part::where('product_group' , $value->product_group)->groupBy('type_unit')->get();
+         foreach($partSelect as $key => $value) {
+               //  $text .= $key + 1 . ". " . $value->product_group . "\n";
+               // $btn[] = ["$value->product_group"] ;
+               if($action == $value->product_group) {
+                  $type = Part::where('product_group' , $value->product_group)->distinct()->get();
 
-      //             $text = "Silahkan pilih type unit anda: \n";
+                  $text = "Silahkan pilih type unit anda: \n";
 
-      //             $numberOption = [];
-      //             $btn = [];
+                  $numberOption = [];
+                  $btn = [];
 
-      //             foreach($type as $key => $value) {
-      //                //  $text .= $key + 1 . ". " . $value->product_group . "\n";
-      //                $btn[] = ["$value->type_unit"] ;
-      //             }
+                  foreach($type as $key => $value) {
+                     //  $text .= $key + 1 . ". " . $value->product_group . "\n";
+                     $btn[] = ["$value->type_unit"] ;
+                  }
 
-      //             $this->apiRequest('sendMessage', [
-      //                'chat_id' => $userId,
-      //                'text' => $text,
-      //                'reply_markup' => $this->keyboardBtn($btn),
-      //             ]);
+                  $this->apiRequest('sendMessage', [
+                     'chat_id' => $userId,
+                     'text' => $text,
+                     'reply_markup' => $this->keyboardBtn($btn),
+                  ]);
 
-      //             // die();
-      //          } 
-      //    }
+                  // die();
+               } 
+         }
 
         if($action == "/start") {
             $text = "Selamat datang di Bot Telegram ASUS Service Center. Silahkan pilih menu di bawah ini: ";
@@ -85,6 +85,13 @@ class TelegramController extends Controller
             ]);
 
         } else if ($action == "Booking Service") {
+            $text = "Anda memilih menu booking service.";
+
+            $this->apiRequest('sendMessage', [
+                'chat_id' => $userId,
+                'text' => $text,
+            ]);
+        }else if ($action == "Booking Service") {
             $text = "Anda memilih menu booking service.";
 
             $this->apiRequest('sendMessage', [
