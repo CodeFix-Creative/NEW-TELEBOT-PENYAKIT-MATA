@@ -7,6 +7,7 @@ use Telegram;
 use App\Traits\RequestTrait;
 use App\Traits\MakeComponents;
 use App\Models\Part;
+use App\Models\Service;
 
 class TelegramController extends Controller
 {
@@ -50,6 +51,14 @@ class TelegramController extends Controller
         } else if ($action == "Cek Service") {
             $text = "Anda memilih menu check service \n";
             $text .= "Silahkan inputkan nomor RMA anda :";
+
+            $this->apiRequest('sendMessage', [
+                'chat_id' => $userId,
+                'text' => $text,
+            ]);
+        } else if (Service::where('rma_no_1' , $action)->exists() == true) {
+            $text = "Mantap Benar! \n";
+            // $text .= "Silahkan inputkan nomor RMA anda :";
 
             $this->apiRequest('sendMessage', [
                 'chat_id' => $userId,
