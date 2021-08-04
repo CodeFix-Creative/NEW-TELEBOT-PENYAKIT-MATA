@@ -36,7 +36,7 @@ return [
             'username'            => 'asus_service_center_bot',
             'token'               => env('TELEGRAM_BOT_TOKEN', '1907491983:AAGY5f9Cm-JNc2g1TswjHrpWSmU2_YZJWYA'),
             'certificate_path'    => env('TELEGRAM_CERTIFICATE_PATH', 'YOUR-CERTIFICATE-PATH'),
-            'webhook_url'         => env('TELEGRAM_WEBHOOK_URL', 'https://asus-service-center.online/test-bot'),
+            'webhook_url'         => env('TELEGRAM_WEBHOOK_URL', 'https://asus-service-center.online/api/1907491983:AAGY5f9Cm-JNc2g1TswjHrpWSmU2_YZJWYA'),
             'commands'            => [
                //  Acme\Project\Commands\MyTelegramBot\BotCommand::class,
                //  App\Telegram\Commands\HelpCommand::class,
