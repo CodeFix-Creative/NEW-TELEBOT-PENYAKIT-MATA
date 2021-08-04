@@ -24,34 +24,6 @@ class TelegramController extends Controller
         $action = $result->message->text;
         $userId = $result->message->from->id;
 
-        $partSelect = Part::select('product_group')->distinct()->get();
-
-         foreach($partSelect as $key => $value) {
-               //  $text .= $key + 1 . ". " . $value->product_group . "\n";
-               // $btn[] = ["$value->product_group"] ;
-               if($action == $value->product_group) {
-                  $type = Part::where('product_group' , $value->product_group)->distinct()->get();
-
-                  $text = "Silahkan pilih type unit anda: \n";
-
-                  $numberOption = [];
-                  $btn = [];
-
-                  foreach($type as $key => $value) {
-                     //  $text .= $key + 1 . ". " . $value->product_group . "\n";
-                     $btn[] = ["$value->type_unit"] ;
-                  }
-
-                  $this->apiRequest('sendMessage', [
-                     'chat_id' => $userId,
-                     'text' => $text,
-                     'reply_markup' => $this->keyboardBtn($btn),
-                  ]);
-
-                  // die();
-               } 
-         }
-
         if($action == "/start") {
             $text = "Selamat datang di Bot Telegram ASUS Service Center. Silahkan pilih menu di bawah ini: ";
 
@@ -98,22 +70,51 @@ class TelegramController extends Controller
                 'chat_id' => $userId,
                 'text' => $text,
             ]);
-        } else {
-            
-            $text = "Maaf, menu yang Anda pilih tidak tersedia. Silahkan pilih menu di bawah ini: ";
-            $option = [
-               ['Cek Service'],
-               ['Cek Spare Part'],
-               ['Booking Service'],
-            ];
+        }else {
+           $partSelect = Part::select('product_group')->distinct()->get();
+           
+           foreach($partSelect as $key => $value) {
+               //  $text .= $key + 1 . ". " . $value->product_group . "\n";
+               // $btn[] = ["$value->product_group"] ;
+               if($action == $value->product_group) {
+                  $type = Part::where('product_group' , $value->product_group)->distinct()->get();
 
-            $this->apiRequest('sendMessage', [
-               'chat_id' => $userId,
-               'text' => $text,
-               'reply_markup' => $this->keyboardBtn($this->mainMenu),
-            ]);
-              
+                  $text = "Silahkan pilih type unit anda: \n";
+
+                  $numberOption = [];
+                  $btn = [];
+
+                  foreach($type as $key => $value) {
+                     //  $text .= $key + 1 . ". " . $value->product_group . "\n";
+                     $btn[] = ["$value->type_unit"] ;
+                  }
+
+                  $this->apiRequest('sendMessage', [
+                     'chat_id' => $userId,
+                     'text' => $text,
+                     'reply_markup' => $this->keyboardBtn($btn),
+                  ]);
+
+                  // die();
+               }else {
+            
+                     $text = "Maaf, menu yang Anda pilih tidak tersedia. Silahkan pilih menu di bawah ini: ";
+                     $option = [
+                        ['Cek Service'],
+                        ['Cek Spare Part'],
+                        ['Booking Service'],
+                     ];
+
+                     $this->apiRequest('sendMessage', [
+                        'chat_id' => $userId,
+                        'text' => $text,
+                        'reply_markup' => $this->keyboardBtn($this->mainMenu),
+                     ]);
+                     
+               }
+            }
         }
+        
     }
 
     public function webhook()
