@@ -86,7 +86,7 @@ class TelegramController extends Controller
                // $btn[] = ["$value->product_group"] ;
                if($action == $value->product_group) {
                   // $type = Part::where('product_group' , $value->product_group)->distinct()->get();
-                  $type = Part::select('product_group')->where('product_group', $value->product_group)->distinct()->get();
+                  $part = Part::select('type_unit')->distinct()->where('product_group', $value->product_group)->get();
 
                   $text = "Silahkan pilih type unit anda: \n";
 
