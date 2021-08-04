@@ -71,7 +71,7 @@ class TelegramController extends Controller
                $text .= "7. WARRANTY_STATUS : ". $status->warranty_status ."\n";
                $text .= "8. REMARK/PROBLEM  : ". $status->remark_or_problem ."\n\n";
 
-               $text = "**Informasi Status Service** \n";
+               $text .= "**Informasi Status Service** \n";
                $text .= "1. STATUS 1        : ". $status->status_1 ."\n";
                $text .= "2. TRANSFER SHIP SUBMIT DATE : ". $status->transfer_ship_submit_date ."\n";
                $text .= "3. RMA CENTER 2    : ". $status->rma_center_2 ."\n";
@@ -89,7 +89,7 @@ class TelegramController extends Controller
                $text .= "7. WARRANTY_STATUS : ". $status->warranty_status ."\n";
                $text .= "8. REMARK/PROBLEM  : ". $status->remark_or_problem ."\n\n";
 
-               $text = "**Informasi Status Service** \n";
+               $text .= "**Informasi Status Service** \n";
                $text .= "1. STATUS 1        : ". $status->status_1 ."\n";
                $text .= "2. KBO STATUS      : ". $status->kbo_status ."\n";
                $text .= "3. ORDER DATE      : ". $status->order_date ."\n";
@@ -108,7 +108,7 @@ class TelegramController extends Controller
                 'chat_id' => $userId,
                 'text' => $text,
             ]);
-            
+
         } else if ($action == "Cek Spare Part") {
             $part = Part::select('product_group')->distinct()->get();
             $text = "Silahkan pilih product group: \n";
