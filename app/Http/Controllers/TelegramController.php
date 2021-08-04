@@ -140,7 +140,7 @@ class TelegramController extends Controller
              $text .= "Deskripsi: " . $value->part_description . "\n";
              $text .= "Harga: " . number_format($value->price, 0, '', '.') . "\n";
              $text .= "Stok: " . $value->stock_part . "\n\n";
-             if(isset($value->picture)) { 
+             if($value->picture != NULL) { 
               $text .= "Foto: " . $value->picture . "\n\n";
              }
           }
