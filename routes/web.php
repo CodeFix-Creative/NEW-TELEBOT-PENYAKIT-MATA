@@ -17,6 +17,7 @@ Route::get('/', [App\Http\Controllers\DashboardController::class, 'index'])->mid
 Route::get('/webhook', [App\Http\Controllers\TelegramController::class, 'webhook']);
 
 Route::get('/dev/part', [App\Http\Controllers\DevController::class, 'part']);
+Route::get('test-bot', [App\Http\Controllers\BotController::class, 'index'])->name('bot');
 
 Route::prefix('admin')->middleware('auth')->group(function(){
 
@@ -39,7 +40,6 @@ Route::prefix('admin')->middleware('auth')->group(function(){
 
    // Booking List
    Route::resource('bookingList', App\Http\Controllers\BookingController::class);
-   Route::get('test-bot', [App\Http\Controllers\BotController::class, 'index'])->name('bot');
 
    Route::get('change-password' ,  [App\Http\Controllers\UserController::class, 'index'])->name('change_password.index');
    Route::post('change-password' ,  [App\Http\Controllers\UserController::class, 'update'])->name('change_password.update');
