@@ -17,7 +17,7 @@ Route::get('/', [App\Http\Controllers\DashboardController::class, 'index'])->mid
 Route::get('/webhook', [App\Http\Controllers\TelegramController::class, 'webhook']);
 
 Route::get('/dev/part', [App\Http\Controllers\DevController::class, 'part']);
-Route::get('test-bot', [App\Http\Controllers\BotController::class, 'index'])->name('bot');
+Route::get('/test-bot', [App\Http\Controllers\BotController::class, 'index'])->name('bot');
 
 Route::prefix('admin')->middleware('auth')->group(function(){
 
