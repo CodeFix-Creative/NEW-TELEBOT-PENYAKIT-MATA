@@ -48,7 +48,8 @@ class TelegramController extends Controller
             ]);
 
         } else if ($action == "Cek Service") {
-            $text = "Anda inputkan nomor RMA anda :";
+            $text = "Anda memilih menu check service \n";
+            $text .= "Silahkan inputkan nomor RMA anda :";
 
             $this->apiRequest('sendMessage', [
                 'chat_id' => $userId,
