@@ -40,7 +40,7 @@ class TelegramController extends Controller
          }
 
         if($action == "/start") {
-            $text = "Selamat datang di Bot Telegram ASUS Service Center. Silahkan pilih menu di bawah ini: ";
+            $text = "Selamat datang di Bot Telegram ASUS Service Center . Silahkan pilih menu di bawah ini: " .$result->message->from->first_name." " .$result->message->from->last_name;
 
             $this->apiRequest('sendMessage', [
                 'chat_id' => $userId,
