@@ -25,11 +25,17 @@ class TelegramController extends Controller
         $userId = $result->message->from->id;
 
          $partSelect = Part::select('product_group')->distinct()->get();
+         $unitSelect = Part::select('type_unit')->distinct()->get();
          
          $arrPart = [];
+         $arrUnit = [];
 
          foreach($partSelect as $key => $value) {
             $arrPart[] = $value->product_group;
+         }
+
+         foreach($unitSelect as $key => $value) {
+            $arrUnit[] = $value->type_unit;
          }
 
         if($action == "/start") {
@@ -121,6 +127,24 @@ class TelegramController extends Controller
               'chat_id' => $userId,
               'text' => $text,
               'reply_markup' => $this->keyboardBtn($btn),
+          ]);
+
+        } else if (in_array($action, $arrUnit)) {
+          $part = Part::where('type_unit', $action)->get();
+
+          $text = "Daftar part berdasarkan filter Anda: \n";
+
+          foreach($part as $key => $value) {
+               $text .= $key + 1 . ". Part No: " . $value->part_number . "\n";
+               $text .= "Nama Part: " . $value->part_name . "\n";
+               $text .= "Deskripsi: " . $value->part_description . "\n";
+               $text .= "Harga: " . number_format($value->price, 0, '', '.') . "\n";
+               $text .= "Stok: " . $value->stock_part . "\n\n";
+          }
+
+          $this->apiRequest('sendMessage', [
+              'chat_id' => $userId,
+              'text' => $text,
           ]);
 
         } else {
