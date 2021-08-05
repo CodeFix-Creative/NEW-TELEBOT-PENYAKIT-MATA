@@ -92,7 +92,7 @@ class BookingController extends Controller
 
     public function bookingListTanggal(Request $request)
     {
-       dd($request->all());
+      //  dd($request->all());
 
        if(Auth::user()->role == 'Super Admin'){
          $booking = Booking::where('booking_date' , $request->tanggal)->get();

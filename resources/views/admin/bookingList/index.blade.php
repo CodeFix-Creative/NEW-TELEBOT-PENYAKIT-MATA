@@ -133,7 +133,7 @@
                     <div class="form-group">
                         <label for="nama">Pilih Tanggal</label>
                         <input type="date" class="form-control" id="edit-booking_time"
-                            placeholder="Booking Time (00:00 - 00:00)" name="booking_time" required>
+                            placeholder="Booking Time (00:00 - 00:00)" name="tanggal" required>
                     </div>
 
             </div>
