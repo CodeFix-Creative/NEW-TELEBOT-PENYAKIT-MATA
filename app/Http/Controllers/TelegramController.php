@@ -56,7 +56,7 @@ class TelegramController extends Controller
         }
 
         foreach($bookingTime as $key => $value) {
-            $arrBooking[] = $value->booking_time;
+            $arrBookingTime[] = $value->booking_time;
         }
 
         if($action == "/start") {
@@ -324,7 +324,7 @@ class TelegramController extends Controller
                 'text' => $text,
             ]);
         } else {
-            $text = "Maaf, menu yang Anda pilih tidak tersedia. Silahkan pilih menu di bawah ini: ";
+            $text = $action . " Maaf, menu yang Anda pilih tidak tersedia. Silahkan pilih menu di bawah ini: ";
             $option = [
                 ['Cek Service'],
                 ['Cek Spare Part'],

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Part;
 use App\Models\CustomerService;
+use App\Models\BookingTime;
 use Carbon\Carbon;
 
 class DevController extends Controller
@@ -23,7 +24,12 @@ class DevController extends Controller
 
         // return $btn;
 
-        return Carbon::parse('2021-08-05')->isoFormat('dddd, DD MMMM Y');
+        // return Carbon::parse('2021-08-05')->isoFormat('dddd, DD MMMM Y');
+        $arrBooking = [];
+        $bookingTime = BookingTime::pluck('booking_time');
+
+        return $bookingTime;
+
     }
 
 }
