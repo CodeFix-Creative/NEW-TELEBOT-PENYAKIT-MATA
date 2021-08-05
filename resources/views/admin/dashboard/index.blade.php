@@ -38,7 +38,7 @@
                     </div>
                     <div class="col-md-8">
                         <h2>Customer Service</h2>
-                        <h5>Aktif = {{ $customerServiceAktif }} | Tidak Aktif = {{ $customerServiceTidakAktif }}</h5>
+                        <h5>Aktif = {{ $CustomerServiceAktif }} | Tidak Aktif = {{ $CustomerServiceTidakAktif }}</h5>
                     </div>
                 </div>
             </div>
