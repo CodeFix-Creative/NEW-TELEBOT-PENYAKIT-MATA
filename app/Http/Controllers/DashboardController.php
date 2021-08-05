@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
+use App\Models\BookingTime;
+use App\Models\Booking;
+use Carbon\Carbon;
 
 class DashboardController extends Controller
 {
@@ -20,8 +23,11 @@ class DashboardController extends Controller
          $CustomerServiceAktif = User::whereStatus('Aktif')->where('role' ,'Customer Service')->count();
          $CustomerServiceTidakAktif = User::whereStatus('Tidak Aktif')->where('role' ,'Customer Service')->count();
 
+         $bookingTime = count(BookingTime::all());
+         $booking = Booking::where('booking_date' , Carbon::now())->count();
 
-        return view('admin.dashboard.index', compact('adminAktif','adminTidakAktif','CustomerServiceAktif' , 'CustomerServiceTidakAktif'));
+
+        return view('admin.dashboard.index', compact('adminAktif','adminTidakAktif','CustomerServiceAktif' , 'CustomerServiceTidakAktif' , 'bookingTime' , 'booking'));
     }
 
     /**

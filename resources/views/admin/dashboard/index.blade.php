@@ -53,7 +53,7 @@
                     </div>
                     <div class="col-md-8">
                         <h2>Booking Time</h2>
-                        <h5>5 Slot Booking untuk setiap CS</h5>
+                        <h5>{{ $bookingTime }} Slot Booking untuk setiap CS</h5>
                     </div>
                 </div>
             </div>
@@ -68,7 +68,7 @@
                     </div>
                     <div class="col-md-8">
                         <h2>Booking Hari ini</h2>
-                        <h5>10 Orang</h5>
+                        <h5>{{ $booking }} Orang</h5>
                     </div>
                 </div>
             </div>
