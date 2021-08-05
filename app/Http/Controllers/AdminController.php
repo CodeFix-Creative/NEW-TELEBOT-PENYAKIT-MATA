@@ -39,7 +39,7 @@ class AdminController extends Controller
      */
     public function store(Request $request)
     {
-       dd($request->all());
+      //  dd($request->all());
         $request->validate([
             'nama' => 'required',
             'email' => 'required|unique:users',
