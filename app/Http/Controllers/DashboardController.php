@@ -27,7 +27,7 @@ class DashboardController extends Controller
          $bookingTime = count(BookingTime::all());
          $booking = Booking::where('booking_date' , Carbon::now())->count();
 
-         $part = Part::select('updated_at')->distinct()->get();
+         $part = Part::select('updated_at')->distinct()->format('d-m-Y')->get();
          $countPart = count(Part::all());
 
 
