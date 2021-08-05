@@ -40,7 +40,7 @@
                         <p>Spare Part</p>
                     </a>
                 </li>
-                <li class="nav-item {{ (request()->is('*service*')) ? 'active' : '' }}">
+                <li class="nav-item @yield('service')">
                     <a href="{{ route('service.index') }}" class="collapsed" aria-expanded="false">
                         <i class="fas fa-clipboard-check"></i>
                         <p>Service Status</p>
