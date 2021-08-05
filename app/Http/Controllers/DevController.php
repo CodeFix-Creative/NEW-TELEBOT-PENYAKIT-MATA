@@ -25,11 +25,10 @@ class DevController extends Controller
         // return $btn;
 
         // return Carbon::parse('2021-08-05')->isoFormat('dddd, DD MMMM Y');
-        $arrBooking = [];
-        $bookingTime = BookingTime::pluck('booking_time');
+        $bookedCustomerService = Booking::where('id_booking_time', 1)->where('booking_date', Carbon::tomorrow()->format('Y-m-d'))->pluck('id_customer_service');
+        $availableCustomerService = CustomerService::whereNotIn('id', $bookedCustomerService)->inRandomOrder()->first();
 
-        return $bookingTime;
-
+        return $availableCustomerService;
     }
 
 }

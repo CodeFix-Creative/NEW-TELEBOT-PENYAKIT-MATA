@@ -227,8 +227,6 @@ class TelegramController extends Controller
 
         } else if (in_array($action, $arrBookingTime)) {
             $booking = Booking::where('booking_time', $action)->where('booking_date', Carbon::tomorrow()->format('Y-m-d'))->first();
-            $bookedCustomerService = Booking::where('id_booking_time', 1)->where('booking_date', Carbon::tomorrow()->format('Y-m-d'))->pluck('id_customer_service');
-            $availableCustomerService = CustomerService::whereNotIn('id', $bookedCustomerService)->inRandomOrder()->first();
             
             if($booking) {
                 $text = "Jadwal tidak tersedia atau sudah dibooking, silahkan pilih jadwal lainnya. \n";
@@ -240,7 +238,7 @@ class TelegramController extends Controller
                 ]);
             } else {
                 $text = "Jadwal ada gan.";
-                
+
                 $this->apiRequest('sendMessage', [
                     'chat_id' => $userId,
                     'text' => $text,
