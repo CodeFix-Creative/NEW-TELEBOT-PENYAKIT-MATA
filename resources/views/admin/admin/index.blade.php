@@ -186,7 +186,7 @@
             <div class="modal-body">
 
                 <!-- FORM -->
-                <form action="{{ route('user.store') }}" method="post">
+                <form action="{{ route('admin.store') }}" method="post">
                     @csrf
 
                     <!-- Nama -->
@@ -236,7 +236,7 @@
                 </button>
             </div>
             <!-- FORM -->
-            <form id="edit-form" action="{{ route('user.update', '') }}" method="post" enctype="multipart/form-data">
+            <form id="edit-form" action="{{ route('admin.update', '') }}" method="post" enctype="multipart/form-data">
             <div class="modal-body">
                @method('PUT')
                @csrf
