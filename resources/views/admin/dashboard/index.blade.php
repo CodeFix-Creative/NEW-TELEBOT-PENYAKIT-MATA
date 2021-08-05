@@ -68,7 +68,7 @@
                     </div>
                     <div class="col-md-8">
                         <h2>Booking Hari ini</h2>
-                        <h5>{{ $booking }} Orang</h5>
+                        <h5>{{ $booking }} Client</h5>
                     </div>
                 </div>
             </div>
@@ -84,8 +84,8 @@
             </div>
             <div>
                <h2>Terakhir Update Service</h2>
-               <h4>2-08-2021</h4>
-               <h4>Total Data = 100</h4>
+               <h4>{{ $part }}</h4>
+               <h4>Total Data = {{ $countPart }}</h4>
             </div>
          </div>
       </div>
@@ -98,8 +98,8 @@
             </div>
             <div>
                <h2>Terakhir Update Spare Part</h2>
-               <h4> 2-08-2021</h4>
-               <h4>Total Data = 100</h4>
+               <h4>{{ $part }}</h4>
+               <h4>Total Data = {{ $countPart }}</h4>
             </div>
          </div>
       </div>

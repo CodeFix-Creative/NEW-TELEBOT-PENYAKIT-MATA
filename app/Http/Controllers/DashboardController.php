@@ -26,8 +26,11 @@ class DashboardController extends Controller
          $bookingTime = count(BookingTime::all());
          $booking = Booking::where('booking_date' , Carbon::now())->count();
 
+         $part = Part::select('updated_at')->distinct()->get();
+         $countPart = count(Part::all());
 
-        return view('admin.dashboard.index', compact('adminAktif','adminTidakAktif','CustomerServiceAktif' , 'CustomerServiceTidakAktif' , 'bookingTime' , 'booking'));
+
+        return view('admin.dashboard.index', compact('adminAktif','adminTidakAktif','CustomerServiceAktif' , 'CustomerServiceTidakAktif' , 'bookingTime' , 'booking' , 'part' , 'countPart'));
     }
 
     /**
