@@ -75,6 +75,30 @@
         </div>
     </div>
 </div>
+<div class="row mt--2">
+   <div class="col-md-6">
+      <div class="card full-height">
+         <div>
+            <i class="fas fa-user-cog fa-5x"></i>
+         </div>
+         <div>
+            <h2>Terakhir Update Service</h2>
+            <h4> 2-08-2021</h4>
+         </div>
+      </div>
+   </div>
+   <div class="col-md-6">
+      <div class="card full-height">
+         <div>
+            <i class="fas fa-user-cog fa-5x"></i>
+         </div>
+         <div>
+            <h2>Terakhir Update Spare Part</h2>
+            <h4> 2-08-2021</h4>
+         </div>
+      </div>
+   </div>
+</div>
 @endsection
 
 @push('bottom')
