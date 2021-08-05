@@ -34,7 +34,7 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-4">
-                        <i class="fas fa-user-cog fa-5x"></i>
+                        <i class="fas fa-headset fa-5x"></i>
                     </div>
                     <div class="col-md-8">
                         <h2>Customer Service</h2>
@@ -49,7 +49,7 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-4">
-                        <i class="fas fa-user-cog fa-5x"></i>
+                        <i class="fas fa-calendar-alt fa-5x"></i>
                     </div>
                     <div class="col-md-8">
                         <h2>Booking Time</h2>
@@ -64,7 +64,7 @@
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-4">
-                        <i class="fas fa-user-cog fa-5x"></i>
+                        <i class="fas fa-calendar-check fa-5x"></i>
                     </div>
                     <div class="col-md-8">
                         <h2>Booking Hari ini</h2>
@@ -79,12 +79,13 @@
    <div class="col-md-6">
       <div class="card full-height">
          <div class="card-body text-center">
-            <div>
-               <i class="fas fa-user-cog fa-5x"></i>
+            <div class="mb-3">
+               <i class="fas fa-clipboard-check fa-5x"></i>
             </div>
             <div>
                <h2>Terakhir Update Service</h2>
-               <h4> 2-08-2021</h4>
+               <h4>2-08-2021</h4>
+               <h4>Total Data = 100</h4>
             </div>
          </div>
       </div>
@@ -92,12 +93,13 @@
    <div class="col-md-6">
       <div class="card full-height">
          <div class="card-body text-center">
-            <div>
-               <i class="fas fa-user-cog fa-5x"></i>
+            <div class="mb-3">
+               <i class="fas fa-cogs fa-5x"></i>
             </div>
             <div>
                <h2>Terakhir Update Spare Part</h2>
                <h4> 2-08-2021</h4>
+               <h4>Total Data = 100</h4>
             </div>
          </div>
       </div>
