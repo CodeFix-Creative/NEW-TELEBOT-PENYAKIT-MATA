@@ -43,7 +43,6 @@ class AdminController extends Controller
         $request->validate([
             'nama' => 'required',
             'email' => 'required|unique:users',
-            'password' => 'required',
             'role' => 'required',
         ]);
 
