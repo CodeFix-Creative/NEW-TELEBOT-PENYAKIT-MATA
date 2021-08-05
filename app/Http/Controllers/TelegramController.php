@@ -233,11 +233,8 @@ class TelegramController extends Controller
             $bookedCustomerService = Booking::where('id_booking_time', 1)->where('booking_date', Carbon::tomorrow()->format('Y-m-d'))->pluck('id_customer_service');
             $availableCustomerService = CustomerService::whereNotIn('id', $bookedCustomerService)->inRandomOrder()->first();
             
-            if($checkCustomerBookingStatus && ($checkCustomerBookingStatus->nama_lengkap == NULL && $checkCustomerBookingStatus->no_telp == NULL)) {
-                $text = "Anda telah melakukan booking jadwal untuk esok hari. Silahkan lengkapi data Anda melalui reply chat ini dengan Nama Lengkap dan No Telp Anda dengan format sebagai berikut: \n";
-                $text .= "Nama Lengkap#No Telp\n\n";
-                $text .= "Contoh: \n";
-                $text .= "Budi Setiawan#081xxxxxxxxx\n";
+            if($checkCustomerBookingStatus) {
+                $text = "Anda telah melakukan booking jadwal untuk esok hari.";
 
                 $this->apiRequest('sendMessage', [
                     'chat_id' => $userId,
