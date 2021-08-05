@@ -37,10 +37,10 @@ class BotController extends Controller
          
          // $response = Telegram::getWebhookInfo();
 
-         $str = "number=902894732";
-         print_r (explode("=",$str));
+         // $str = "number=902894732";
+         // print_r (explode("=",$str));
 
-         dd($str);
+         // dd($str);
     }
 
     /**
