@@ -80,6 +80,76 @@ class TelegramController extends Controller
             
             $status = Service::where('rma_no_1' , $action)->first();
 
+            // Penjelasan status 1
+            if ($status->status_1 == 'FINALTEST') {
+               $status->status_1 = 'Unit dalam penguji/pengetesan terakhir';
+            } else if ($status->status_1 == 'REPAIR') {
+               $status->status_1 = 'Unit dalam pengejaan – Diagnosa/Pemasangan part';
+            }else if ($status->status_1 == 'SHIP') {
+               $status->status_1 = 'Unit telah selesai proses perbaikan';
+            }else if ($status->status_1 == 'TRANSFER') {
+               $status->status_1 = 'Unit dikirim untuk proses perbaikan';
+            }else if ($status->status_1 == 'WAIT') {
+               $status->status_1 = 'Unit sedang menunggu part/konfirmasi';
+            }else if ($status->status_1 == 'WAITEX') {
+               $status->status_1 = 'Unit sedang menunggu unit baru/pengganti';
+            }else{
+               $status->status_1;
+            }
+
+            // Penjelasan status 2
+            if ($status->status_2 == 'CLOSED') {
+               $status->status_2 = 'Unit transfer sudah selesai perbaikan dan sudah dikirim';
+            } else if ($status->status_2 == 'REPAIR') {
+               $status->status_2 = 'Unit transfer dalam pengejaan – Diagnosa/Pemasangan part';
+            }else if ($status->status_2 == 'SHIP') {
+               $status->status_2 = 'Unit transfer sudah selesai perbaikan';
+            }else{
+               $status->status_2;
+            }
+
+            // Penjelasan KBO STATUS
+            if ($status->kbo_status == 'ALLOCATED') {
+               $status->kbo_status = 'Status part baru teralokasi ke unit';
+            } else if ($status->kbo_status == 'BOOKED') {
+               $status->kbo_status = 'Status part pesanan sudah diteknisi';
+            }else if ($status->kbo_status == 'READY') {
+               $status->kbo_status = 'Unit transfer sudah selesai perbaikan';
+            }else if ($status->kbo_status == 'CLOSED') {
+               $status->kbo_status = 'Status part rusak sudah dipasang dan diganti oleh teknisi';
+            }else if ($status->kbo_status == 'ORDERED') {
+               $status->kbo_status = 'Status part sedang dalam pemesanan';
+            }else if ($status->kbo_status == 'DROP') {
+               $status->kbo_status = 'Status part tidak jadi dipesan/digunakan';
+            }else{
+               $status->kbo_status;
+            }
+
+            // Penjelasan FINAL RMA STATUS
+            if ($status->final_rma_status == 'Allocated') {
+               $status->final_rma_status = 'Status unit dalam pemasangan part/Status unit sedang pengetesan';
+            } else if ($status->final_rma_status == 'NO KBO') {
+               $status->final_rma_status = 'Status unit masih proses Diagnosa kerusakan';
+            }else if ($status->final_rma_status == 'non-allocate') {
+               $status->final_rma_status = 'Status unit masih menunggu part baru/pengganti';
+            }else if ($status->final_rma_status == 'SHIP') {
+               $status->final_rma_status = 'Status unit telah selesai proses perbaikan';
+            }else if ($status->final_rma_status == 'Transfer - Allocated') {
+               $status->final_rma_status = 'Status unit transfer sudah sampai diservice center tujuan';
+            }else if ($status->final_rma_status == 'Transfer - In Transit from 1st site to 2nd site') {
+               $status->final_rma_status = 'Status unit transfer dalam proses pengiriman service center tujuan';
+            }else if ($status->final_rma_status == 'Transfer - In Transit from 2nd site to 1st site') {
+               $status->final_rma_status = 'Status unit transfer dalam proses pengiriman balik ke service center asal';
+            }else if ($status->final_rma_status == 'Under CB/SWAP Process') {
+               $status->final_rma_status = 'Status unit dalam proses pergantian unit';
+            }else if ($status->final_rma_status == 'Wait for customer') {
+               $status->final_rma_status = 'Status unit menunggu konfirmasi dari pengguna';
+            }else if ($status->final_rma_status == 'Waiting For Carrying Out') {
+               $status->final_rma_status = 'Status unit menunggu untuk diambil pengguna';
+            }else{
+               $status->final_rma_status;
+            }
+
             if ($status->status_1 == "TRANSFER") {
                 $text = "**Informasi Umum/Unit** \n";
                 $text .= "1. NOMOR SERVICE 1       : ". $status->rma_no_1 ."\n";
