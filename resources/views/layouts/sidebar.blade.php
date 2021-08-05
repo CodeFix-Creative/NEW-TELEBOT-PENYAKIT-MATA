@@ -22,13 +22,13 @@
                         <p>Dashboard</p>
                     </a>
                 </li>
-                <li class="nav-item {{ (request()->is('*user*')) ? 'active' : '' }}">
+                <li class="nav-item @yield('admin')">
                     <a href="{{ route('admin.index') }}" class="collapsed" aria-expanded="false">
                         <i class="fas fa-users-cog"></i>
                         <p>Admin</p>
                     </a>
                 </li>
-                <li class="nav-item {{ (request()->is('*customerservice*')) ? 'active' : '' }}">
+                <li class="nav-item @yield('customer service')">
                     <a href="{{ route('customerservice.index') }}" class="collapsed" aria-expanded="false">
                         <i class="fas fa-headset"></i>
                         <p>Customer Service</p>
