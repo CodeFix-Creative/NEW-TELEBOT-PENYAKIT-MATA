@@ -97,14 +97,14 @@ class BookingController extends Controller
          $booking = Booking::where('booking_date' , $request->tanggal)->get();
          $currentDate =  $request->tanggal;
 
-         return view('bookingList.index' , compact('booking' , 'currentDate'));
+         return view('admin.bookingList.index' , compact('booking' , 'currentDate'));
 
       }if(Auth::user()->role == 'Customer Service'){
          $customerService = CustomerService::where('users_id' , Auth::user()->id)->first();
          $booking = Booking::where('booking_date' , $request->tanggal)->where('customer_service_id' , $customerService->id)->get();
          $currentDate =  $request->tanggal;
 
-         return view('bookingList.index' , compact('booking' , 'currentDate'));
+         return view('admin.bookingList.index' , compact('booking' , 'currentDate'));
       }
     }
 }
