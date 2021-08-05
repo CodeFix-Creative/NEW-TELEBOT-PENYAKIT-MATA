@@ -22,7 +22,7 @@ Route::get('/test-bot', [App\Http\Controllers\BotController::class, 'index'])->n
 Route::prefix('admin')->middleware('auth')->group(function(){
 
    // admin
-   Route::resource('user', App\Http\Controllers\UserController::class);
+   Route::resource('admin', App\Http\Controllers\AdminController::class);
 
    // Customer Service
    Route::resource('customerservice', App\Http\Controllers\CustomerServiceController::class);

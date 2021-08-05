@@ -23,7 +23,7 @@
                     </a>
                 </li>
                 <li class="nav-item {{ (request()->is('*user*')) ? 'active' : '' }}">
-                    <a href="{{ route('user.index') }}" class="collapsed" aria-expanded="false">
+                    <a href="{{ route('admin.index') }}" class="collapsed" aria-expanded="false">
                         <i class="fas fa-users-cog"></i>
                         <p>Admin</p>
                     </a>
