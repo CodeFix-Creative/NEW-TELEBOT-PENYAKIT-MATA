@@ -324,7 +324,7 @@ class TelegramController extends Controller
                 'text' => $text,
             ]);
         } else {
-            $text = $action . " Maaf, menu yang Anda pilih tidak tersedia. Silahkan pilih menu di bawah ini: ";
+            $text = $action . " Maaf, menu tidak tersedia. Silahkan pilih menu di bawah ini: ";
             $option = [
                 ['Cek Service'],
                 ['Cek Spare Part'],
