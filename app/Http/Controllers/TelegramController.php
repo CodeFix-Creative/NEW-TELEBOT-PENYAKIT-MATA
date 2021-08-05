@@ -260,7 +260,7 @@ class TelegramController extends Controller
             }
             
         } else if(strpos($action, '#') == true) {
-            $customerData = explode($action, '#');
+            $customerData = explode("#", $action);
 
             $text = "Nama Anda: " . $customerData[0] . "\n";
             $text .= "No Telp Anda: " . $customerData[1] . "\n";
