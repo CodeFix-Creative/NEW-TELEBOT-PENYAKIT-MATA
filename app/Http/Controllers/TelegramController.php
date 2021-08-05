@@ -237,7 +237,7 @@ class TelegramController extends Controller
                     'reply_markup' => $this->keyboardBtn($this->mainMenu),
                 ]);
             } else {
-                $text = "Jadwal ada gan.";
+                $text = "Jadwal ada gan, bisa dibooking.";
 
                 $this->apiRequest('sendMessage', [
                     'chat_id' => $userId,
