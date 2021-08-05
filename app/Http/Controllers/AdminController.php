@@ -38,7 +38,24 @@ class AdminController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nama' => 'required',
+            'email' => 'required|unique:users',
+            'password' => 'required',
+            'role' => 'required',
+        ]);
+
+        // dd($request->all());
+         $user = new User;
+         $user->nama = $request->nama;
+         $user->email = $request->email;
+         $user->password = 'Admin123';
+         $user->remember_token = Str::random(40);
+         $user->role = $request->role;
+         $user->status = 'Aktif' ;
+         $user->save();
+
+         return redirect()->route('admin.index')->with('toast_success', 'Admin berhasil ditambahkan!');
     }
 
     /**
