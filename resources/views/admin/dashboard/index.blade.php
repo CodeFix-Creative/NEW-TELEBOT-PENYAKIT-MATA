@@ -14,11 +14,20 @@
 @section('content')
 <div class="row mt--2">
     <!-- Statistic -->
-    <div class="col-md-12">
+    <div class="col-md-6">
         <div class="card full-height">
             <div class="card-body">
-                <div class="card-title">Dashboard</div>
-                <div class="card-category">Keterangan</div>
+               <div class="row">
+                  <div class="col-md-6">
+                     <i class="fas fa-user-cog fa-5x"></i>
+                  </div>
+               </div>
+               <div class="row">
+                  <div class="col-md-6">
+                     <div class="card-title">Dashboard</div>
+                     <div class="card-category">Keterangan</div>
+                  </div>
+               </div>
             </div>
         </div>
     </div>
