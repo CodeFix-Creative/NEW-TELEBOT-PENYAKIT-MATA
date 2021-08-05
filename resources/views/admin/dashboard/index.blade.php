@@ -23,7 +23,7 @@
                     </div>
                     <div class="col-md-8">
                         <h2>Admin</h2>
-                        <h5>Aktif = 5 | Tidak Aktif = 2</h5>
+                        <h5>Aktif = {{ $adminAktif }} | Tidak Aktif = {{ $adminTidakAktif }}</h5>
                     </div>
                 </div>
             </div>
@@ -38,7 +38,7 @@
                     </div>
                     <div class="col-md-8">
                         <h2>Customer Service</h2>
-                        <h5>Aktif = 5 | Tidak Aktif = 2</h5>
+                        <h5>Aktif = {{ $customerServiceAktif }} | Tidak Aktif = {{ $customerServiceTidakAktif }}</h5>
                     </div>
                 </div>
             </div>

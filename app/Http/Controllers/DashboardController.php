@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use App\Models\User;
 
 class DashboardController extends Controller
 {
@@ -13,7 +14,14 @@ class DashboardController extends Controller
      */
     public function index()
     {
-        return view('admin.dashboard.index');
+         $adminAktif = User::where('status' , 'Aktif')->where('role' , '!=' ,'Customer Service')->count();
+         $adminTidakAktif = User::where('status' , 'Tidak Aktif')->where('role' , '!=' ,'Customer Service')->count();
+
+         $CustomerServiceAktif = User::whereStatus('Aktif')->where('role' ,'Customer Service')->count();
+         $CustomerServiceTidakAktif = User::whereStatus('Tidak Aktif')->where('role' ,'Customer Service')->count();
+
+
+        return view('admin.dashboard.index', compact('adminAtif','adminTidakAktif','CustomerServiceAktif' , 'CustomerServiceTidakAktif'));
     }
 
     /**
