@@ -225,13 +225,20 @@ class TelegramController extends Controller
                 'reply_markup' => $this->keyboardBtn($this->mainMenu),
             ]);
 
+        } else if (in_array($action, $arrBookingTime)) {
+            $this->apiRequest('sendMessage', [
+                'chat_id' => $userId,
+                'text' => $action,
+                'reply_markup' => $this->keyboardBtn($this->mainMenu),
+            ]);
+        } else if(strpos($action, '#') == true) {
+            $this->apiRequest('sendMessage', [
+                'chat_id' => $userId,
+                'text' => $action,
+                'reply_markup' => $this->keyboardBtn($this->mainMenu),
+            ]);
         } else {
             $text = "Maaf, menu yang Anda pilih tidak tersedia. Silahkan pilih menu di bawah ini: ";
-            $option = [
-                ['Cek Service'],
-                ['Cek Spare Part'],
-                ['Booking Service'],
-            ];
 
             $this->apiRequest('sendMessage', [
                 'chat_id' => $userId,
