@@ -45,7 +45,7 @@ class BotController extends Controller
          //    $i++;
          // }
 
-         $btn = array_unique($btn);
+         $btn = array_unique($btn , SORT_REGULAR);
 
          dd($btn);
     }
