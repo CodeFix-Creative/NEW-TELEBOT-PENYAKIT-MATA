@@ -18,7 +18,7 @@
         <div class="card full-height">
             <div class="card-body">
                 <div class="row">
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <i class="fas fa-user-cog fa-5x"></i>
                     </div>
                     <div class="col-md-8">
@@ -29,12 +29,11 @@
             </div>
         </div>
     </div>
-    <!-- Statistic -->
     <div class="col-md-3">
         <div class="card full-height">
             <div class="card-body">
                 <div class="row">
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <i class="fas fa-user-cog fa-5x"></i>
                     </div>
                     <div class="col-md-8">
@@ -45,12 +44,11 @@
             </div>
         </div>
     </div>
-    <!-- Statistic -->
     <div class="col-md-3">
         <div class="card full-height">
             <div class="card-body">
                 <div class="row">
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <i class="fas fa-user-cog fa-5x"></i>
                     </div>
                     <div class="col-md-8">
@@ -61,12 +59,11 @@
             </div>
         </div>
     </div>
-    <!-- Statistic -->
     <div class="col-md-3">
         <div class="card full-height">
             <div class="card-body">
                 <div class="row">
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <i class="fas fa-user-cog fa-5x"></i>
                     </div>
                     <div class="col-md-8">
