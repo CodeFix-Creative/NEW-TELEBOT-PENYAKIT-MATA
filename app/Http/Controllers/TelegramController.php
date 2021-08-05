@@ -172,7 +172,7 @@ class TelegramController extends Controller
                }
             }
 
-            $btn = array_unique($btn);
+            // $btn = array_unique($btn);
 
             $this->apiRequest('sendMessage', [
                 'chat_id' => $userId,
