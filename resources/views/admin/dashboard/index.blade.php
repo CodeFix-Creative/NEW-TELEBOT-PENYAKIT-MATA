@@ -18,10 +18,10 @@
         <div class="card full-height">
             <div class="card-body">
                 <div class="row">
-                    <div class="col-md-2">
+                    <div class="col-md-3">
                         <i class="fas fa-user-cog fa-5x"></i>
                     </div>
-                    <div class="col-md-10">
+                    <div class="col-md-9">
                         <h2>Dashboard</h2>
                         <h5>Keterangan</h5>
                     </div>
