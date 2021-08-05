@@ -35,12 +35,9 @@ class BotController extends Controller
          //    // 'certificate' => '/path/to/public_key_certificate.pub'
          // ]);
          
-         // $response = Telegram::getWebhookInfo();
+         $response = Telegram::getWebhookInfo();
 
-         // $str = "number=902894732";
-         // print_r (explode("=",$str));
-
-         // dd($str);
+         dd($response);
     }
 
     /**
