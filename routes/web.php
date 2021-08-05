@@ -40,6 +40,7 @@ Route::prefix('admin')->middleware('auth')->group(function(){
 
    // Booking List
    Route::resource('bookingList', App\Http\Controllers\BookingController::class);
+   Route::post('bookingList-tanggal' , [App\Http\Controllers\BookingController::class , 'bookingListTanggal'])->name('bookingList.tanggal');
 
    Route::get('change-password' ,  [App\Http\Controllers\UserController::class, 'index'])->name('change_password.index');
    Route::post('change-password' ,  [App\Http\Controllers\UserController::class, 'update'])->name('change_password.update');

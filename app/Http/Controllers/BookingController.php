@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Booking;
+use App\Models\CustomerService;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
 
@@ -86,5 +87,24 @@ class BookingController extends Controller
     public function destroy(Booking $booking)
     {
         //
+    }
+
+    public function bookingListTanggal(Request $request)
+    {
+      //  dd($request->all());
+
+       if(Auth::user()->role == 'Super Admin'){
+         $booking = Booking::where('booking_date' , $request->tanggal)->get();
+         $currentDate =  $request->tanggal;
+
+         return view('admin.absensi.report' , compact('booking' , 'currentDate'));
+
+      }if(Auth::user()->role == 'Customer Service'){
+         $customerService = CustomerService::where('users_id' , Auth::user()->id)->first();
+         $booking = Booking::where('booking_date' , $request->tanggal)->where('customer_service_id' , $customerService->id)->get();
+         $currentDate =  $request->tanggal;
+
+         return view('admin.absensi.report' , compact('booking' , 'currentDate'));
+      }
     }
 }
