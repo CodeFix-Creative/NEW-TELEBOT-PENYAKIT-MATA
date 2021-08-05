@@ -24,8 +24,8 @@
                </div>
                <div class="row">
                   <div class="col-md-6">
-                     <div class="card-title">Dashboard</div>
-                     <div class="card-category">Keterangan</div>
+                     <h2>Dashboard</h2>
+                     <h5>Keterangan</h5>
                   </div>
                </div>
             </div>
