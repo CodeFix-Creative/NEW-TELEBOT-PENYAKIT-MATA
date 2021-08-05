@@ -84,8 +84,8 @@
             </div>
             <div>
                <h2>Terakhir Update Service</h2>
-               <h4>{{ $part }}</h4>
-               <h4>Total Data = {{ $countPart }}</h4>
+               <h4>{{ $service->updated_at->translatedFormat('d F Y') }}</h4>
+               <h4>Total Data = {{ $countService }}</h4>
             </div>
          </div>
       </div>

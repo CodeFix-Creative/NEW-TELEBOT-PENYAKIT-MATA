@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Models\BookingTime;
 use App\Models\Booking;
 use App\Models\Part;
+use App\Models\Service;
 use Carbon\Carbon;
 
 class DashboardController extends Controller
@@ -30,8 +31,11 @@ class DashboardController extends Controller
          $part = Part::first();
          $countPart = count(Part::all());
 
+         $service = Service::first();
+         $countService = count(Service::all());
 
-        return view('admin.dashboard.index', compact('adminAktif','adminTidakAktif','CustomerServiceAktif' , 'CustomerServiceTidakAktif' , 'bookingTime' , 'booking' , 'part' , 'countPart'));
+
+        return view('admin.dashboard.index', compact('adminAktif','adminTidakAktif','CustomerServiceAktif' , 'CustomerServiceTidakAktif' , 'bookingTime' , 'booking' , 'part' , 'countPart' , 'service', 'countService'));
     }
 
     /**
