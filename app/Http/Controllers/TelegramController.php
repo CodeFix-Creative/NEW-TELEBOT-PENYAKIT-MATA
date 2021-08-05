@@ -226,26 +226,11 @@ class TelegramController extends Controller
             ]);
 
         } else if (in_array($action, $arrBookingTime)) {
-            $booking = Booking::where('booking_time', $action)->where('booking_date', Carbon::tomorrow()->format('Y-m-d'))->first();
-            
-            if($booking) {
-                $text = "Jadwal tidak tersedia atau sudah dibooking, silahkan pilih jadwal lainnya. \n";
-
-                $this->apiRequest('sendMessage', [
-                    'chat_id' => $userId,
-                    'text' => $text,
-                    'reply_markup' => $this->keyboardBtn($this->mainMenu),
-                ]);
-            } else {
-                $text = "Jadwal ada gan, bisa dibooking.";
-
-                $this->apiRequest('sendMessage', [
-                    'chat_id' => $userId,
-                    'text' => $text,
-                    'reply_markup' => $this->keyboardBtn($this->mainMenu),
-                ]);
-            }
-            
+            $this->apiRequest('sendMessage', [
+                'chat_id' => $userId,
+                'text' => $action,
+                'reply_markup' => $this->keyboardBtn($this->mainMenu),
+            ]);
         } else if(strpos($action, '#') == true) {
             $this->apiRequest('sendMessage', [
                 'chat_id' => $userId,
