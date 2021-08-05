@@ -8,6 +8,9 @@ use App\Traits\RequestTrait;
 use App\Traits\MakeComponents;
 use App\Models\Part;
 use App\Models\Service;
+use App\Models\CustomerService;
+use App\Models\BookingTime;
+use App\Models\Booking;
 
 class TelegramController extends Controller
 {
@@ -134,14 +137,7 @@ class TelegramController extends Controller
                 'chat_id' => $userId,
                 'text' => $text,
             ]);
-        }else if ($action == "Booking Service") {
-            $text = "Anda memilih menu booking service.";
-
-            $this->apiRequest('sendMessage', [
-                'chat_id' => $userId,
-                'text' => $text,
-            ]);
-        } else if (in_array($action, $arrPart)) {
+        }else if (in_array($action, $arrPart)) {
            // $partSelect2 = Part::select('product_group')->distinct()->get();
            
            // foreach($partSelect2 as $key => $value) {

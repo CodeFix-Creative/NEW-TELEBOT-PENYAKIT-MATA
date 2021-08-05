@@ -15,8 +15,9 @@ class CreateBookingTable extends Migration
     {
         Schema::create('booking', function (Blueprint $table) {
             $table->increments('booking_id');
-            $table->string('nama_lengkap');
-            $table->string('no_telp');
+            $table->string('nama_lengkap')->nullable();
+            $table->string('no_telp')->nullable();
+            $table->string('chat_id')->nullable();
             $table->unsignedBigInteger('id_customer_service');
             $table->unsignedBigInteger('id_booking_time');
             $table->date('booking_date');
