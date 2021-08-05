@@ -32,14 +32,14 @@ class ServiceImport implements ToCollection
            if ($key >= 1) {
               Service::create([
                'rma_no_1' => $row[0],
-               'rma_issue_date' => \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row[1])->format('Y-m-d'),
+               'rma_issue_date' => \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row[1])->format('d-m-Y'),
                'serial_no' => $row[2],
                'model_id' => $row[3],
                'product_type_desc' => $row[4],
                'status_1' => $row[5],
                'transfer_ship_submit_date' => $row[6],
                'rma_no_1_finaltest_date' => $row[7],
-               'warranty_end' => $row[8],
+               'warranty_end' => \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row[8])->format('d-m-Y'),
                'warranty_status' => $row[9],
                'rma_center_2' => $row[10],
                'rma_no_2' => $row[11],
