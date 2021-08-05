@@ -142,7 +142,7 @@ class TelegramController extends Controller
         } else if ($action == "Booking Service") {
             $text = "Anda memilih menu booking service. \n";
             $text .= "Silahkan pilih waktu yang tersedia. \n";
-            $text .= "Jika tidak muncul , berarti booking service sudah full. silahkan datang langsung ke Asus Service Center terdekat. \n";
+            $text .= "Jika tidak muncul,berarti booking service sudah full. silahkan datang langsung ke Asus Service Center terdekat. \n";
 
             $customerService = CustomerService::all();
             $btn = [];
