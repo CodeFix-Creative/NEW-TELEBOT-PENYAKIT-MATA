@@ -90,7 +90,7 @@ class AdminController extends Controller
      */
     public function update(Request $request, User $admin)
     {
-       dd($admin);
+      //  dd($admin);
         $request->validate([
             'nama' => 'required',
             'email' => 'required_unless:email,' . $admin->email,
