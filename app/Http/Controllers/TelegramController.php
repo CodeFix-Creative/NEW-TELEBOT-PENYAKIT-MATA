@@ -11,6 +11,7 @@ use App\Models\Service;
 use App\Models\CustomerService;
 use App\Models\BookingTime;
 use App\Models\Booking;
+use Carbon\Carbon;
 
 class TelegramController extends Controller
 {
@@ -28,8 +29,18 @@ class TelegramController extends Controller
         $action = $result->message->text;
         $userId = $result->message->from->id;
 
+         // Part
          $partSelect = Part::select('product_group')->distinct()->get();
          $unitSelect = Part::select('type_unit')->distinct()->get();
+
+         //Booking
+         $booking = Booking::all();
+
+         //Booking Time
+         $bookingTime = BookingTime::all();
+
+         //Customer Service
+         $customerService = CustomerService::all();
          
          $arrPart = [];
          $arrUnit = [];
@@ -133,9 +144,38 @@ class TelegramController extends Controller
             $text .= "Silahkan pilih waktu yang tersedia. \n";
             $text .= "Jika tidak muncul , berarti booking service sudah full. silahkan datang langsung ke Asus Service Center terdekat. \n";
 
+            $customerService = CustomerService::all();
+            $btn = [];
+
+            // checking
+            foreach ($customerService as $customerService) {
+               if (Booking::where('id_customer_service' , $customerService->id)->where('booking_date' , Carbon::tomorrow()->format('Y-m-d'))->exists() == true ) {
+                  $bookingTime = BookingTime::all();
+                  // $booking = Booking::where('id_customer_service' , $customerService->id)->where('booking_date' , Carbon::tomorrow()->format('Y-m-d'))->get();
+
+                  foreach ($bookingTime as $bookingTime) {
+                     if (Booking::where('id_customer_service' , $customerService->id)->where('booking_date' , Carbon::tomorrow()->format('Y-m-d'))->where('id_booking_time',$bookingTime->id)->exists() == false) {
+                        if (!in_array($bookingTime->booking_time, $btn)) {
+                           $btn[] = ["$bookingTime->booking_time"];
+                        }
+                     }
+                  }     
+
+               }else{
+                  $bookingTime = BookingTime::all();
+
+                  foreach ($bookingTime as $bookingTime) {
+                     if (!in_array($bookingTime->booking_time, $btn)) {
+                        $btn[] = ["$bookingTime->booking_time"];
+                     }
+                  }
+               }
+            }
+
             $this->apiRequest('sendMessage', [
                 'chat_id' => $userId,
                 'text' => $text,
+                'reply_markup' => $this->keyboardBtn($btn),
             ]);
         }else if (in_array($action, $arrPart)) {
            // $partSelect2 = Part::select('product_group')->distinct()->get();

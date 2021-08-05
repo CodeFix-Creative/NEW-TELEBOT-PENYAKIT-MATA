@@ -48,6 +48,7 @@
                             <thead>
                                 <tr>
                                     <th>Booking ID</th>
+                                    <th>Chat ID</th>
                                     <th>Nama Lengkap</th>
                                     <th>No Telephone</th>
                                     <th>Customer Service</th>
@@ -60,6 +61,7 @@
                             <tfoot>
                                 <tr>
                                     <th>Booking ID</th>
+                                    <th>Chat ID</th>
                                     <th>Nama Lengkap</th>
                                     <th>No Telephone</th>
                                     <th>Customer Service</th>
@@ -76,6 +78,7 @@
                                 @foreach($booking as $booking)
                                 <tr>
                                     <td>{{ $booking->booking_id }}</td>
+                                    <td>{{ $booking->chat_id }}</td>
                                     <td>{{ $booking->nama_lengkap }}</td>
                                     <td>{{ $booking->no_telp }}</td>
                                     <td>{{ $booking->customer_service->user->nama }}</td>
