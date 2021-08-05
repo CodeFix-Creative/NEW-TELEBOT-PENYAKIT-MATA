@@ -7,6 +7,7 @@ use Maatwebsite\Excel\Concerns\ToModel;
 use Maatwebsite\Excel\Concerns\WithHeadingRow;
 use Illuminate\Support\Collection;
 use Maatwebsite\Excel\Concerns\ToCollection;
+use Carbon\Carbon;
 
 
 class ServiceImport implements ToCollection
@@ -31,7 +32,7 @@ class ServiceImport implements ToCollection
            if ($key >= 1) {
               Service::create([
                'rma_no_1' => $row[0],
-               'rma_issue_date' => $row[1],
+               'rma_issue_date' => \PhpOffice\PhpSpreadsheet\Shared\Date::excelToDateTimeObject($row[1])->format('Y-m-d'),
                'serial_no' => $row[2],
                'model_id' => $row[3],
                'product_type_desc' => $row[4],
