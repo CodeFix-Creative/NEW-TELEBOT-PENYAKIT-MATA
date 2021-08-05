@@ -228,10 +228,22 @@ class TelegramController extends Controller
         } else if (in_array($action, $arrBookingTime)) {
             $time = BookingTime::where('booking_time', $action)->first();
             $booking = Booking::where('id_booking_time', $time->id)->where('booking_date', Carbon::tomorrow()->format('Y-m-d'))->first();
+
+            $checkCustomerBookingStatus = Booking::where('chat_id', $userId)->where('booking_date', Carbon::tomorrow()->format('Y-m-d'))->first();
             $bookedCustomerService = Booking::where('id_booking_time', 1)->where('booking_date', Carbon::tomorrow()->format('Y-m-d'))->pluck('id_customer_service');
             $availableCustomerService = CustomerService::whereNotIn('id', $bookedCustomerService)->inRandomOrder()->first();
             
-            if($booking) {
+            if($checkCustomerBookingStatus && ($checkCustomerBookingStatus->nama_lengkap == NULL && $checkCustomerBookingStatus->no_telp == NULL)) {
+                $text = "Anda telah melakukan booking jadwal untuk esok hari. Silahkan lengkapi data Anda melalui reply chat ini dengan Nama Lengkap dan No Telp Anda dengan format sebagai berikut: \n";
+                $text .= "Nama Lengkap#No Telp\n\n";
+                $text .= "Contoh: \n";
+                $text .= "Budi Setiawan#081xxxxxxxxx\n";
+
+                $this->apiRequest('sendMessage', [
+                    'chat_id' => $userId,
+                    'text' => $text,
+                ]);
+            } else if($booking) {
                 $text = "Jadwal tidak tersedia atau sudah dibooking, silahkan pilih jadwal lainnya. \n";
 
                 $this->apiRequest('sendMessage', [
