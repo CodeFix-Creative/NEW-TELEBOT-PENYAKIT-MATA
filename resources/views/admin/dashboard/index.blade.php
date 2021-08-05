@@ -22,8 +22,8 @@
                         <i class="fas fa-user-cog fa-5x"></i>
                     </div>
                     <div class="col-md-8">
-                        <h2>Dashboard</h2>
-                        <h5>Keterangan</h5>
+                        <h2>Admin</h2>
+                        <h5>Aktif = 5 | Tidak Aktif = 2</h5>
                     </div>
                 </div>
             </div>
@@ -37,8 +37,8 @@
                         <i class="fas fa-user-cog fa-5x"></i>
                     </div>
                     <div class="col-md-8">
-                        <h2>Dashboard</h2>
-                        <h5>Keterangan</h5>
+                        <h2>Customer Service</h2>
+                        <h5>Aktif = 5 | Tidak Aktif = 2</h5>
                     </div>
                 </div>
             </div>
@@ -52,8 +52,8 @@
                         <i class="fas fa-user-cog fa-5x"></i>
                     </div>
                     <div class="col-md-8">
-                        <h2>Dashboard</h2>
-                        <h5>Keterangan</h5>
+                        <h2>Booking Time</h2>
+                        <h5>5 Slot Booking untuk setiap CS</h5>
                     </div>
                 </div>
             </div>
@@ -67,8 +67,8 @@
                         <i class="fas fa-user-cog fa-5x"></i>
                     </div>
                     <div class="col-md-8">
-                        <h2>Dashboard</h2>
-                        <h5>Keterangan</h5>
+                        <h2>Booking Hari ini</h2>
+                        <h5>10 Orang</h5>
                     </div>
                 </div>
             </div>
