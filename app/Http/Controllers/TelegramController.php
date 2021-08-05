@@ -29,29 +29,35 @@ class TelegramController extends Controller
         $action = $result->message->text;
         $userId = $result->message->from->id;
 
-         // Part
-         $partSelect = Part::select('product_group')->distinct()->get();
-         $unitSelect = Part::select('type_unit')->distinct()->get();
+        // Part
+        $partSelect = Part::select('product_group')->distinct()->get();
+        $unitSelect = Part::select('type_unit')->distinct()->get();
 
-         //Booking
-         $booking = Booking::all();
+        //Booking
+        $booking = Booking::all();
 
-         //Booking Time
-         $bookingTime = BookingTime::all();
+        //Booking Time
+        $bookingTime = BookingTime::all();
 
-         //Customer Service
-         $customerService = CustomerService::all();
-         
-         $arrPart = [];
-         $arrUnit = [];
+        //Customer Service
+        $customerService = CustomerService::all();
+        
+        $arrPart = [];
+        $arrUnit = [];
+        $arrBooking = [];
+        $arrBookingTime = [];
 
-         foreach($partSelect as $key => $value) {
+        foreach($partSelect as $key => $value) {
             $arrPart[] = $value->product_group;
-         }
+        }
 
-         foreach($unitSelect as $key => $value) {
+        foreach($unitSelect as $key => $value) {
             $arrUnit[] = $value->type_unit;
-         }
+        }
+
+        foreach($bookingTime as $key => $value) {
+            $arrBooking[] = $value;
+        }
 
         if($action == "/start") {
             $text = "Selamat datang di Bot Telegram ASUS Service Center . Silahkan pilih menu di bawah ini: ";
@@ -75,44 +81,44 @@ class TelegramController extends Controller
             $status = Service::where('rma_no_1' , $action)->first();
 
             if ($status->status_1 == "TRANSFER") {
-               $text = "**Informasi Umum/Unit** \n";
-               $text .= "1. RMA NO 1        : ". $status->rma_no_1 ."\n";
-               $text .= "2. SERIAL NO       : ". $status->serial_no ."\n";
-               $text .= "3. RMA ISSUE DATE  : ". $status->rma_issue_date ."\n";
-               $text .= "4. PRODUCT TYPE DESC : ". $status->product_type_desc ."\n";
-               $text .= "5. MODEL ID        : ". $status->model_id ."\n";
-               $text .= "6. WARRANTY_END    : ". $status->warranty_end ."\n";
-               $text .= "7. WARRANTY_STATUS : ". $status->warranty_status ."\n";
-               $text .= "8. REMARK/PROBLEM  : ". $status->remark_or_problem ."\n\n";
+                $text = "**Informasi Umum/Unit** \n";
+                $text .= "1. RMA NO 1        : ". $status->rma_no_1 ."\n";
+                $text .= "2. SERIAL NO       : ". $status->serial_no ."\n";
+                $text .= "3. RMA ISSUE DATE  : ". $status->rma_issue_date ."\n";
+                $text .= "4. PRODUCT TYPE DESC : ". $status->product_type_desc ."\n";
+                $text .= "5. MODEL ID        : ". $status->model_id ."\n";
+                $text .= "6. WARRANTY_END    : ". $status->warranty_end ."\n";
+                $text .= "7. WARRANTY_STATUS : ". $status->warranty_status ."\n";
+                $text .= "8. REMARK/PROBLEM  : ". $status->remark_or_problem ."\n\n";
 
-               $text .= "**Informasi Status Service** \n";
-               $text .= "1. STATUS 1        : ". $status->status_1 ."\n";
-               $text .= "2. TRANSFER SHIP SUBMIT DATE : ". $status->transfer_ship_submit_date ."\n";
-               $text .= "3. RMA CENTER 2    : ". $status->rma_center_2 ."\n";
-               $text .= "4. RMA NO 2        : ". $status->rma_no_2 ."\n";
-               $text .= "5. STATUS 2        : ". $status->status_2 ."\n";
-               $text .= "6. FINAL RMA STATUS: ". $status->final_rma_status ."\n";
-            }else{
-               $text = "**Informasi Umum/Unit** \n";
-               $text .= "1. RMA NO 1        : ". $status->rma_no_1 ."\n";
-               $text .= "2. SERIAL NO       : ". $status->serial_no ."\n";
-               $text .= "3. RMA ISSUE DATE  : ". $status->rma_issue_date ."\n";
-               $text .= "4. PRODUCT TYPE DESC : ". $status->product_type_desc ."\n";
-               $text .= "5. MODEL ID        : ". $status->model_id ."\n";
-               $text .= "6. WARRANTY_END    : ". $status->warranty_end ."\n";
-               $text .= "7. WARRANTY_STATUS : ". $status->warranty_status ."\n";
-               $text .= "8. REMARK/PROBLEM  : ". $status->remark_or_problem ."\n\n";
+                $text .= "**Informasi Status Service** \n";
+                $text .= "1. STATUS 1        : ". $status->status_1 ."\n";
+                $text .= "2. TRANSFER SHIP SUBMIT DATE : ". $status->transfer_ship_submit_date ."\n";
+                $text .= "3. RMA CENTER 2    : ". $status->rma_center_2 ."\n";
+                $text .= "4. RMA NO 2        : ". $status->rma_no_2 ."\n";
+                $text .= "5. STATUS 2        : ". $status->status_2 ."\n";
+                $text .= "6. FINAL RMA STATUS: ". $status->final_rma_status ."\n";
+            } else {
+                $text = "**Informasi Umum/Unit** \n";
+                $text .= "1. RMA NO 1        : ". $status->rma_no_1 ."\n";
+                $text .= "2. SERIAL NO       : ". $status->serial_no ."\n";
+                $text .= "3. RMA ISSUE DATE  : ". $status->rma_issue_date ."\n";
+                $text .= "4. PRODUCT TYPE DESC : ". $status->product_type_desc ."\n";
+                $text .= "5. MODEL ID        : ". $status->model_id ."\n";
+                $text .= "6. WARRANTY_END    : ". $status->warranty_end ."\n";
+                $text .= "7. WARRANTY_STATUS : ". $status->warranty_status ."\n";
+                $text .= "8. REMARK/PROBLEM  : ". $status->remark_or_problem ."\n\n";
 
-               $text .= "**Informasi Status Service** \n";
-               $text .= "1. STATUS 1        : ". $status->status_1 ."\n";
-               $text .= "2. KBO STATUS      : ". $status->kbo_status ."\n";
-               $text .= "3. ORDER DATE      : ". $status->order_date ."\n";
-               $text .= "4. ORG PART DESC   : ". $status->org_part_desc ."\n";
-               $text .= "5. NEW PART NO     : ". $status->new_part_no ."\n";
-               $text .= "6. NEW PART DESC   : ". $status->new_part_desc ."\n";
-               $text .= "7. ALLOCATED DATE  : ". $status->allocated_date ."\n";
-               $text .= "8. KBO ETA END     : ". $status->kbo_eta_end ."\n";
-               $text .= "9. FINAL RMA STATUS: ". $status->final_rma_status ."\n";
+                $text .= "**Informasi Status Service** \n";
+                $text .= "1. STATUS 1        : ". $status->status_1 ."\n";
+                $text .= "2. KBO STATUS      : ". $status->kbo_status ."\n";
+                $text .= "3. ORDER DATE      : ". $status->order_date ."\n";
+                $text .= "4. ORG PART DESC   : ". $status->org_part_desc ."\n";
+                $text .= "5. NEW PART NO     : ". $status->new_part_no ."\n";
+                $text .= "6. NEW PART DESC   : ". $status->new_part_desc ."\n";
+                $text .= "7. ALLOCATED DATE  : ". $status->allocated_date ."\n";
+                $text .= "8. KBO ETA END     : ". $status->kbo_eta_end ."\n";
+                $text .= "9. FINAL RMA STATUS: ". $status->final_rma_status ."\n";
             }
 
             // $text = "Mantap Benar! \n";
@@ -142,130 +148,195 @@ class TelegramController extends Controller
         } else if ($action == "Booking Service") {
             $text = "Anda memilih menu booking service. \n";
             $text .= "Silahkan pilih waktu yang tersedia. \n";
-            $text .= "Jika tidak muncul,berarti booking service sudah full. silahkan datang langsung ke Asus Service Center terdekat. \n";
+            $text .= "Jika tidak muncul, berarti booking service sudah full. Silahkan datang langsung ke Asus Service Center terdekat. \n";
 
             $customerService = CustomerService::all();
             $btn = [];
 
             // checking
             foreach ($customerService as $customerService) {
-               if (Booking::where('id_customer_service' , $customerService->id)->where('booking_date' , Carbon::tomorrow()->format('Y-m-d'))->exists() == true ) {
-                  $bookingTime = BookingTime::all();
-                  // $booking = Booking::where('id_customer_service' , $customerService->id)->where('booking_date' , Carbon::tomorrow()->format('Y-m-d'))->get();
+                if (Booking::where('id_customer_service' , $customerService->id)->where('booking_date' , Carbon::tomorrow()->format('Y-m-d'))->exists() == true ) {
+                    $bookingTime = BookingTime::all();
+                    // $booking = Booking::where('id_customer_service' , $customerService->id)->where('booking_date' , Carbon::tomorrow()->format('Y-m-d'))->get();
 
-                  foreach ($bookingTime as $bookingTime) {
-                     if (Booking::where('id_customer_service' , $customerService->id)->where('booking_date' , Carbon::tomorrow()->format('Y-m-d'))->where('id_booking_time',$bookingTime->id)->exists() == false) {
-                        if (!in_array($bookingTime->booking_time, $btn)) {
-                           $btn[] = ["$bookingTime->booking_time"];
+                    foreach ($bookingTime as $bookingTime) {
+                        if (Booking::where('id_customer_service' , $customerService->id)->where('booking_date' , Carbon::tomorrow()->format('Y-m-d'))->where('id_booking_time',$bookingTime->id)->exists() == false) {
+                            if (!in_array($bookingTime->booking_time, $btn)) {
+                                $btn[] = ["$bookingTime->booking_time"];
+                            }
                         }
-                     }
-                  }     
+                    }
+                } else {
+                    $bookingTime = BookingTime::all();
 
-               }else{
-                  $bookingTime = BookingTime::all();
-
-                  foreach ($bookingTime as $bookingTime) {
-                     if (!in_array($bookingTime->booking_time, $btn)) {
-                        $btn[] = ["$bookingTime->booking_time"];
-                     }
-                  }
-               }
+                    foreach ($bookingTime as $bookingTime) {
+                        if (!in_array($bookingTime->booking_time, $btn)) {
+                            $btn[] = ["$bookingTime->booking_time"];
+                        }
+                    }
+                }
             }
 
-            
-
-            $btn = array_unique($btn ,SORT_REGULAR);
+            $btn = array_unique($btn, SORT_REGULAR);
 
             $this->apiRequest('sendMessage', [
                 'chat_id' => $userId,
                 'text' => $text,
                 'reply_markup' => $this->keyboardBtn($btn),
             ]);
-        }else if (in_array($action, $arrPart)) {
-           // $partSelect2 = Part::select('product_group')->distinct()->get();
-           
-           // foreach($partSelect2 as $key => $value) {
-           //     //  $text .= $key + 1 . ". " . $value->product_group . "\n";
-           //     // $btn[] = ["$value->product_group"] ;
-           //     if($action == $value->product_group) {
-           //        // $type = Part::where('product_group' , $value->product_group)->distinct()->get();
-           //        $part = Part::select('type_unit')->distinct()->where('product_group', $value->product_group)->get();
+        } else if (in_array($action, $arrPart)) {
+            $part = Part::select('type_unit')->distinct()->where('product_group', $action)->get();
 
-           //        $text = "Silahkan pilih type unit anda: \n";
+            $text = "Silahkan pilih tipe unit Anda: \n";
+            $btn = [];
 
-           //        $numberOption = [];
-           //        $btn = [];
+            foreach($part as $key => $value) {
+                //  $text .= $key + 1 . ". " . $value->product_group . "\n";
+                $btn[] = ["$value->type_unit"];
+            }
 
-           //        foreach($type as $key => $value) {
-           //           //  $text .= $key + 1 . ". " . $value->product_group . "\n";
-           //           $btn[] = ["$value->type_unit"] ;
-           //        }
-
-           //        $this->apiRequest('sendMessage', [
-           //           'chat_id' => $userId,
-           //           'text' => $text,
-           //           'reply_markup' => $this->keyboardBtn($btn),
-           //        ]);
-
-           //        // die();
-           //     }
-           //  }
-          $part = Part::select('type_unit')->distinct()->where('product_group', $action)->get();
-
-          $text = "Silahkan pilih tipe unit Anda: \n";
-          $btn = [];
-
-          foreach($part as $key => $value) {
-              //  $text .= $key + 1 . ". " . $value->product_group . "\n";
-              $btn[] = ["$value->type_unit"];
-          }
-
-          $this->apiRequest('sendMessage', [
-              'chat_id' => $userId,
-              'text' => $text,
-              'reply_markup' => $this->keyboardBtn($btn),
-          ]);
+            $this->apiRequest('sendMessage', [
+                'chat_id' => $userId,
+                'text' => $text,
+                'reply_markup' => $this->keyboardBtn($btn),
+            ]);
 
         } else if (in_array($action, $arrUnit)) {
-          $part = Part::where('type_unit', $action)->get();
+            $part = Part::where('type_unit', $action)->get();
 
-          $text = "Daftar part berdasarkan filter Anda: \n\n";
+            $text = "Daftar part berdasarkan filter Anda: \n\n";
 
-          foreach($part as $key => $value) {
-             $text .= $key + 1 . ". Part No: " . $value->part_number . "\n";
-             $text .= "Nama Part: " . $value->part_name . "\n";
-             $text .= "Deskripsi: " . $value->part_description . "\n";
-             $text .= "Harga: " . number_format($value->price, 0, '', '.') . "\n";
-             $text .= "Stok: " . $value->stock_part . "\n";
-             if($value->picture != NULL) { 
-              $text .= "Foto: " . $value->picture . "\n\n";
-             } else {
-              $text .= "\n";
-             }
-          }
+            foreach($part as $key => $value) {
+                $text .= $key + 1 . ". Part No: " . $value->part_number . "\n";
+                $text .= "Nama Part: " . $value->part_name . "\n";
+                $text .= "Deskripsi: " . $value->part_description . "\n";
+                $text .= "Harga: " . number_format($value->price, 0, '', '.') . "\n";
+                $text .= "Stok: " . $value->stock_part . "\n";
+                if($value->picture != NULL) { 
+                $text .= "Foto: " . $value->picture . "\n\n";
+                } else {
+                $text .= "\n";
+                }
+            }
 
-          $this->apiRequest('sendMessage', [
-              'chat_id' => $userId,
-              'text' => $text,
-              'reply_markup' => $this->keyboardBtn($this->mainMenu),
-          ]);
+            $this->apiRequest('sendMessage', [
+                'chat_id' => $userId,
+                'text' => $text,
+                'reply_markup' => $this->keyboardBtn($this->mainMenu),
+            ]);
 
+        } else if (in_array($action, $arrBookingTime)) {
+            $booking = Booking::where('booking_time', $action)->where('booking_date', Carbon::tomorrow()->format('Y-m-d'))->first();
+            $bookedCustomerService = Booking::where('id_booking_time', 1)->where('booking_date', Carbon::tomorrow()->format('Y-m-d'))->pluck('id_customer_service');
+            $availableCustomerService = CustomerService::whereNotIn('id', $bookedCustomerService)->inRandomOrder()->first();
+
+            if($booking) {
+                $text .= "Jadwal tidak tersedia atau sudah dibooking, silahkan pilih jadwal lainnya. \n";
+
+                $customerService = CustomerService::all();
+                $btn = [];
+
+                // checking
+                foreach ($customerService as $customerService) {
+                    if (Booking::where('id_customer_service' , $customerService->id)->where('booking_date' , Carbon::tomorrow()->format('Y-m-d'))->exists() == true ) {
+                        $bookingTime = BookingTime::all();
+                        // $booking = Booking::where('id_customer_service' , $customerService->id)->where('booking_date' , Carbon::tomorrow()->format('Y-m-d'))->get();
+
+                        foreach ($bookingTime as $bookingTime) {
+                            if (Booking::where('id_customer_service' , $customerService->id)->where('booking_date' , Carbon::tomorrow()->format('Y-m-d'))->where('id_booking_time',$bookingTime->id)->exists() == false) {
+                                if (!in_array($bookingTime->booking_time, $btn)) {
+                                    $btn[] = ["$bookingTime->booking_time"];
+                                }
+                            }
+                        }
+                    } else {
+                        $bookingTime = BookingTime::all();
+
+                        foreach ($bookingTime as $bookingTime) {
+                            if (!in_array($bookingTime->booking_time, $btn)) {
+                                $btn[] = ["$bookingTime->booking_time"];
+                            }
+                        }
+                    }
+                }
+
+                $btn = array_unique($btn, SORT_REGULAR);
+
+                $this->apiRequest('sendMessage', [
+                    'chat_id' => $userId,
+                    'text' => $text,
+                    'reply_markup' => $this->keyboardBtn($btn),
+                ]);
+            } else if( ! $availableCustomerService) {
+                $text = "Customer Service saat ini tidak tersedia untuk dibooking pada esok hari. Silahkan coba lagi keesokan harinya. Silahkan pilih menu di bawah ini: ";
+
+                $this->apiRequest('sendMessage', [
+                    'chat_id' => $userId,
+                    'text' => $text,
+                    'reply_markup' => $this->keyboardBtn($this->mainMenu),
+                ]);
+            } else {
+                $time = BookingTime::where('booking_time', $action)->first();
+                
+                // save booking time into the table
+                $saveBooking = Booking::create([
+                    'nama_lengkap' => NULL,
+                    'no_telp' => NULL,
+                    'chat_id' => $userId,
+                    'id_customer_service' => $availableCustomerService->id,
+                    'id_booking_time' => $time->id,
+                    'booking_date' => Carbon::tomorrow()->format('Y-m-d'),
+                    'status' => 'Waiting',
+                ]);
+
+                $text = "Jadwal berhasil dibooking. Silahkan reply chat ini dengan Nama Lengkap dan No Telp Anda dengan format sebagai berikut: \n";
+                $text .= "Nama Lengkap#No Telp\n";
+                $text .= "Contoh: \n";
+                $text .= "Budi Setiawan#081xxxxxxxxx\n";
+
+                $this->apiRequest('sendMessage', [
+                    'chat_id' => $userId,
+                    'text' => $text,
+                ]);
+            }
+        } else if(strpos($action, '#') == true) {
+            $customerData = explode($action, '#');
+
+            // update booking detail based on customer's reply by chat id
+            $bookingDetail = Booking::where('booking_time', $action)
+                ->where('chat_id', $userId)
+                ->where('booking_date', Carbon::tomorrow()
+                ->format('Y-m-d'))
+                ->first();
+                
+            $bookingDetail->update([
+                'nama_lengkap' => $customerData[0],
+                'no_telp' => $customerData[1],
+            ]);
+
+            $text = "Data Anda telah tersimpan. Jadwal service Anda pada: \n";
+            $text .= "Hari/Tanggal: ". Carbon::parse($bookingDetail->booking_date)->isoFormat('dddd, DD MMMM Y') ."\n";
+            $text .= "Waktu: " . $bookingDetail->booking_time->booking_time . "\n";
+            $text .= "Harap datang ke ASUS Service Center pada hari dan waktu yang telah ditentukan, terima kasih.\n";
+
+            $this->apiRequest('sendMessage', [
+                'chat_id' => $userId,
+                'text' => $text,
+            ]);
         } else {
-            
-               $text = "Maaf, menu yang Anda pilih tidak tersedia. Silahkan pilih menu di bawah ini: ";
-               $option = [
-                  ['Cek Service'],
-                  ['Cek Spare Part'],
-                  ['Booking Service'],
-               ];
+            $text = "Maaf, menu yang Anda pilih tidak tersedia. Silahkan pilih menu di bawah ini: ";
+            $option = [
+                ['Cek Service'],
+                ['Cek Spare Part'],
+                ['Booking Service'],
+            ];
 
-               $this->apiRequest('sendMessage', [
-                  'chat_id' => $userId,
-                  'text' => $text,
-                  'reply_markup' => $this->keyboardBtn($this->mainMenu),
-               ]);
-               
-         }
+            $this->apiRequest('sendMessage', [
+                'chat_id' => $userId,
+                'text' => $text,
+                'reply_markup' => $this->keyboardBtn($this->mainMenu),
+            ]);
+        }
         
     }
 
