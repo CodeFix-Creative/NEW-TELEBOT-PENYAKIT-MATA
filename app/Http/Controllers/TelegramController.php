@@ -249,7 +249,7 @@ class TelegramController extends Controller
                 ]);
             } else {
                 $text = "Jadwal berhasil dibooking. Silahkan reply chat ini dengan Nama Lengkap dan No Telp Anda dengan format sebagai berikut: \n";
-                $text .= "Nama Lengkap#No Telp\n";
+                $text .= "Nama Lengkap#No Telp\n\n";
                 $text .= "Contoh: \n";
                 $text .= "Budi Setiawan#081xxxxxxxxx\n";
 
@@ -260,9 +260,14 @@ class TelegramController extends Controller
             }
             
         } else if(strpos($action, '#') == true) {
+            $customerData = explode($action, '#');
+
+            $text = "Nama Anda: " . $customerData[0] . "\n";
+            $text .= "No Telp Anda: " . $customerData[1] . "\n";
+
             $this->apiRequest('sendMessage', [
                 'chat_id' => $userId,
-                'text' => $action,
+                'text' => $text,
                 'reply_markup' => $this->keyboardBtn($this->mainMenu),
             ]);
         } else {
