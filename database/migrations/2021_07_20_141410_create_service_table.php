@@ -36,7 +36,7 @@ class CreateServiceTable extends Migration
             $table->string('new_part_no')->nullable();
             $table->string('new_part_desc')->nullable();
             $table->string('final_rma_status')->nullable();
-            $table->string('remark_or_problem')->nullable();
+            $table->text('remark_or_problem')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });
