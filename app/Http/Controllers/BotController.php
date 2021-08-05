@@ -40,7 +40,7 @@ class BotController extends Controller
          $str = "number=902894732";
          print_r (explode("=",$str));
 
-         dd($btn);
+         dd($str);
     }
 
     /**
