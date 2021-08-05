@@ -98,7 +98,7 @@
             </div>
             <div>
                <h2>Terakhir Update Spare Part</h2>
-               <h4>{{ $part }}</h4>
+               <h4>{{ $part->translatedFormat('d F Y') }}</h4>
                <h4>Total Data = {{ $countPart }}</h4>
             </div>
          </div>
