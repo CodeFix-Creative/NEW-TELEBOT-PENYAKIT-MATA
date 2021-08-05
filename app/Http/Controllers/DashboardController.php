@@ -21,7 +21,7 @@ class DashboardController extends Controller
          $CustomerServiceTidakAktif = User::whereStatus('Tidak Aktif')->where('role' ,'Customer Service')->count();
 
 
-        return view('admin.dashboard.index', compact('adminAtif','adminTidakAktif','CustomerServiceAktif' , 'CustomerServiceTidakAktif'));
+        return view('admin.dashboard.index', compact('adminAktif','adminTidakAktif','CustomerServiceAktif' , 'CustomerServiceTidakAktif'));
     }
 
     /**
