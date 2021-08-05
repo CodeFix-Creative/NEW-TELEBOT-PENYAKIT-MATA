@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 
 class AdminController extends Controller
 {
@@ -38,6 +39,7 @@ class AdminController extends Controller
      */
     public function store(Request $request)
     {
+       dd($request->all());
         $request->validate([
             'nama' => 'required',
             'email' => 'required|unique:users',
