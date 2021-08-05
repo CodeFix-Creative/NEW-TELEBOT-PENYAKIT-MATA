@@ -36,9 +36,16 @@ class BotController extends Controller
          // ]);
          
          // $response = Telegram::getWebhookInfo();
-         $btn = [['test 1'],['test 2'],['test 3'],['test 3']];
 
-         $btn = array_unique($btn);
+         $btnArr = [];
+         $i = 0;
+         $btn = [['test 1'],['test 2'],['test 3'],['test 3']];
+         foreach ($btn as $btn) {
+            $btnArr = $btn[$i][0];
+            $i++;
+         }
+
+         $btn = array_unique($btnArr);
 
          dd($btn);
     }
