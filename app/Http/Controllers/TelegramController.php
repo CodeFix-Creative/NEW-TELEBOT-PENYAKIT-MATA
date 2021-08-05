@@ -82,43 +82,43 @@ class TelegramController extends Controller
 
             if ($status->status_1 == "TRANSFER") {
                 $text = "**Informasi Umum/Unit** \n";
-                $text .= "1. RMA NO 1        : ". $status->rma_no_1 ."\n";
-                $text .= "2. SERIAL NO       : ". $status->serial_no ."\n";
-                $text .= "3. RMA ISSUE DATE  : ". $status->rma_issue_date ."\n";
-                $text .= "4. PRODUCT TYPE DESC : ". $status->product_type_desc ."\n";
-                $text .= "5. MODEL ID        : ". $status->model_id ."\n";
-                $text .= "6. WARRANTY_END    : ". $status->warranty_end ."\n";
-                $text .= "7. WARRANTY_STATUS : ". $status->warranty_status ."\n";
-                $text .= "8. REMARK/PROBLEM  : ". $status->remark_or_problem ."\n\n";
+                $text .= "1. NOMOR SERVICE 1       : ". $status->rma_no_1 ."\n";
+                $text .= "2. SERIAL NUMBER UNIT       : ". $status->serial_no ."\n";
+                $text .= "3. TANGGAL UNIT MASUK SERVICE  : ". $status->rma_issue_date ."\n";
+                $text .= "4. TIPE PRODUK UNIT : ". $status->product_type_desc ."\n";
+                $text .= "5. MODEL UNIT        : ". $status->model_id ."\n";
+                $text .= "6. TANGGAL MASA BERLAKU GARANSI   : ". $status->warranty_end ."\n";
+                $text .= "7. STATUS GARANSI : ". $status->warranty_status ."\n";
+                $text .= "8. INFORMASI KERUSAKAN UNIT  : ". $status->remark_or_problem ."\n\n";
 
                 $text .= "**Informasi Status Service** \n";
-                $text .= "1. STATUS 1        : ". $status->status_1 ."\n";
-                $text .= "2. TRANSFER SHIP SUBMIT DATE : ". $status->transfer_ship_submit_date ."\n";
-                $text .= "3. RMA CENTER 2    : ". $status->rma_center_2 ."\n";
-                $text .= "4. RMA NO 2        : ". $status->rma_no_2 ."\n";
-                $text .= "5. STATUS 2        : ". $status->status_2 ."\n";
-                $text .= "6. FINAL RMA STATUS: ". $status->final_rma_status ."\n";
+                $text .= "1. STATUS PENGERJAAN UNIT 1        : ". $status->status_1 ."\n";
+                $text .= "2. TANGGAL UNIT DI TRANSFER : ". $status->transfer_ship_submit_date ."\n";
+                $text .= "3. PROFILE SERVICE CENTER YANG DI TRANSFER    : ". $status->rma_center_2 ."\n";
+                $text .= "4. NOMOR SERVICE 2        : ". $status->rma_no_2 ."\n";
+                $text .= "5. STATUS PENGERJAAN UNIT 2        : ". $status->status_2 ."\n";
+                $text .= "6. DETAIL STATUS PENGERJAAN UNIT - NON TRANSFER: ". $status->final_rma_status ."\n";
             } else {
                 $text = "**Informasi Umum/Unit** \n";
-                $text .= "1. RMA NO 1        : ". $status->rma_no_1 ."\n";
-                $text .= "2. SERIAL NO       : ". $status->serial_no ."\n";
-                $text .= "3. RMA ISSUE DATE  : ". $status->rma_issue_date ."\n";
-                $text .= "4. PRODUCT TYPE DESC : ". $status->product_type_desc ."\n";
-                $text .= "5. MODEL ID        : ". $status->model_id ."\n";
-                $text .= "6. WARRANTY_END    : ". $status->warranty_end ."\n";
-                $text .= "7. WARRANTY_STATUS : ". $status->warranty_status ."\n";
-                $text .= "8. REMARK/PROBLEM  : ". $status->remark_or_problem ."\n\n";
+                $text .= "1. NOMOR SERVICE 1        : ". $status->rma_no_1 ."\n";
+                $text .= "2. SERIAL NUMBER UNIT       : ". $status->serial_no ."\n";
+                $text .= "3. TANGGAL UNIT MASUK SERVICE  : ". $status->rma_issue_date ."\n";
+                $text .= "4. TIPE PRODUK UNIT : ". $status->product_type_desc ."\n";
+                $text .= "5. MODEL UNIT         : ". $status->model_id ."\n";
+                $text .= "6. TANGGAL MASA BERLAKU GARANSI    : ". $status->warranty_end ."\n";
+                $text .= "7. STATUS GARANSI : ". $status->warranty_status ."\n";
+                $text .= "8. INFORMASI KERUSAKAN UNIT  : ". $status->remark_or_problem ."\n\n";
 
                 $text .= "**Informasi Status Service** \n";
-                $text .= "1. STATUS 1        : ". $status->status_1 ."\n";
-                $text .= "2. KBO STATUS      : ". $status->kbo_status ."\n";
-                $text .= "3. ORDER DATE      : ". $status->order_date ."\n";
-                $text .= "4. ORG PART DESC   : ". $status->org_part_desc ."\n";
-                $text .= "5. NEW PART NO     : ". $status->new_part_no ."\n";
-                $text .= "6. NEW PART DESC   : ". $status->new_part_desc ."\n";
-                $text .= "7. ALLOCATED DATE  : ". $status->allocated_date ."\n";
-                $text .= "8. KBO ETA END     : ". $status->kbo_eta_end ."\n";
-                $text .= "9. FINAL RMA STATUS: ". $status->final_rma_status ."\n";
+                $text .= "1. STATUS PENGERJAAN UNIT 1        : ". $status->status_1 ."\n";
+                $text .= "2. STATUS PEMESANAN PART      : ". $status->kbo_status ."\n";
+                $text .= "3. TANGGAL PEMESANAN PART      : ". $status->order_date ."\n";
+                $text .= "4. PART ORIGINAL YANG RUSAK   : ". $status->org_part_desc ."\n";
+                $text .= "5. NOMOR IDENTITAS PART BARU     : ". $status->new_part_no ."\n";
+                $text .= "6. PART BARU YANG SEDANG DI PASANG   : ". $status->new_part_desc ."\n";
+                $text .= "7. TANGGAL PART TIBA  : ". $status->allocated_date ."\n";
+                $text .= "8. TANGGAL ESTIMASI PART TIBA     : ". $status->kbo_eta_end ."\n";
+                $text .= "9. DETAIL STATUS PENGERJAAN UNIT - NON TRANSFER: ". $status->final_rma_status ."\n";
             }
 
             // $text = "Mantap Benar! \n";
