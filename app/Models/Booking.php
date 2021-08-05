@@ -17,6 +17,7 @@ class Booking extends Model
         'booking_id',
         'nama_lengkap',
         'no_telp',
+        'chat_id',
         'id_customer_service',
         'id_booking_time',
         'booking_date',
@@ -24,9 +25,10 @@ class Booking extends Model
     ];
 
     public function customer_service(){
-   	    return $this->belongsTo(CustomerService::class, 'id_customer_service', 'id');
+        return $this->belongsTo(CustomerService::class, 'id_customer_service', 'id');
     }
+    
     public function booking_time(){
-   	    return $this->belongsTo(BookingTime::class, 'id_booking_time', 'id');
+        return $this->belongsTo(BookingTime::class, 'id_booking_time', 'id');
     }
 }
