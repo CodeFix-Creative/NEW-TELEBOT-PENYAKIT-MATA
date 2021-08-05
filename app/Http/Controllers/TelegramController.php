@@ -228,8 +228,6 @@ class TelegramController extends Controller
         } else if (in_array($action, $arrBookingTime)) {
             $time = BookingTime::where('booking_time', $action)->first();
             $booking = Booking::where('id_booking_time', $time->id)->where('booking_date', Carbon::tomorrow()->format('Y-m-d'))->first();
-
-            $checkCustomerBookingStatus = Booking::where('chat_id', $userId)->where('booking_date', Carbon::tomorrow()->format('Y-m-d'))->first();
             $bookedCustomerService = Booking::where('id_booking_time', 1)->where('booking_date', Carbon::tomorrow()->format('Y-m-d'))->pluck('id_customer_service');
             $availableCustomerService = CustomerService::whereNotIn('id', $bookedCustomerService)->inRandomOrder()->first();
             
