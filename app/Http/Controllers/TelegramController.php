@@ -155,7 +155,7 @@ class TelegramController extends Controller
 
                   foreach ($bookingTime as $bookingTime) {
                      if (Booking::where('id_customer_service' , $customerService->id)->where('booking_date' , Carbon::tomorrow()->format('Y-m-d'))->where('id_booking_time',$bookingTime->id)->exists() == false) {
-                        if (in_array($bookingTime->booking_time, $btn) == false) {
+                        if (!in_array($bookingTime->booking_time, $btn)) {
                            $btn[] = ["$bookingTime->booking_time"];
                         }
                      }
@@ -165,7 +165,7 @@ class TelegramController extends Controller
                   $bookingTime = BookingTime::all();
 
                   foreach ($bookingTime as $bookingTime) {
-                     if (in_array($bookingTime->booking_time, $btn) == false) {
+                     if (!in_array($bookingTime->booking_time, $btn)) {
                         $btn[] = ["$bookingTime->booking_time"];
                      }
                   }
