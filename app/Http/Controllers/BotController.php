@@ -28,7 +28,7 @@ class BotController extends Controller
 
          // $response = $telegram->removeWebhook();
 
-         $response = Telegram::getUpdates();
+         // $response = Telegram::getUpdates();
 
          // $response = $telegram->setWebhook([
          //    'url' => 'https://asus-service-center.online/test-bot',
@@ -36,8 +36,9 @@ class BotController extends Controller
          // ]);
          
          // $response = Telegram::getWebhookInfo();
+         $btn = [['test 1'],['test 2'],['test 3']];
 
-         dd($response);
+         dd($btn);
     }
 
     /**
