@@ -56,7 +56,7 @@ class TelegramController extends Controller
         }
 
         foreach($bookingTime as $key => $value) {
-            $arrBooking[] = $value;
+            $arrBooking[] = $value->booking_time;
         }
 
         if($action == "/start") {
