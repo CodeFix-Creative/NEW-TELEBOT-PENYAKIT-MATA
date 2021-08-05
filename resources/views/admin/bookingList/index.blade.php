@@ -126,7 +126,7 @@
             <div class="modal-body">
 
                 <!-- FORM -->
-                <form action="{{ route('sparepart.store') }}" method="post" enctype="multipart/form-data">
+                <form action="{{ route('bookingList.tanggal') }}" method="post" enctype="multipart/form-data">
                     @csrf
 
                     <!-- Nama -->
