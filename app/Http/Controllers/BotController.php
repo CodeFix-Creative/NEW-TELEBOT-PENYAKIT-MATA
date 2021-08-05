@@ -40,8 +40,8 @@ class BotController extends Controller
          $btnArr = [];
          $i = 0;
          $btn = [['test 1'],['test 2'],['test 3'],['test 3']];
-         foreach ($btn as $btn) {
-            $btnArr[] = $btn[$i];
+         foreach ($btn as $key => $value) {
+            $btnArr[] = $value;
             $i++;
          }
 
