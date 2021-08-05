@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\BookingTime;
 use App\Models\Booking;
+use App\Models\Part;
 use Carbon\Carbon;
 
 class DashboardController extends Controller
