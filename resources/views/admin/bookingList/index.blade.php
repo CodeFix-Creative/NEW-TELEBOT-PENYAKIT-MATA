@@ -15,7 +15,7 @@
                     <i class="flaticon-right-arrow"></i>
                 </li>
                 <li class="nav-item">
-                    <a href="#!" class="text-white">Data Booking Request List Asus Service Center</a>
+                    <a href="#!" class="text-white">Data Booking Request List Asus Service Center : {{ $currentDate }}</a>
                 </li>
             </ul>
         </div>

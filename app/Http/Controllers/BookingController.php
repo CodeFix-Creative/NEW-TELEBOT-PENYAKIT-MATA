@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Booking;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class BookingController extends Controller
 {
@@ -14,9 +15,11 @@ class BookingController extends Controller
      */
     public function index()
     {
+      //   $booking = Booking::where('id_customer_service' , $customerService->id)->where('booking_date' , Carbon::now()->format('Y-m-d'))->get();
         $booking = Booking::all();
+        $currentDate = Carbon::now()->format('Y-m-d');
 
-        return view('admin.bookingList.index', compact('booking'));
+        return view('admin.bookingList.index', compact('booking','currentDate'));
     }
 
     /**
