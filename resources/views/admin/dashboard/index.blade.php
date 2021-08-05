@@ -14,7 +14,7 @@
 @section('content')
 <div class="row mt--2">
     <!-- Statistic -->
-    <div class="col-md-4">
+    <div class="col-md-3">
         <div class="card full-height">
             <div class="card-body">
                 <div class="row">
@@ -29,7 +29,8 @@
             </div>
         </div>
     </div>
-    <div class="col-md-4">
+    <!-- Statistic -->
+    <div class="col-md-3">
         <div class="card full-height">
             <div class="card-body">
                 <div class="row">
@@ -44,7 +45,8 @@
             </div>
         </div>
     </div>
-    <div class="col-md-4">
+    <!-- Statistic -->
+    <div class="col-md-3">
         <div class="card full-height">
             <div class="card-body">
                 <div class="row">
@@ -59,22 +61,8 @@
             </div>
         </div>
     </div>
-    <div class="col-md-4">
-        <div class="card full-height">
-            <div class="card-body">
-                <div class="row">
-                    <div class="col-md-3">
-                        <i class="fas fa-user-cog fa-5x"></i>
-                    </div>
-                    <div class="col-md-8">
-                        <h2>Dashboard</h2>
-                        <h5>Keterangan</h5>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="col-md-4">
+    <!-- Statistic -->
+    <div class="col-md-3">
         <div class="card full-height">
             <div class="card-body">
                 <div class="row">
