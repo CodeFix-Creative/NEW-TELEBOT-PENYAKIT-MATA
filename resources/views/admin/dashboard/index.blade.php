@@ -17,17 +17,15 @@
     <div class="col-md-6">
         <div class="card full-height">
             <div class="card-body">
-               <div class="row">
-                  <div class="col-md-6">
-                     <i class="fas fa-user-cog fa-5x"></i>
-                  </div>
-               </div>
-               <div class="row">
-                  <div class="col-md-6">
-                     <h2>Dashboard</h2>
-                     <h5>Keterangan</h5>
-                  </div>
-               </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <i class="fas fa-user-cog fa-5x"></i>
+                    </div>
+                    <div class="col-md-6">
+                        <h2>Dashboard</h2>
+                        <h5>Keterangan</h5>
+                    </div>
+                </div>
             </div>
         </div>
     </div>
@@ -37,5 +35,6 @@
 @push('bottom')
 <script>
     $('#basic-datatables').DataTable();
+
 </script>
 @endpush
