@@ -115,7 +115,7 @@ class TelegramController extends Controller
                 $text .= "3. TANGGAL PEMESANAN PART      : ". $status->order_date ."\n";
                 $text .= "4. PART ORIGINAL YANG RUSAK   : ". $status->org_part_desc ."\n";
                 $text .= "5. NOMOR IDENTITAS PART BARU     : ". $status->new_part_no ."\n";
-                $text .= "6. PART BARU YANG SEDANG DI PASANG   : ". $status->new_part_desc ."\n";
+                $text .= "6. PART BARU YANG SEDANG DI PESAN   : ". $status->new_part_desc ."\n";
                 $text .= "7. TANGGAL PART TIBA  : ". $status->allocated_date ."\n";
                 $text .= "8. TANGGAL ESTIMASI PART TIBA     : ". $status->kbo_eta_end ."\n";
                 $text .= "9. DETAIL STATUS PENGERJAAN UNIT - NON TRANSFER: ". $status->final_rma_status ."\n";
