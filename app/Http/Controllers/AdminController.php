@@ -88,9 +88,30 @@ class AdminController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request, User $admin)
     {
-        //
+       dd($admin);
+        $request->validate([
+            'nama' => 'required',
+            'email' => 'required_unless:email,' . $admin->email,
+            'status' => 'required',
+            'role' => 'required',
+        ]);
+
+        $cekEmail = User::where('id', '!=', $admin->id)->where('email', $request->email)->first();
+
+        if($cekEmail) {
+            return redirect()->back()->withInput()->with('toast_error', 'Email yang akan diubah telah digunakan. Silahkan gunakan email lain.');
+        }
+
+         $admin->update([
+            'nama' => $request->nama,
+            'email' => $request->email,
+            'role' => $request->role,
+            'status' => $request->status,
+         ]);
+
+         return redirect()->route('admin.index')->with('toast_success', 'Admin berhasil diubah!');
     }
 
     /**
