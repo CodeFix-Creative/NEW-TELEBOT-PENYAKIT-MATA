@@ -233,7 +233,7 @@ class TelegramController extends Controller
                     ]);
                 } else {
                     $bookingDetail = Booking::where('chat_id', $userId)
-                        ->where('booking_date', Carbon::tomorrow()->format('Y-m-d'))
+                        ->where('booking_date', Carbon::tomorrow()->format('Y-m-d'))->where('status', 'Waiting')
                         ->first();
 
                     $text = "Anda telah melakukan booking service untuk esok hari. \n";
@@ -341,9 +341,9 @@ class TelegramController extends Controller
 
         } else if (in_array($action, $arrBookingTime)) {
             // Cek jadwal booking terlebih dahulu
-            $checkBooking = Booking::where('chat_id', $userId)->where('booking_date', Carbon::tomorrow()->format('Y-m-d'))->first();
+            $checkBooking = Booking::where('chat_id', $userId)->where('booking_date', Carbon::tomorrow()->format('Y-m-d'))->where('status', 'Waiting')->first();
 
-            $checkBooking = Booking::where('chat_id', $userId)->where('booking_date', Carbon::tomorrow()->format('Y-m-d'))->first();
+            // $checkBooking = Booking::where('chat_id', $userId)->where('booking_date', Carbon::tomorrow()->format('Y-m-d'))->first();
 
             if($checkBooking) {
                 if($checkBooking->nama_lengkap == NULL || $checkBooking->no_telp == NULL) {
@@ -360,7 +360,7 @@ class TelegramController extends Controller
                     ]);
                 } else {
                     $bookingDetail = Booking::where('chat_id', $userId)
-                        ->where('booking_date', Carbon::tomorrow()->format('Y-m-d'))
+                        ->where('booking_date', Carbon::tomorrow()->format('Y-m-d'))->where('status', 'Waiting')
                         ->first();
 
                     $text = "Anda telah melakukan booking service untuk esok hari. \n";
