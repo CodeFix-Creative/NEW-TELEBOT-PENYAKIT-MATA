@@ -78,7 +78,7 @@ class TelegramController extends Controller
 
             $file = env('APP_URL') . Storage::url($fileName);
 
-            $this->apiRequestWithFile('sendDocument', [
+            $this->sendDocument([
                 'chat_id' => $userId,
                 'document' => $file,
             ]);
