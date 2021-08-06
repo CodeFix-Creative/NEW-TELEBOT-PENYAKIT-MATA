@@ -108,4 +108,11 @@ class BookingController extends Controller
          return view('admin.bookingList.index' , compact('booking' , 'currentDate'));
       }
     }
+
+    public function downloadExcel($currentDate)
+    {
+       dd($currentDate);
+
+       
+    }
 }
