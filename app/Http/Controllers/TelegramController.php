@@ -233,7 +233,10 @@ class TelegramController extends Controller
                     ]);
                 } else {
                     $text = "Anda telah melakukan booking service untuk esok hari. \n";
-                    $text .= "Berikut jadwal service Anda: \n";
+                    $text .= "Berikut jadwal service Anda: \n\n";
+                    $text .= "Hari/Tanggal: " . Carbon::parse($bookingDetail->booking_date)->isoFormat('dddd, DD MMMM Y') . "\n";
+                    $text .= "Waktu: " . $bookingDetail->booking_time->booking_time . "\n\n";
+                    $text .= "Harap datang ke ASUS Service Center pada hari dan waktu yang telah ditentukan, terima kasih.\n";
 
                     $this->apiRequest('sendMessage', [
                         'chat_id' => $userId,
