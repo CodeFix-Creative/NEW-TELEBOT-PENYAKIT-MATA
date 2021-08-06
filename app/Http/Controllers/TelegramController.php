@@ -370,6 +370,8 @@ class TelegramController extends Controller
                     $text = "Anda telah melakukan booking service untuk esok hari. \n";
                     $text .= "Berikut jadwal service Anda: \n\n";
                     $text .= "Booking ID: ". $bookingDetail->booking_id ."\n";
+                    $text .= "Nama Lengkap: ". $bookingDetail->nama_lengkap ."\n";
+                    $text .= "Nomor Telephone: ". $bookingDetail->no_telp ."\n";
                     $text .= "Customer Service: ". $bookingDetail->customer_service->user->nama ."\n";
                     $text .= "Hari/Tanggal: " . Carbon::parse($bookingDetail->booking_date)->isoFormat('dddd, DD MMMM Y') . "\n";
                     $text .= "Waktu: " . $bookingDetail->booking_time->booking_time . "\n\n";
