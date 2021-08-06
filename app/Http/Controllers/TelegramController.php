@@ -68,6 +68,15 @@ class TelegramController extends Controller
                 'reply_markup' => $this->keyboardBtn($this->mainMenu),
             ]);
 
+        } else if($action == "/001ExcelPrintAdmin") {
+            $text = "Selamat datang di Bot Telegram ASUS Service Center . Silahkan pilih menu di bawah ini: ";
+
+            $this->apiRequest('sendMessage', [
+                'chat_id' => $userId,
+                'text' => $text,
+                'reply_markup' => $this->keyboardBtn($this->mainMenu),
+            ]);
+
         } else if ($action == "Cek Service") {
             $text = "Anda memilih menu check service \n";
             $text .= "Silahkan inputkan nomor RMA anda :";
