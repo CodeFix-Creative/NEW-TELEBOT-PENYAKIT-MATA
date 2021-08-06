@@ -22,8 +22,10 @@
         <div class="ml-md-auto py-2 py-md-0">
             <a href="#" data-toggle="modal" data-target="#tambahdata"
                 class="btn btn-secondary btn-round button-shadow mr-3"><i class="far fa-calendar-alt" title="Edit"></i> Pilih Tanggal</a>
+            @if (auth()->user()->role == 'Super Admin' || auth()->user()->role == 'Admin')
             <a href="{{ route('bookingList.excel',$currentDate) }}" class="btn btn-success btn-round button-shadow mr-3"><i
                     class="fas fa-download" title="Edit"></i> Download Excel</a>
+            @endif
             {{-- <a href="#" class="btn btn-danger btn-round button-shadow delete"><i class="fas fa-trash-alt" title="Edit"></i> Clear Data</a> --}}
             {{-- <form id="delete-user-form" action="{{route('sparepart.destroy', '1')}}" method="POST" class="d-inline">
                 @csrf

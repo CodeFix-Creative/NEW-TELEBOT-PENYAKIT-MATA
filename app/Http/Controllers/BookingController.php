@@ -20,7 +20,12 @@ class BookingController extends Controller
     public function index()
     {
       //   $booking = Booking::where('id_customer_service' , $customerService->id)->where('booking_date' , Carbon::now()->format('Y-m-d'))->get();
-        $booking = Booking::where('booking_date' , Carbon::now()->format('Y-m-d'))->get();
+      if (Auth::user()->role == 'Customer Service') {
+         $customerService = CustomerService::where('users_id' , Auth::user()->id)->first();
+         $booking = Booking::where('booking_date' , Carbon::now()->format('Y-m-d'))->where('id_customer_service' , $customerService->id)->get();
+      }else {
+         $booking = Booking::where('booking_date' , Carbon::now()->format('Y-m-d'))->get();
+      }
         $currentDate = Carbon::now()->format('Y-m-d');
 
         return view('admin.bookingList.index', compact('booking','currentDate'));
