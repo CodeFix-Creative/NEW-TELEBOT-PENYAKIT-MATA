@@ -319,6 +319,15 @@ class TelegramController extends Controller
                 ]);
             } else {
                 // save booking time into the table
+                $saveBooking = Booking::create([
+                    'nama_lengkap' => NULL,
+                    'no_telp' => NULL,
+                    'chat_id' => $userId,
+                    'id_customer_service' => $availableCustomerService->id,
+                    'id_booking_time' => $time->id,
+                    'booking_date' => Carbon::tomorrow()->format('Y-m-d'),
+                    'status' => 'Waiting',
+                ]);
 
                 $text = "Jadwal berhasil dibooking. Silahkan reply chat ini dengan Nama Lengkap dan No Telp Anda dengan format sebagai berikut: \n";
                 $text .= "Nama Lengkap#No Telp\n\n";
@@ -337,8 +346,7 @@ class TelegramController extends Controller
             // update booking detail based on customer's reply by chat id
             $bookingDetail = Booking::where('booking_time', $action)
                 ->where('chat_id', $userId)
-                ->where('booking_date', Carbon::tomorrow()
-                ->format('Y-m-d'))
+                ->where('booking_date', Carbon::tomorrow()->format('Y-m-d'))
                 ->first();
                 
             $bookingDetail->update([
