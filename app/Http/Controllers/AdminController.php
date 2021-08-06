@@ -50,7 +50,7 @@ class AdminController extends Controller
          $user = new User;
          $user->nama = $request->nama;
          $user->email = $request->email;
-         $user->password = 'Admin123';
+         $user->password = bcrypt('Admin123');
          $user->remember_token = Str::random(40);
          $user->role = $request->role;
          $user->status = 'Aktif' ;
