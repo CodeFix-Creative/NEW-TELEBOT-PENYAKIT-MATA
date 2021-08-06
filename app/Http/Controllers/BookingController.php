@@ -101,7 +101,7 @@ class BookingController extends Controller
     {
       //  dd($request->all());
 
-       if(Auth::user()->role == 'Super Admin'){
+       if(Auth::user()->role == 'Super Admin' || Auth::user()->role == 'Admin'){
          $booking = Booking::where('booking_date' , $request->tanggal)->get();
          $currentDate =  $request->tanggal;
 
@@ -109,7 +109,7 @@ class BookingController extends Controller
 
       }if(Auth::user()->role == 'Customer Service'){
          $customerService = CustomerService::where('users_id' , Auth::user()->id)->first();
-         $booking = Booking::where('booking_date' , $request->tanggal)->where('customer_service_id' , $customerService->id)->get();
+         $booking = Booking::where('booking_date' , $request->tanggal)->where('id_customer_service' , $customerService->id)->get();
          $currentDate =  $request->tanggal;
 
          return view('admin.bookingList.index' , compact('booking' , 'currentDate'));
