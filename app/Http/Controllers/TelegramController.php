@@ -356,7 +356,7 @@ class TelegramController extends Controller
                 $customerService = $customerServiceAvailable->first();
                 // Save booking time dan customer service ke dalam tabel
                 Booking::create([
-                    'id' => Carbon::now()->format('Ymd') . sprintf('%08d', $bookingCount),
+                    'id' => Carbon::now()->format('Ymd') . sprintf('%04d', $bookingCount),
                     'nama_lengkap' => NULL,
                     'no_telp' => NULL,
                     'chat_id' => $userId,
