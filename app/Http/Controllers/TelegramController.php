@@ -220,9 +220,19 @@ class TelegramController extends Controller
             $text .= "Silahkan pilih waktu yang tersedia. \n";
             $text .= "Jika tidak muncul, berarti booking service sudah full. Silahkan datang langsung ke Asus Service Center terdekat. \n";
 
+            $bookedTime = Booking::where('booking_date', Carbon::tomorrow()->format('Y-m-d'))->pluck('id_booking_time');
+            $availableBookingTime = BookingTime::whereNotIn('id', $bookedTime)->pluck('booking_time');
+
+            $btn = [];
+
+            foreach($availableBookingTime as $value) {
+                $btn[] = ["$value"];
+            }
+
             $this->apiRequest('sendMessage', [
                 'chat_id' => $userId,
                 'text' => $text,
+                'reply_markup' => $this->keyboardBtn($btn),
             ]);
         } else if (in_array($action, $arrPart)) {
             $part = Part::select('type_unit')->distinct()->where('product_group', $action)->get();
