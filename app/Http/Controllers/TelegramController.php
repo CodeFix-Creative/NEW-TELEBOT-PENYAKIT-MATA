@@ -253,32 +253,14 @@ class TelegramController extends Controller
                 $text .= "Silahkan pilih waktu yang tersedia. \n";
                 $text .= "Jika tidak muncul, berarti booking service sudah full. Silahkan datang langsung ke Asus Service Center terdekat. \n";
 
-                $customerService = CustomerService::all();
-                // checking
-                foreach ($customerService as $customerService) {
-                    if (Booking::where('id_customer_service' , $customerService->id)->where('booking_date' , Carbon::tomorrow()->format('Y-m-d'))->exists() == true ) {
-                        $bookingTime = BookingTime::all();
-                        // $booking = Booking::where('id_customer_service' , $customerService->id)->where('booking_date' , Carbon::tomorrow()->format('Y-m-d'))->get();
+                $bookedTime = Booking::where('booking_date', Carbon::tomorrow()->format('Y-m-d'))->pluck('id_booking_time');
+                $availableBookingTime = BookingTime::whereNotIn('id', $bookedTime)->pluck('booking_time');
 
-                        foreach ($bookingTime as $bookingTime) {
-                            if (Booking::where('id_customer_service' , $customerService->id)->where('booking_date' , Carbon::tomorrow()->format('Y-m-d'))->where('id_booking_time',$bookingTime->id)->exists() == false) {
-                                if (!in_array($bookingTime->booking_time, $btn)) {
-                                    $btn[] = ["$bookingTime->booking_time"];
-                                }
-                            }
-                        }
-                    } else {
-                        $bookingTime = BookingTime::all();
+                $btn = [];
 
-                        foreach ($bookingTime as $bookingTime) {
-                            if (!in_array($bookingTime->booking_time, $btn)) {
-                                $btn[] = ["$bookingTime->booking_time"];
-                            }
-                        }
-                    }
+                foreach($availableBookingTime as $value) {
+                    $btn[] = ["$value"];
                 }
-
-                $btn = array_unique($btn, SORT_REGULAR);
 
                 $this->apiRequest('sendMessage', [
                     'chat_id' => $userId,
