@@ -128,7 +128,15 @@ class BookingController extends Controller
     public function cancelBooking($bookingid , $currentDate)
     {
       //  dd($currentDate);
-      dd($currentDate);
+      $booking = Booking::where('booking_id' , $bookingid)->first();
+
+      $booking->update([
+         'status' => 'Cancel'
+      ]);
+
+      return redirect()->route('bookingList.index')->with('toast_success', 'Data berhasil diubah!');
+
+      // dd($currentDate);
       
 
        
