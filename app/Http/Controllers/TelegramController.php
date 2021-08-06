@@ -253,6 +253,7 @@ class TelegramController extends Controller
                 $text .= "Silahkan pilih waktu yang tersedia. \n";
                 $text .= "Jika tidak muncul, berarti booking service sudah full. Silahkan datang langsung ke Asus Service Center terdekat. \n";
 
+                $customerService = CustomerService::all();
                 // checking
                 foreach ($customerService as $customerService) {
                     if (Booking::where('id_customer_service' , $customerService->id)->where('booking_date' , Carbon::tomorrow()->format('Y-m-d'))->exists() == true ) {
