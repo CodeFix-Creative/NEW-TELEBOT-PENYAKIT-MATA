@@ -216,24 +216,52 @@ class TelegramController extends Controller
             ]);
 
         } else if ($action == "Booking Service") {
-            $text = "Anda memilih menu booking service. \n";
-            $text .= "Silahkan pilih waktu yang tersedia. \n";
-            $text .= "Jika tidak muncul, berarti booking service sudah full. Silahkan datang langsung ke Asus Service Center terdekat. \n";
+            $checkBooking = Booking::where('chat_id', $userId)->where('booking_date', Carbon::tomorrow()->format('Y-m-d'))->first();
 
-            $bookedTime = Booking::where('booking_date', Carbon::tomorrow()->format('Y-m-d'))->pluck('id_booking_time');
-            $availableBookingTime = BookingTime::whereNotIn('id', $bookedTime)->pluck('booking_time');
+            if($checkBooking) {
+                if($checkBooking->nama_lengkap == NULL || $checkBooking->no_telp == NULL) {
+                    $text = "Anda telah melakukan booking service untuk esok hari, ";
+                    $text .= "Namun Anda belum menginputkan Nama Lengkap dan No Telp Anda. \n";
+                    $text .= "Silahkan reply chat ini dengan Nama Lengkap dan No Telp Anda dengan format sebagai berikut: \n";
+                    $text .= "Nama Lengkap#No Telp\n\n";
+                    $text .= "Contoh: \n";
+                    $text .= "Budi Setiawan#081xxxxxxxxx\n";
 
-            $btn = [];
+                    $this->apiRequest('sendMessage', [
+                        'chat_id' => $userId,
+                        'text' => $text,
+                    ]);
+                } else {
+                    $text = "Anda telah melakukan booking service untuk esok hari. \n";
+                    $text .= "Berikut jadwal service Anda: \n";
 
-            foreach($availableBookingTime as $value) {
-                $btn[] = ["$value"];
+                    $this->apiRequest('sendMessage', [
+                        'chat_id' => $userId,
+                        'text' => $text,
+                    ]);
+                }
+
+            } else {
+                $text = "Anda memilih menu booking service. \n";
+                $text .= "Silahkan pilih waktu yang tersedia. \n";
+                $text .= "Jika tidak muncul, berarti booking service sudah full. Silahkan datang langsung ke Asus Service Center terdekat. \n";
+
+                $bookedTime = Booking::where('booking_date', Carbon::tomorrow()->format('Y-m-d'))->pluck('id_booking_time');
+                $availableBookingTime = BookingTime::whereNotIn('id', $bookedTime)->pluck('booking_time');
+
+                $btn = [];
+
+                foreach($availableBookingTime as $value) {
+                    $btn[] = ["$value"];
+                }
+
+                $this->apiRequest('sendMessage', [
+                    'chat_id' => $userId,
+                    'text' => $text,
+                    'reply_markup' => $this->keyboardBtn($btn),
+                ]);
             }
 
-            $this->apiRequest('sendMessage', [
-                'chat_id' => $userId,
-                'text' => $text,
-                'reply_markup' => $this->keyboardBtn($btn),
-            ]);
         } else if (in_array($action, $arrPart)) {
             $part = Part::select('type_unit')->distinct()->where('product_group', $action)->get();
 
