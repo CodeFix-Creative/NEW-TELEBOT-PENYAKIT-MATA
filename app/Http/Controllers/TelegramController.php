@@ -351,8 +351,8 @@ class TelegramController extends Controller
 
             if($checkBooking) {
                 if($checkBooking->nama_lengkap == NULL || $checkBooking->no_telp == NULL) {
-                    $text = "Anda telah melakukan booking service untuk esok hari, ";
-                    $text .= "Namun Anda belum menginputkan Nama Lengkap dan No Telp Anda. \n";
+                    $text = "Anda sebelumnya telah melakukan booking service untuk esok hari untuk jadwal " . $checkBooking->booking_time->booking_time . ", ";
+                    $text .= "namun Anda belum menginputkan Nama Lengkap dan No Telp Anda. \n";
                     $text .= "Silahkan reply chat ini dengan Nama Lengkap dan No Telp Anda dengan format sebagai berikut: \n";
                     $text .= "Nama Lengkap#No Telp\n\n";
                     $text .= "Contoh: \n";
