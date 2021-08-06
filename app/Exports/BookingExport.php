@@ -27,7 +27,7 @@ class BookingExport implements FromView , ShouldAutoSize , WithStyles
       public function view(): View
       { 
          $booking = Booking::where('booking_date' , $this->currentDate)->get();
-         return view('excel.booking', compact('booking'));
+         return view('admin.excel.booking', compact('booking'));
       }
 
       public function styles(Worksheet $sheet)
