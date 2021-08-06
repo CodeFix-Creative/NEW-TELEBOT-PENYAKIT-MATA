@@ -340,35 +340,25 @@ class TelegramController extends Controller
             ]);
 
         } else if (in_array($action, $arrBookingTime)) {
-            $time = BookingTime::where('booking_time', $action)->first();
-            $booking = Booking::where('id_booking_time', $time->id)->where('booking_date', Carbon::tomorrow()->format('Y-m-d'))->first();
-            $bookedCustomerService = Booking::where('booking_date', Carbon::tomorrow()->format('Y-m-d'))->pluck('id_customer_service');
-            $availableCustomerService = CustomerService::inRandomOrder()->whereNotIn('id', $bookedCustomerService)->first();
-            
-            if($booking) {
-                $text = "Jadwal tidak tersedia atau sudah dibooking, silahkan pilih jadwal lainnya. \n";
-
-                $this->apiRequest('sendMessage', [
-                    'chat_id' => $userId,
-                    'text' => $text,
-                    'reply_markup' => $this->keyboardBtn($this->mainMenu),
-                ]);
-            } else if( ! $availableCustomerService) {
-                $text = "Customer Service saat ini tidak tersedia untuk dibooking pada esok hari. Silahkan coba lagi keesokan harinya.";
-
-                $this->apiRequest('sendMessage', [
-                    'chat_id' => $userId,
-                    'text' => $text,
-                    'reply_markup' => $this->keyboardBtn($this->mainMenu),
-                ]);
-            } else {
-                // save booking time into the table
-                $saveBooking = Booking::create([
+            // Ambil data booking time
+            $bookingTime = BookingTime::where('booking_time', $action)->first();
+            // Pilih id customer service yang tidak tersedia pada booking time
+            $customerServiceUnavailable = Booking::where('id_booking_time', $bookingTime->id)
+                ->where('booking_date', Carbon::tomorrow()->format('Y-m-d'))
+                ->pluck('id_customer_service');
+            // Pilih id customer service yang tersedia
+            $customerServiceAvailable = CustomerService::inRandomOrder()->whereNotIn('id', $customerServiceUnavailable);
+            // Jika ada yang tersedia, maka 
+            if($customerServiceAvailable->get()->count() > 0) {
+                // Ambil data customer service yang pertama
+                $customerService = $customerServiceAvailable->first();
+                // Save booking time dan customer service ke dalam tabel
+                Booking::create([
                     'nama_lengkap' => NULL,
                     'no_telp' => NULL,
                     'chat_id' => $userId,
-                    'id_customer_service' => $availableCustomerService->id,
-                    'id_booking_time' => $time->id,
+                    'id_customer_service' => $customerService->id,
+                    'id_booking_time' => $bookingTime->id,
                     'booking_date' => Carbon::tomorrow()->format('Y-m-d'),
                     'status' => 'Waiting',
                 ]);
@@ -381,6 +371,14 @@ class TelegramController extends Controller
                 $this->apiRequest('sendMessage', [
                     'chat_id' => $userId,
                     'text' => $text,
+                ]);
+            } else {
+                $text = "Jadwal tidak tersedia atau sudah dibooking, silahkan pilih jadwal lainnya. \n";
+
+                $this->apiRequest('sendMessage', [
+                    'chat_id' => $userId,
+                    'text' => $text,
+                    'reply_markup' => $this->keyboardBtn($this->mainMenu),
                 ]);
             }
             
