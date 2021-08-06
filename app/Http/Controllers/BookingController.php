@@ -125,7 +125,7 @@ class BookingController extends Controller
        
     }
 
-    public function cancel($bookingid , $currentDate)
+    public function cancelBooking($bookingid , $currentDate)
     {
       //  dd($currentDate);
       dd($currentDate);
@@ -134,7 +134,7 @@ class BookingController extends Controller
        
     }
 
-    public function done($bookingid , $currentDate)
+    public function doneBooking($bookingid , $currentDate)
     {
       //  dd($currentDate);
 
