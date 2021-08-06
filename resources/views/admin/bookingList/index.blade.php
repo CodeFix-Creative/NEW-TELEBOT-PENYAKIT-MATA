@@ -96,8 +96,8 @@
                                         @endif
                                     </td>
                                     <td>
-                                        <a href="#!" class="btn btn-success btn-sm float-left" title="Done"><i class="fas fa-check"></i></a>
-                                        <a href="#!" class="btn btn-danger btn-sm ml-2" title="Cancel"><i class="fas fa-times"></i></a>
+                                        <a href="{{ route('bookingList.done' , $$booking->booking_id , $currentDate) }}" class="btn btn-success btn-sm float-left" title="Done"><i class="fas fa-check"></i></a>
+                                        <a href="{{ route('bookingList.cancel' , $$booking->booking_id , $currentDate) }}" class="btn btn-danger btn-sm ml-2" title="Cancel"><i class="fas fa-times"></i></a>
                                     </td>
                                 </tr>
                                 @php
