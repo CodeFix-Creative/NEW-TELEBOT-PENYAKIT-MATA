@@ -389,6 +389,7 @@ class TelegramController extends Controller
                 // Pilih id customer service yang tidak tersedia pada booking time
                 $customerServiceUnavailable = Booking::where('id_booking_time', $bookingTime->id)
                     ->where('booking_date', Carbon::tomorrow()->format('Y-m-d'))
+                    ->whereNotIn('status', ['Cancel'])
                     ->pluck('id_customer_service');
                 // Pilih id customer service yang tersedia
                 $customerServiceAvailable = CustomerService::inRandomOrder()->whereNotIn('id', $customerServiceUnavailable);
