@@ -82,14 +82,11 @@ class TelegramController extends Controller
             $mimeType = Storage::mimeType($fileName);
             
             $parameters = [
-                'chat_id' => '1295868810',
+                'chat_id' => $userId,
                 'document' => curl_file_create($file, $mimeType, $fileName),
             ];
 
-            $this->apiRequest('sendDocument', [
-                'chat_id' => $userId,
-                'document' => $file,
-            ]);
+            $this->sendDocument($parameters);
 
         } else if ($action == "Cek Service") {
             $text = "Anda memilih menu check service \n";
