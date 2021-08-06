@@ -146,7 +146,15 @@ class BookingController extends Controller
     {
       //  dd($currentDate);
 
-       dd($bookingid);
+      //  dd($bookingid);
+
+      $booking = Booking::where('booking_id' , $bookingid)->first();
+
+      $booking->update([
+         'status' => 'Done'
+      ]);
+
+      return redirect()->route('bookingList.index')->with('toast_success', 'Data berhasil diubah!');
 
        
     }
