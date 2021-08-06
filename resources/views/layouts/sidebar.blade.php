@@ -23,13 +23,16 @@
                         <p>Dashboard</p>
                     </a>
                 </li>
-                @if (auth()->user()->role == 'Super Admin' || auth()->user()->role == 'Admin')
+                @if (auth()->user()->role == 'Super Admin')
                 <li class="nav-item @yield('admin')">
                     <a href="{{ route('admin.index') }}" class="collapsed" aria-expanded="false">
                         <i class="fas fa-users-cog"></i>
                         <p>Admin</p>
                     </a>
                 </li>
+                @endif
+                
+                @if (auth()->user()->role == 'Super Admin' || auth()->user()->role == 'Admin')
                 <li class="nav-item @yield('customer service')">
                     <a href="{{ route('customerservice.index') }}" class="collapsed" aria-expanded="false">
                         <i class="fas fa-headset"></i>
