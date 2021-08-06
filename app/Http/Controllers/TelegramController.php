@@ -254,6 +254,7 @@ class TelegramController extends Controller
                 $text .= "Jika tidak muncul, berarti booking service sudah full. Silahkan datang langsung ke Asus Service Center terdekat. \n";
 
                 $customerService = CustomerService::all();
+                $bookingTimeAvailableArr = [];
                 $btn = [];
 
                 // Load semua data customer service
@@ -273,15 +274,22 @@ class TelegramController extends Controller
                         $bookingTimeAvailable = BookingTime::whereNotIn('id', $bookingTimeUnavailable)->pluck('booking_time');
                         // Loop booking time yang tersedia
                         foreach($bookingTimeAvailable as $bta) {
-                            $btn[] = [$bta];
+                            // Cek apakah booking time sudah ada dalam array booking time yang tersedia
+                            if( ! in_array($bta, $bookingTimeAvailableArr)) {
+                                // Masukkan booking time yang tersedia ke dalam array
+                                $bookingTimeAvailableArr[] = $bta;
+                            }
                         }
                     }
                 }
                 
                 // Urutkan booking time yang tersedia berdasarkan waktu
-                sort($btn);
-                // Hilangkan booking time yang duplikat
-                $btn = array_unique($btn, SORT_REGULAR);
+                sort($bookingTimeAvailableArr);
+                
+                // Loop array booking time agar sesuai dengan format button telegram
+                foreach($bookingTimeAvailableArr as $b) {
+                    $btn[] = [$b];
+                }
 
                 $this->apiRequest('sendMessage', [
                     'chat_id' => $userId,
