@@ -42,8 +42,8 @@ Route::prefix('admin')->middleware('auth')->group(function(){
    Route::resource('bookingList', App\Http\Controllers\BookingController::class);
    Route::post('bookingList-tanggal' , [App\Http\Controllers\BookingController::class , 'bookingListTanggal'])->name('bookingList.tanggal');
    Route::get('bookingList-tanggal/{currentDate}' , [App\Http\Controllers\BookingController::class , 'downloadExcel'])->name('bookingList.excel');
-   Route::get('bookingList-cancel/{bookingid}/{currentDate}' , [App\Http\Controllers\BookingController::class , 'cancelBooking'])->name('bookingList.cancel');
-   Route::get('bookingList-done/{bookingid}/{currentDate}' , [App\Http\Controllers\BookingController::class , 'doneBooking'])->name('bookingList.done');
+   Route::get('bookingList-cancel/{data}' , [App\Http\Controllers\BookingController::class , 'cancelBooking'])->name('bookingList.cancel');
+   Route::get('bookingList-done/{data}' , [App\Http\Controllers\BookingController::class , 'doneBooking'])->name('bookingList.done');
 
    Route::get('change-password' ,  [App\Http\Controllers\UserController::class, 'index'])->name('change_password.index');
    Route::post('change-password' ,  [App\Http\Controllers\UserController::class, 'update'])->name('change_password.update');
