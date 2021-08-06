@@ -73,10 +73,18 @@ class TelegramController extends Controller
 
         } else if($action == "/001ExcelPrintAdmin") {
             $currentDate = date('Y-m-d');
+        
             $fileName = 'Report-Booking-'. $currentDate .'.xlsx';
+            
             Excel::store(new BookingExport($currentDate), $fileName);
-
+            
             $file = env('APP_URL') . Storage::url($fileName);
+            $mimeType = Storage::mimeType($fileName);
+            
+            $parameters = [
+                'chat_id' => '1295868810',
+                'document' => curl_file_create($file, $mimeType, $fileName),
+            ];
 
             $this->apiRequest('sendDocument', [
                 'chat_id' => $userId,
