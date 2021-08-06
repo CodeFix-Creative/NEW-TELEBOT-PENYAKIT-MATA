@@ -113,6 +113,8 @@ class BookingController extends Controller
     {
        dd($currentDate);
 
+       return Excel::download(new BookingExport($currentDate), 'Report-Booking-'. $currentDate .'.xlsx');
+
        
     }
 }
