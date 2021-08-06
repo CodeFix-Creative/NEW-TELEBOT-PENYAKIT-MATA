@@ -449,7 +449,7 @@ class TelegramController extends Controller
             $text .= "Booking ID: ". $bookingDetail->booking_id ."\n";
             $text .= "Nama Lengkap: ". $bookingDetail->nama_lengkap ."\n";
             $text .= "Nomor Telephone: ". $bookingDetail->no_telp ."\n";
-            $text .= "Customer Service: ". $bookingDetail->customer_service->user->nama ."\n";
+            $text .= "Customer Service: ". $bookingDetail->customer_service->user->nama ."\n\n";
             $text .= "Harap datang ke ASUS Service Center pada hari dan waktu yang telah ditentukan, terima kasih.\n";
 
             $this->apiRequest('sendMessage', [
