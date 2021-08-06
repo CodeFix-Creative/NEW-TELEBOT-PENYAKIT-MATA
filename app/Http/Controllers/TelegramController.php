@@ -350,10 +350,13 @@ class TelegramController extends Controller
             $customerServiceAvailable = CustomerService::inRandomOrder()->whereNotIn('id', $customerServiceUnavailable);
             // Jika ada yang tersedia, maka 
             if($customerServiceAvailable->get()->count() > 0) {
+                // Hitung data booking pada hari esok
+                $bookingCount = Booking::where('booking_date', Carbon::tomorrow()->format('Y-m-d'))->count();
                 // Ambil data customer service yang pertama
                 $customerService = $customerServiceAvailable->first();
                 // Save booking time dan customer service ke dalam tabel
                 Booking::create([
+                    'id' => Carbon::now()->format('Ymd') . sprintf('%08d', $bookingCount),
                     'nama_lengkap' => NULL,
                     'no_telp' => NULL,
                     'chat_id' => $userId,
