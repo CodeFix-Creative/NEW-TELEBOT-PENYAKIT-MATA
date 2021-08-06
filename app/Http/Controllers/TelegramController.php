@@ -253,14 +253,35 @@ class TelegramController extends Controller
                 $text .= "Silahkan pilih waktu yang tersedia. \n";
                 $text .= "Jika tidak muncul, berarti booking service sudah full. Silahkan datang langsung ke Asus Service Center terdekat. \n";
 
-                $bookedTime = Booking::where('booking_date', Carbon::tomorrow()->format('Y-m-d'))->pluck('id_booking_time');
-                $availableBookingTime = BookingTime::whereNotIn('id', $bookedTime)->pluck('booking_time');
-
+                $customerService = CustomerService::all();
                 $btn = [];
 
-                foreach($availableBookingTime as $value) {
-                    $btn[] = ["$value"];
+                // Load semua data customer service
+                foreach ($customerService as $cs) {
+                    $bookingTimeUnavailable = [];
+                    // Cek data booking service per customer service
+                    $booking = $cs->booking->where('booking_date' , Carbon::tomorrow()->format('Y-m-d'));
+                    // Jika data booking untuk hari esok ada
+                    if($booking->count() > 0) {
+                        // Maka loop data booking
+                        foreach($booking as $b) {
+                            // Ambil id_booking_time untuk dimasukkan ke dalam booking time yang tidak tersedia
+                            $bookingTimeUnavailable[] = $b->id_booking_time;
+                        }
+                        
+                        // Ambil booking time yang tersedia 
+                        $bookingTimeAvailable = BookingTime::whereNotIn('id', $bookingTimeUnavailable)->pluck('booking_time');
+                        // Loop booking time yang tersedia
+                        foreach($bookingTimeAvailable as $bta) {
+                            $btn[] = [$bta];
+                        }
+                    }
                 }
+                
+                // Urutkan booking time yang tersedia berdasarkan waktu
+                sort($btn);
+                // Hilangkan booking time yang duplikat
+                $btn = array_unique($btn, SORT_REGULAR);
 
                 $this->apiRequest('sendMessage', [
                     'chat_id' => $userId,
