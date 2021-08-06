@@ -74,7 +74,9 @@ class TelegramController extends Controller
             $currentDate = date('Y-m-d');
             $text = "Selamat datang di Bot Telegram ASUS Service Center . Silahkan pilih menu di bawah ini: ";
 
-            $file = Excel::download(new BookingExport($currentDate), 'Report-Booking-'. $currentDate .'.xlsx');
+            Excel::store(new BookingExport($currentDate), 'Report-Booking-'. $currentDate .'.xlsx');
+
+            $file = Storage::disk('local')->path('Report-Booking-2021-08-07.xlsx');
 
             $this->apiRequest('sendDocument', [
                 'chat_id' => $userId,
