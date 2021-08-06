@@ -77,7 +77,7 @@ class TelegramController extends Controller
 
             Excel::store(new BookingExport($currentDate), 'Report-Booking-'. $currentDate .'.xlsx');
 
-            $file = Storage::url('Report-Booking-'. $currentDate .'.xlsx');
+            $file = env('APP_URL') . Storage::url('Report-Booking-'. $currentDate .'.xlsx');
 
             $this->apiRequest('sendDocument', [
                 'chat_id' => $userId,
