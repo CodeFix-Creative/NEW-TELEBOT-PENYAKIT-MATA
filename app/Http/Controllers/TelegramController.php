@@ -340,49 +340,86 @@ class TelegramController extends Controller
             ]);
 
         } else if (in_array($action, $arrBookingTime)) {
-            // Ambil data booking time
-            $bookingTime = BookingTime::where('booking_time', $action)->first();
-            // Pilih id customer service yang tidak tersedia pada booking time
-            $customerServiceUnavailable = Booking::where('id_booking_time', $bookingTime->id)
-                ->where('booking_date', Carbon::tomorrow()->format('Y-m-d'))
-                ->pluck('id_customer_service');
-            // Pilih id customer service yang tersedia
-            $customerServiceAvailable = CustomerService::inRandomOrder()->whereNotIn('id', $customerServiceUnavailable);
-            // Jika ada yang tersedia, maka 
-            if($customerServiceAvailable->get()->count() > 0) {
-                // Hitung data booking pada hari esok
-                $bookingCount = Booking::where('booking_date', Carbon::tomorrow()->format('Y-m-d'))->count();
-                // Ambil data customer service yang pertama
-                $customerService = $customerServiceAvailable->first();
-                // Save booking time dan customer service ke dalam tabel
-                Booking::create([
-                    'booking_id' => Carbon::tomorrow()->format('ymd') . sprintf('%04d', ++$bookingCount),
-                    'nama_lengkap' => NULL,
-                    'no_telp' => NULL,
-                    'chat_id' => $userId,
-                    'id_customer_service' => $customerService->id,
-                    'id_booking_time' => $bookingTime->id,
-                    'booking_date' => Carbon::tomorrow()->format('Y-m-d'),
-                    'status' => 'Waiting',
-                ]);
+            // Cek jadwal booking terlebih dahulu
+            $checkBooking = Booking::where('chat_id', $userId)->where('booking_date', Carbon::tomorrow()->format('Y-m-d'))->first();
 
-                $text = "Jadwal berhasil dibooking. Silahkan reply chat ini dengan Nama Lengkap dan No Telp Anda dengan format sebagai berikut: \n";
-                $text .= "Nama Lengkap#No Telp\n\n";
-                $text .= "Contoh: \n";
-                $text .= "Budi Setiawan#081xxxxxxxxx\n";
+            $checkBooking = Booking::where('chat_id', $userId)->where('booking_date', Carbon::tomorrow()->format('Y-m-d'))->first();
 
-                $this->apiRequest('sendMessage', [
-                    'chat_id' => $userId,
-                    'text' => $text,
-                ]);
+            if($checkBooking) {
+                if($checkBooking->nama_lengkap == NULL || $checkBooking->no_telp == NULL) {
+                    $text = "Anda telah melakukan booking service untuk esok hari, ";
+                    $text .= "Namun Anda belum menginputkan Nama Lengkap dan No Telp Anda. \n";
+                    $text .= "Silahkan reply chat ini dengan Nama Lengkap dan No Telp Anda dengan format sebagai berikut: \n";
+                    $text .= "Nama Lengkap#No Telp\n\n";
+                    $text .= "Contoh: \n";
+                    $text .= "Budi Setiawan#081xxxxxxxxx\n";
+
+                    $this->apiRequest('sendMessage', [
+                        'chat_id' => $userId,
+                        'text' => $text,
+                    ]);
+                } else {
+                    $bookingDetail = Booking::where('chat_id', $userId)
+                        ->where('booking_date', Carbon::tomorrow()->format('Y-m-d'))
+                        ->first();
+
+                    $text = "Anda telah melakukan booking service untuk esok hari. \n";
+                    $text .= "Berikut jadwal service Anda: \n\n";
+                    $text .= "Hari/Tanggal: " . Carbon::parse($bookingDetail->booking_date)->isoFormat('dddd, DD MMMM Y') . "\n";
+                    $text .= "Waktu: " . $bookingDetail->booking_time->booking_time . "\n\n";
+                    $text .= "Harap datang ke ASUS Service Center pada hari dan waktu yang telah ditentukan, terima kasih.\n";
+
+                    $this->apiRequest('sendMessage', [
+                        'chat_id' => $userId,
+                        'text' => $text,
+                    ]);
+                }
+
             } else {
-                $text = "Jadwal tidak tersedia atau sudah dibooking, silahkan pilih jadwal lainnya. \n";
+                // Ambil data booking time
+                $bookingTime = BookingTime::where('booking_time', $action)->first();
+                // Pilih id customer service yang tidak tersedia pada booking time
+                $customerServiceUnavailable = Booking::where('id_booking_time', $bookingTime->id)
+                    ->where('booking_date', Carbon::tomorrow()->format('Y-m-d'))
+                    ->pluck('id_customer_service');
+                // Pilih id customer service yang tersedia
+                $customerServiceAvailable = CustomerService::inRandomOrder()->whereNotIn('id', $customerServiceUnavailable);
+                // Jika ada yang tersedia, maka 
+                if($customerServiceAvailable->get()->count() > 0) {
+                    // Hitung data booking pada hari esok
+                    $bookingCount = Booking::where('booking_date', Carbon::tomorrow()->format('Y-m-d'))->count();
+                    // Ambil data customer service yang pertama
+                    $customerService = $customerServiceAvailable->first();
+                    // Save booking time dan customer service ke dalam tabel
+                    Booking::create([
+                        'booking_id' => Carbon::tomorrow()->format('ymd') . sprintf('%04d', ++$bookingCount),
+                        'nama_lengkap' => NULL,
+                        'no_telp' => NULL,
+                        'chat_id' => $userId,
+                        'id_customer_service' => $customerService->id,
+                        'id_booking_time' => $bookingTime->id,
+                        'booking_date' => Carbon::tomorrow()->format('Y-m-d'),
+                        'status' => 'Waiting',
+                    ]);
 
-                $this->apiRequest('sendMessage', [
-                    'chat_id' => $userId,
-                    'text' => $text,
-                    'reply_markup' => $this->keyboardBtn($this->mainMenu),
-                ]);
+                    $text = "Jadwal berhasil dibooking. Silahkan reply chat ini dengan Nama Lengkap dan No Telp Anda dengan format sebagai berikut: \n";
+                    $text .= "Nama Lengkap#No Telp\n\n";
+                    $text .= "Contoh: \n";
+                    $text .= "Budi Setiawan#081xxxxxxxxx\n";
+
+                    $this->apiRequest('sendMessage', [
+                        'chat_id' => $userId,
+                        'text' => $text,
+                    ]);
+                } else {
+                    $text = "Jadwal tidak tersedia atau sudah dibooking, silahkan pilih jadwal lainnya. \n";
+
+                    $this->apiRequest('sendMessage', [
+                        'chat_id' => $userId,
+                        'text' => $text,
+                        'reply_markup' => $this->keyboardBtn($this->mainMenu),
+                    ]);
+                }
             }
             
         } else if(strpos($action, '#') == true) {
