@@ -232,6 +232,10 @@ class TelegramController extends Controller
                         'text' => $text,
                     ]);
                 } else {
+                    $bookingDetail = Booking::where('chat_id', $userId)
+                        ->where('booking_date', Carbon::tomorrow()->format('Y-m-d'))
+                        ->first();
+
                     $text = "Anda telah melakukan booking service untuk esok hari. \n";
                     $text .= "Berikut jadwal service Anda: \n\n";
                     $text .= "Hari/Tanggal: " . Carbon::parse($bookingDetail->booking_date)->isoFormat('dddd, DD MMMM Y') . "\n";
