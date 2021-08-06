@@ -284,7 +284,7 @@ class TelegramController extends Controller
                 }
                 
                 // Urutkan booking time yang tersedia berdasarkan waktu
-                sort($btn);
+                sort($bookingTimeAvailableArr);
                 
                 // Loop array booking time agar sesuai dengan format button telegram
                 foreach($bookingTimeAvailableArr as $b) {
