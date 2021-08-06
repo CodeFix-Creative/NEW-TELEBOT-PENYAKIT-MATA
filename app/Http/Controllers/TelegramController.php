@@ -73,16 +73,14 @@ class TelegramController extends Controller
 
         } else if($action == "/001ExcelPrintAdmin") {
             $currentDate = date('Y-m-d');
-            $text = "Selamat datang di Bot Telegram ASUS Service Center . Silahkan pilih menu di bawah ini: ";
+            $fileName = 'Report-Booking-'. $currentDate .'.xlsx';
+            Excel::store(new BookingExport($currentDate), $fileName);
 
-            Excel::store(new BookingExport($currentDate), 'Report-Booking-'. $currentDate .'.xlsx');
+            $file = env('APP_URL') . Storage::url($fileName);
 
-            $file = env('APP_URL') . Storage::url('Report-Booking-'. $currentDate .'.xlsx');
-
-            $this->apiRequest('sendDocument', [
+            $this->apiRequestWithFile('sendDocument', [
                 'chat_id' => $userId,
                 'document' => $file,
-                'reply_markup' => $this->keyboardBtn($this->mainMenu),
             ]);
 
         } else if ($action == "Cek Service") {
