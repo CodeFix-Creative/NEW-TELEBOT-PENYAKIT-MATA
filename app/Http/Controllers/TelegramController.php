@@ -278,11 +278,19 @@ class TelegramController extends Controller
         } else if (in_array($action, $arrBookingTime)) {
             $time = BookingTime::where('booking_time', $action)->first();
             $booking = Booking::where('id_booking_time', $time->id)->where('booking_date', Carbon::tomorrow()->format('Y-m-d'))->first();
-            $bookedCustomerService = Booking::where('id_booking_time', 1)->where('booking_date', Carbon::tomorrow()->format('Y-m-d'))->pluck('id_customer_service');
-            $availableCustomerService = CustomerService::whereNotIn('id', $bookedCustomerService)->inRandomOrder()->first();
+            $bookedCustomerService = Booking::where('booking_date', Carbon::tomorrow()->format('Y-m-d'))->pluck('id_customer_service');
+            $availableCustomerService = CustomerService::inRandomOrder()->whereNotIn('id', $bookedCustomerService)->first();
             
             if($booking) {
                 $text = "Jadwal tidak tersedia atau sudah dibooking, silahkan pilih jadwal lainnya. \n";
+
+                $this->apiRequest('sendMessage', [
+                    'chat_id' => $userId,
+                    'text' => $text,
+                    'reply_markup' => $this->keyboardBtn($this->mainMenu),
+                ]);
+            } else if( ! $availableCustomerService) {
+                $text = "Customer Service saat ini tidak tersedia untuk dibooking pada esok hari. Silahkan coba lagi keesokan harinya.";
 
                 $this->apiRequest('sendMessage', [
                     'chat_id' => $userId,
@@ -300,7 +308,7 @@ class TelegramController extends Controller
                     'booking_date' => Carbon::tomorrow()->format('Y-m-d'),
                     'status' => 'Waiting',
                 ]);
-                
+
                 $text = "Jadwal berhasil dibooking. Silahkan reply chat ini dengan Nama Lengkap dan No Telp Anda dengan format sebagai berikut: \n";
                 $text .= "Nama Lengkap#No Telp\n\n";
                 $text .= "Contoh: \n";
