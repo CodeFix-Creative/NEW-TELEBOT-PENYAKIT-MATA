@@ -249,18 +249,33 @@ class TelegramController extends Controller
                 }
 
             } else {
-                $text = "Anda memilih menu booking service. \n";
-                $text .= "Silahkan pilih waktu yang tersedia. \n";
-                $text .= "Jika tidak muncul, berarti booking service sudah full. Silahkan datang langsung ke Asus Service Center terdekat. \n";
-
-                $bookedTime = Booking::where('booking_date', Carbon::tomorrow()->format('Y-m-d'))->pluck('id_booking_time');
-                $availableBookingTime = BookingTime::whereNotIn('id', $bookedTime)->pluck('booking_time');
-
+                $customerService = CustomerService::all();
                 $btn = [];
 
-                foreach($availableBookingTime as $value) {
-                    $btn[] = ["$value"];
+                // checking
+                foreach ($customerService as $customerService) {
+                    if (Booking::where('id_customer_service' , $customerService->id)->where('booking_date', Carbon::tomorrow()->format('Y-m-d'))->exists() == true ) {
+                        $bookingTime = BookingTime::all();
+
+                        foreach ($bookingTime as $bookingTime) {
+                            if (Booking::where('id_customer_service' , $customerService->id)->where('booking_date' , Carbon::tomorrow()->format('Y-m-d'))->where('id_booking_time',$bookingTime->id)->exists() == false) {
+                                if (!in_array($bookingTime->booking_time, $btn)) {
+                                    $btn[] = ["$bookingTime->booking_time"];
+                                }
+                            }
+                        }
+                    } else {
+                        $bookingTime = BookingTime::all();
+
+                        foreach ($bookingTime as $bookingTime) {
+                            if (!in_array($bookingTime->booking_time, $btn)) {
+                                $btn[] = ["$bookingTime->booking_time"];
+                            }
+                        }
+                    }
                 }
+
+                $btn = array_unique($btn, SORT_REGULAR);
 
                 $this->apiRequest('sendMessage', [
                     'chat_id' => $userId,
