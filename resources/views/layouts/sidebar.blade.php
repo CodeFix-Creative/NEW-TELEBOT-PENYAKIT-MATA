@@ -3,7 +3,8 @@
         <div class="sidebar-content">
             <div class="user">
                 <div class="avatar-sm float-left mr-2">
-                    <img src="https://ui-avatars.com/api/?name={{ Auth::user()->nama ?? 'User' }}" alt="..." class="avatar-img rounded-circle">
+                    <img src="https://ui-avatars.com/api/?name={{ Auth::user()->nama ?? 'User' }}" alt="..."
+                        class="avatar-img rounded-circle">
                 </div>
                 <div class="info">
                     <a data-toggle="collapse" href="#collapseExample" aria-expanded="true">
@@ -22,6 +23,7 @@
                         <p>Dashboard</p>
                     </a>
                 </li>
+                @if (auth()->user()->role == 'Super Admin' || auth()->user()->role == 'Admin')
                 <li class="nav-item @yield('admin')">
                     <a href="{{ route('admin.index') }}" class="collapsed" aria-expanded="false">
                         <i class="fas fa-users-cog"></i>
@@ -52,6 +54,8 @@
                         <p>Booking Time</p>
                     </a>
                 </li>
+                @endif
+
                 <li class="nav-item {{ (request()->is('*bookingList*')) ? 'active' : '' }}">
                     <a href="{{ route('bookingList.index') }}" class="collapsed" aria-expanded="false">
                         <i class="fas fa-calendar-check"></i>
