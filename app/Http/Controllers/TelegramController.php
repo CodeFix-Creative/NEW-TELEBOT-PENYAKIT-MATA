@@ -273,16 +273,16 @@ class TelegramController extends Controller
                             // Ambil id_booking_time untuk dimasukkan ke dalam booking time yang tidak tersedia
                             $bookingTimeUnavailable[] = $b->id_booking_time;
                         }
-                        
-                        // Ambil booking time yang tersedia 
-                        $bookingTimeAvailable = BookingTime::whereNotIn('id', $bookingTimeUnavailable)->pluck('booking_time');
-                        // Loop booking time yang tersedia
-                        foreach($bookingTimeAvailable as $bta) {
-                            // Cek apakah booking time sudah ada dalam array booking time yang tersedia
-                            if( ! in_array($bta, $bookingTimeAvailableArr)) {
-                                // Masukkan booking time yang tersedia ke dalam array
-                                $bookingTimeAvailableArr[] = $bta;
-                            }
+                    }
+
+                    // Ambil booking time yang tersedia 
+                    $bookingTimeAvailable = BookingTime::whereNotIn('id', $bookingTimeUnavailable)->pluck('booking_time');
+                    // Loop booking time yang tersedia
+                    foreach($bookingTimeAvailable as $bta) {
+                        // Cek apakah booking time sudah ada dalam array booking time yang tersedia
+                        if( ! in_array($bta, $bookingTimeAvailableArr)) {
+                            // Masukkan booking time yang tersedia ke dalam array
+                            $bookingTimeAvailableArr[] = $bta;
                         }
                     }
                 }
