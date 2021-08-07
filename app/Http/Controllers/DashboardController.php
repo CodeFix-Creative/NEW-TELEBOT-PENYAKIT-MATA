@@ -29,9 +29,15 @@ class DashboardController extends Controller
          $booking = Booking::where('booking_date' , Carbon::now())->count();
 
          $part = Part::first();
+         if ($part->isEmpty()) {
+            $part = 0;
+         }
          $countPart = count(Part::all());
 
          $service = Service::first();
+         if ($service->isEmpty()) {
+            $service = 0;
+         }
          $countService = count(Service::all());
 
 

@@ -84,7 +84,11 @@
             </div>
             <div>
                <h2>Terakhir Update Service</h2>
+               @if ($service == 0)
+               <h4>Data belum diinput</h4>
+               @else
                <h4>{{ $service->updated_at->translatedFormat('d F Y') }}</h4>
+               @endif
                <h4>Total Data = {{ $countService }}</h4>
             </div>
          </div>
@@ -98,7 +102,11 @@
             </div>
             <div>
                <h2>Terakhir Update Spare Part</h2>
+               @if ($part == 0)
+               <h4>Data belum diinput</h4>
+               @else
                <h4>{{ $part->updated_at->translatedFormat('d F Y') }}</h4>
+               @endif
                <h4>Total Data = {{ $countPart }}</h4>
             </div>
          </div>
