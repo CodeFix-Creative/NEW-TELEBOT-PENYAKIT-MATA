@@ -57,7 +57,7 @@
                                     <th>Booking Time</th>
                                     <th>Booking Date</th>
                                     <th>Status</th>
-                                    <th>Aksi</th>
+                                    <th  style="width:1px;white-space:nowrap;">Aksi</th>
                                 </tr>
                             </thead>
                             <tfoot>
@@ -95,7 +95,7 @@
                                         <span class="badge badge-primary">{{ $booking->status }}</span>
                                         @endif
                                     </td>
-                                    <td>
+                                    <td  style="width:1px;white-space:nowrap;">
                                         <a href="{{ route('bookingList.done' , [ 'bookingid' => $booking->booking_id , 'currentDate' => $currentDate ]) }}" class="btn btn-success btn-sm float-left" title="Done"><i class="fas fa-check"></i></a>
                                         <a href="{{ route('bookingList.cancel' , [ 'bookingid' => $booking->booking_id , 'currentDate' => $currentDate ]) }}" class="btn btn-danger btn-sm ml-2" title="Cancel"><i class="fas fa-times"></i></a>
                                     </td>
