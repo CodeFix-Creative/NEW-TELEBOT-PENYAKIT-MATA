@@ -31,13 +31,13 @@ class DashboardController extends Controller
          $part = Part::first();
          $countPart = count(Part::all());
          if ($countPart = 0) {
-            $part = 0;
+            $part = 'Kosong';
          }
 
          $service = Service::first();
          $countService = count(Service::all());
          if ($countService = 0) {
-            $part = 0;
+            $part = 'Kosong';
          }
 
 
