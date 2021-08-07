@@ -94,6 +94,6 @@ class ServiceController extends Controller
 
     public function exportExcel()
     {
-        return Excel::download(new ServisExport, 'template-service.xlsx');
+        return Excel::download(new ServiceExport, 'template-service.xlsx');
     }
 }
