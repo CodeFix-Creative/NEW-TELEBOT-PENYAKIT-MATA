@@ -479,7 +479,7 @@ class TelegramController extends Controller
                 'reply_markup' => $this->keyboardBtn($this->mainMenu),
             ]);
         } else {
-            $text = "Maaf, menu yang Anda pilih tidak tersedia. silahkan masukkan inputan sesuai arahan atau silahkan pilih menu di bawah ini: ";
+            $text = "maaf, input yang anda masukkan salah, silahkan input sesuai format atau silahkan pilih menu dibawah ini: ";
 
             $this->apiRequest('sendMessage', [
                 'chat_id' => $userId,
