@@ -9,7 +9,7 @@ use Maatwebsite\Excel\Concerns\ShouldAutoSize;
 use Maatwebsite\Excel\Concerns\WithStyles;
 use PhpOffice\PhpSpreadsheet\Worksheet\Worksheet;
 
-class PartExport implements WithHeadings, ShouldAutoSize, WithStyles
+class ServiceExport implements WithHeadings, ShouldAutoSize, WithStyles
 {
     /**
     * @return \Illuminate\Support\Collection
