@@ -240,12 +240,12 @@ class TelegramController extends Controller
 
             if($checkBooking) {
                 if($checkBooking->nama_lengkap == NULL || $checkBooking->no_telp == NULL) {
-                    $text = "Anda telah melakukan booking service untuk esok hari, booking id : ".$checkBooking->booking_id." , ";
+                    $text = "Anda telah melakukan booking service untuk esok hari, ";
                     $text .= "Namun Anda belum menginputkan Nama Lengkap dan No Telp Anda. \n";
                     $text .= "Silahkan reply chat ini dengan Nama Lengkap dan No Telp Anda dengan format sebagai berikut: \n";
-                    $text .= "booking id#Nama Lengkap#No Telp\n\n";
+                    $text .= "Nama Lengkap#No Telp\n\n";
                     $text .= "Contoh: \n";
-                    $text .= "2019xxxxxx#Budi Setiawan#081xxxxxxxxx\n";
+                    $text .= "Budi Setiawan#081xxxxxxxxx\n";
 
                     $this->apiRequest('sendMessage', [
                         'chat_id' => $userId,
@@ -371,12 +371,12 @@ class TelegramController extends Controller
 
             if($checkBooking) {
                 if($checkBooking->nama_lengkap == NULL || $checkBooking->no_telp == NULL) {
-                    $text = "Anda sebelumnya telah melakukan booking service untuk esok hari untuk jadwal " . $checkBooking->booking_time->booking_time . ", booking id :  " . $checkBooking->booking_id . " , ";
+                    $text = "Anda sebelumnya telah melakukan booking service untuk esok hari untuk jadwal " . $checkBooking->booking_time->booking_time . ", ";
                     $text .= "namun Anda belum menginputkan Nama Lengkap dan No Telp Anda. \n";
                     $text .= "Silahkan reply chat ini dengan Nama Lengkap dan No Telp Anda dengan format sebagai berikut: \n";
-                    $text .= "booking id#Nama Lengkap#No Telp\n\n";
+                    $text .= "Nama Lengkap#No Telp\n\n";
                     $text .= "Contoh: \n";
-                    $text .= "2019xxx#Budi Setiawan#081xxxxxxxxx\n";
+                    $text .= "Budi Setiawan#081xxxxxxxxx\n";
 
                     $this->apiRequest('sendMessage', [
                         'chat_id' => $userId,
@@ -420,7 +420,7 @@ class TelegramController extends Controller
                     // Ambil data customer service yang pertama
                     $customerService = $customerServiceAvailable->first();
                     // Save booking time dan customer service ke dalam tabel
-                    $booking = Booking::create([
+                    Booking::create([
                         'booking_id' => Carbon::tomorrow()->format('ymd') . sprintf('%04d', ++$bookingCount),
                         'nama_lengkap' => NULL,
                         'no_telp' => NULL,
@@ -431,11 +431,10 @@ class TelegramController extends Controller
                         'status' => 'Waiting',
                     ]);
 
-                    $text = "Jadwal berhasil dibooking. Booking id anda". $booking->booking_id ."\n";
-                    $text = "Silahkan reply chat ini dengan Nama Lengkap dan No Telp Anda dengan format sebagai berikut: \n";
-                    $text .= "booking id#Nama Lengkap#No Telp\n\n";
+                    $text = "Jadwal berhasil dibooking. Silahkan reply chat ini dengan Nama Lengkap dan No Telp Anda dengan format sebagai berikut: \n";
+                    $text .= "Nama Lengkap#No Telp\n\n";
                     $text .= "Contoh: \n";
-                    $text .= "2019xxx#Budi Setiawan#081xxxxxxxxx\n";
+                    $text .= "Budi Setiawan#081xxxxxxxxx\n";
 
                     $this->apiRequest('sendMessage', [
                         'chat_id' => $userId,
@@ -457,13 +456,13 @@ class TelegramController extends Controller
 
             // update booking detail based on customer's reply by chat id
             $bookingDetail = Booking::where('chat_id', $userId)
-                ->where('booking_id', $customerData[0])
+                ->where('status', 'Waiting')
                 ->where('booking_date', Carbon::tomorrow()->format('Y-m-d'))
                 ->first();
                 
             $bookingDetail->update([
-                'nama_lengkap' => $customerData[1],
-                'no_telp' => $customerData[2],
+                'nama_lengkap' => $customerData[0],
+                'no_telp' => $customerData[1],
             ]);
 
             $text = "Data Anda telah tersimpan. Jadwal service Anda pada: \n\n";
