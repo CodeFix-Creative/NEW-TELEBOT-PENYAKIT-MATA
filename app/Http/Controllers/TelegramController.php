@@ -243,7 +243,7 @@ class TelegramController extends Controller
                     $text = "Anda telah melakukan booking service untuk esok hari, booking id : ".$checkBooking->booking_id." , ";
                     $text .= "Namun Anda belum menginputkan Nama Lengkap dan No Telp Anda. \n";
                     $text .= "Silahkan reply chat ini dengan Nama Lengkap dan No Telp Anda dengan format sebagai berikut: \n";
-                    $text .= "Nama Lengkap#No Telp\n\n";
+                    $text .= "booking id#Nama Lengkap#No Telp\n\n";
                     $text .= "Contoh: \n";
                     $text .= "2019xxxxxx#Budi Setiawan#081xxxxxxxxx\n";
 
@@ -432,7 +432,7 @@ class TelegramController extends Controller
                     ]);
 
                     $text = "Jadwal berhasil dibooking. Booking id anda". $booking->booking_id ."\n";
-                    $text = "Jadwal berhasil dibooking. Silahkan reply chat ini dengan Nama Lengkap dan No Telp Anda dengan format sebagai berikut: \n";
+                    $text = "Silahkan reply chat ini dengan Nama Lengkap dan No Telp Anda dengan format sebagai berikut: \n";
                     $text .= "booking id#Nama Lengkap#No Telp\n\n";
                     $text .= "Contoh: \n";
                     $text .= "2019xxx#Budi Setiawan#081xxxxxxxxx\n";
