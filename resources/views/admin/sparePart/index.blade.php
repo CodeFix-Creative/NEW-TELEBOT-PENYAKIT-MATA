@@ -53,7 +53,7 @@
                                     <th>Part Description</th>
                                     <th>Price</th>
                                     <th>Stock Part</th>
-                                    <th width="5%">Picture</th>
+                                    <th>Picture</th>
                                 </tr>
                             </thead>
                             <tfoot>

@@ -40,7 +40,7 @@
                                 <tr>
                                     <th width="1%">No</th>
                                     <th class="text-center">Booking Time</th>
-                                    <th width="5%">Aksi</th>
+                                    <th >Aksi</th>
                                 </tr>
                             </thead>
                             <tfoot>
