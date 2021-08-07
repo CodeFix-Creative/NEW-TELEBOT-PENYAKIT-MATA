@@ -29,16 +29,16 @@ class DashboardController extends Controller
          $booking = Booking::where('booking_date' , Carbon::now())->count();
 
          $part = Part::first();
-         if ($part->isEmpty()) {
+         $countPart = count(Part::all());
+         if ($countPart = 0) {
             $part = 0;
          }
-         $countPart = count(Part::all());
 
          $service = Service::first();
-         if ($service->isEmpty()) {
-            $service = 0;
-         }
          $countService = count(Service::all());
+         if ($countService = 0) {
+            $part = 0;
+         }
 
 
         return view('admin.dashboard.index', compact('adminAktif','adminTidakAktif','CustomerServiceAktif' , 'CustomerServiceTidakAktif' , 'bookingTime' , 'booking' , 'part' , 'countPart' , 'service', 'countService'));
