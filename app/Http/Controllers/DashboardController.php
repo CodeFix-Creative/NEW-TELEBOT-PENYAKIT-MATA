@@ -30,15 +30,16 @@ class DashboardController extends Controller
 
          $part = Part::first();
          $countPart = count(Part::all());
-         if ($countPart = 0) {
+         if ($countPart == 0) {
             $part = 'Kosong';
          }
-
+         
          $service = Service::first();
          $countService = count(Service::all());
-         if ($countService = 0) {
+         if ($countService == 0) {
             $part = 'Kosong';
          }
+         // dd($service);
 
 
         return view('admin.dashboard.index', compact('adminAktif','adminTidakAktif','CustomerServiceAktif' , 'CustomerServiceTidakAktif' , 'bookingTime' , 'booking' , 'part' , 'countPart' , 'service', 'countService'));
