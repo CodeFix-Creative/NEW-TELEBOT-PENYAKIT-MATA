@@ -37,7 +37,7 @@ class DashboardController extends Controller
          $service = Service::first();
          $countService = count(Service::all());
          if ($countService == 0) {
-            $part = 'Kosong';
+            $service = 'Kosong';
          }
          // dd($service);
 
