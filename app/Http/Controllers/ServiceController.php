@@ -6,7 +6,7 @@ use App\Models\Service;
 use App\Imports\ServiceImport;
 use Illuminate\Http\Request;
 use Maatwebsite\Excel\Facades\Excel;
-use App\Exports\ServiceExport;
+use app\Exports\ServiceExport;
 
 class ServiceController extends Controller
 {
