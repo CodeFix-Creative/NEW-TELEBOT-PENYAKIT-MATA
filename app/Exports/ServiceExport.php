@@ -22,7 +22,6 @@ class ServiceExport implements WithHeadings, ShouldAutoSize, WithStyles
    public function headings(): array
     {
         return [
-            'No',
             'RMA NO 1',
             'RMA ISSUE DATE',
             'SERIAL NO',
