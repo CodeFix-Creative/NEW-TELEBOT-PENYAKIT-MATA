@@ -237,9 +237,9 @@ class TelegramController extends Controller
 
         } else if ($action == "Booking Service") {
             // untuk testing, ganti hari ini ke tanggal yang harinya jumat, sabtu atau minggu
-            // Jumat, 13 Agustus 2021
-            $today = Carbon::parse("2021-08-13");
-            // $today = Carbon::today();
+            // Jumat, 13 Agustus 2021 Jumat, 13 Agustus 2021
+            // $today = Carbon::parse("2021-08-13");
+            $today = Carbon::today();
             $tomorrow = Carbon::tomorrow();
 
             // Jika booking dilakukan pada hari Sabtu atau Minggu,
@@ -385,9 +385,9 @@ class TelegramController extends Controller
 
         } else if (in_array($action, $arrBookingTime)) {
             // untuk testing, ganti hari ini ke tanggal yang harinya jumat, sabtu atau minggu
-            // Jumat
-            $today = Carbon::parse("2021-08-13");
-            // $today = Carbon::today();
+            // Contoh: Jumat, 13 Agustus 2021
+            // $today = Carbon::parse("2021-08-13");
+            $today = Carbon::today();
             $tomorrow = Carbon::tomorrow();
 
             // Jika booking dilakukan pada hari Sabtu atau Minggu,
@@ -495,9 +495,9 @@ class TelegramController extends Controller
             $customerData = explode("#", $action);
 
             // untuk testing, ganti hari ini ke tanggal yang harinya jumat, sabtu atau minggu
-            // Jumat, 13 Agustus 2021
-            $today = Carbon::parse("2021-08-13");
-            // $today = Carbon::today();
+            // Contoh: Jumat, 13 Agustus 2021
+            // $today = Carbon::parse("2021-08-13");
+            $today = Carbon::today();
             $tomorrow = Carbon::tomorrow();
 
             // Jika booking dilakukan pada hari Sabtu atau Minggu,
