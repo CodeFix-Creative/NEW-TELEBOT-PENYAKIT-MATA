@@ -411,7 +411,7 @@ class TelegramController extends Controller
 
             if($checkBooking) {
                 if($checkBooking->nama_lengkap == NULL || $checkBooking->no_telp == NULL) {
-                    $text = "Anda sebelumnya telah melakukan booking service untuk esok hari untuk jadwal " . $checkBooking->booking_time->booking_time . ", ";
+                    $text = "Anda sebelumnya telah melakukan booking service untuk hari " . Carbon::parse($checkBooking->booking_date)->isoFormat('dddd, DD MMMM Y') . " pada jadwal " . $checkBooking->booking_time->booking_time . ", ";
                     $text .= "namun Anda belum menginputkan Nama Lengkap dan No Telp Anda. \n";
                     $text .= "Silahkan reply chat ini dengan Nama Lengkap dan No Telp Anda dengan format sebagai berikut: \n";
                     $text .= "Nama Lengkap#No Telp\n\n";
@@ -499,20 +499,24 @@ class TelegramController extends Controller
                 ->where('status', 'Waiting')
                 ->where('booking_date', Carbon::tomorrow()->format('Y-m-d'))
                 ->first();
-                
-            $bookingDetail->update([
-                'nama_lengkap' => $customerData[0],
-                'no_telp' => $customerData[1],
-            ]);
-
-            $text = "Data Anda telah tersimpan. Jadwal service Anda pada: \n\n";
-            $text .= "Hari/Tanggal: " . Carbon::parse($bookingDetail->booking_date)->isoFormat('dddd, DD MMMM Y') . "\n";
-            $text .= "Waktu: " . $bookingDetail->booking_time->booking_time . "\n\n";
-            $text .= "Booking ID: ". $bookingDetail->booking_id ."\n";
-            $text .= "Nama Lengkap: ". $bookingDetail->nama_lengkap ."\n";
-            $text .= "Nomor Telephone: ". $bookingDetail->no_telp ."\n";
-            $text .= "Customer Service: ". $bookingDetail->customer_service->user->nama ."\n\n";
-            $text .= "Harap datang ke ASUS Service Center pada hari dan waktu yang telah ditentukan, terima kasih.\n";
+            
+            if($bookingDetail) {
+                $bookingDetail->update([
+                    'nama_lengkap' => $customerData[0],
+                    'no_telp' => $customerData[1],
+                ]);
+    
+                $text = "Data Anda telah tersimpan. Jadwal service Anda pada: \n\n";
+                $text .= "Hari/Tanggal: " . Carbon::parse($bookingDetail->booking_date)->isoFormat('dddd, DD MMMM Y') . "\n";
+                $text .= "Waktu: " . $bookingDetail->booking_time->booking_time . "\n\n";
+                $text .= "Booking ID: ". $bookingDetail->booking_id ."\n";
+                $text .= "Nama Lengkap: ". $bookingDetail->nama_lengkap ."\n";
+                $text .= "Nomor Telephone: ". $bookingDetail->no_telp ."\n";
+                $text .= "Customer Service: ". $bookingDetail->customer_service->user->nama ."\n\n";
+                $text .= "Harap datang ke ASUS Service Center pada hari dan waktu yang telah ditentukan, terima kasih.\n";
+            } else {
+                $text = "Anda belum melakukan booking service. Silahkan pilih jadwal service yang tersedia terlebih dahulu.";
+            }
 
             $this->apiRequest('sendMessage', [
                 'chat_id' => $userId,
