@@ -26,7 +26,7 @@ class DashboardController extends Controller
          $CustomerServiceTidakAktif = User::whereStatus('Tidak Aktif')->where('role' ,'Customer Service')->count();
 
          $bookingTime = count(BookingTime::all());
-         $booking = Booking::where('booking_date' , Carbon::now())->count();
+         $booking = Booking::where('booking_date' , Carbon::now()->format('Y-m-d'))->count();
 
          $part = Part::first();
          $countPart = count(Part::all());
