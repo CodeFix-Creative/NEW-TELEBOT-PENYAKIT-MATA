@@ -247,13 +247,13 @@ class TelegramController extends Controller
             // Maka akan dialihkan ke hari Senin
             if($tomorrow->dayOfWeek == 6) {
                 // Jika hari ini adalah Jumat dan esok hari adalah hari Sabtu, maka esok hari + 3 hari
-                $tomorrow->addDays(3);
+                $tomorrow = $today->addDays(3);
             } else if($today->dayOfWeek == 6 || $tomorrow->dayOfWeek == 0) {
                 // Jika hari ini adalah Sabtu dan esok hari adalah hari Minggu, maka esok hari + 2 hari
-                $tomorrow->addDays(2);
+                $tomorrow = $today->addDays(2);
             } else if($today->dayOfWeek == 0) {
                 // Jika hari ini adalah Minggu dan esok hari adalah hari Senin, maka esok hari + 1 hari
-                $tomorrow->addDays(1);
+                $tomorrow = $today->addDays(1);
             }
             
             $checkBooking = Booking::where('chat_id', $userId)->where('booking_date', $tomorrow->format('Y-m-d'))->where('status', 'Waiting')->first();
@@ -395,13 +395,13 @@ class TelegramController extends Controller
             // Maka akan dialihkan ke hari Senin
             if($tomorrow->dayOfWeek == 6) {
                 // Jika hari ini adalah Jumat dan esok hari adalah hari Sabtu, maka esok hari + 3 hari
-                $tomorrow->addDays(3);
+                $tomorrow = $today->addDays(3);
             } else if($today->dayOfWeek == 6 || $tomorrow->dayOfWeek == 0) {
                 // Jika hari ini adalah Sabtu dan esok hari adalah hari Minggu, maka esok hari + 2 hari
-                $tomorrow->addDays(2);
+                $tomorrow = $today->addDays(2);
             } else if($today->dayOfWeek == 0) {
                 // Jika hari ini adalah Minggu dan esok hari adalah hari Senin, maka esok hari + 1 hari
-                $tomorrow->addDays(1);
+                $tomorrow = $today->addDays(1);
             }
             
             // Cek jadwal booking terlebih dahulu
