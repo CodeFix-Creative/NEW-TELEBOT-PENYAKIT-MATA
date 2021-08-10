@@ -273,7 +273,7 @@ class TelegramController extends Controller
                     ]);
                 } else {
                     $bookingDetail = Booking::where('chat_id', $userId)
-                        ->where('booking_date', Carbon::tomorrow()->format('Y-m-d'))->where('status', 'Waiting')
+                        ->where('booking_date', $tomorrow->format('Y-m-d'))->where('status', 'Waiting')
                         ->first();
 
                     $text = "Anda telah melakukan booking service untuk esok hari. \n";
