@@ -494,10 +494,30 @@ class TelegramController extends Controller
         } else if(strpos($action, '#') == true) {
             $customerData = explode("#", $action);
 
+            // untuk testing, ganti hari ini ke tanggal yang harinya jumat, sabtu atau minggu
+            // Jumat, 13 Agustus 2021
+            $today = Carbon::parse("2021-08-13");
+            // $today = Carbon::today();
+            $tomorrow = Carbon::tomorrow();
+
+            // Jika booking dilakukan pada hari Sabtu atau Minggu,
+            // atau jika esok hari booking adalah hari Sabtu atau Minggu, 
+            // Maka akan dialihkan ke hari Senin
+            if($today->dayOfWeek == 5 || $tomorrow->dayOfWeek == 6) {
+                // Jika hari ini adalah Jumat dan esok hari adalah hari Sabtu, maka esok hari + 3 hari
+                $tomorrow = $today->addDays(3);
+            } else if($today->dayOfWeek == 6 || $tomorrow->dayOfWeek == 0) {
+                // Jika hari ini adalah Sabtu dan esok hari adalah hari Minggu, maka esok hari + 2 hari
+                $tomorrow = $today->addDays(2);
+            } else if($today->dayOfWeek == 0) {
+                // Jika hari ini adalah Minggu dan esok hari adalah hari Senin, maka esok hari + 1 hari
+                $tomorrow = $today->addDays(1);
+            }
+            
             // update booking detail based on customer's reply by chat id
             $bookingDetail = Booking::where('chat_id', $userId)
                 ->where('status', 'Waiting')
-                ->where('booking_date', Carbon::tomorrow()->format('Y-m-d'))
+                ->where('booking_date', $tomorrow->format('Y-m-d'))
                 ->first();
             
             if($bookingDetail) {
