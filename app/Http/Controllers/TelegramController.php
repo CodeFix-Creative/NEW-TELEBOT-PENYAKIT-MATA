@@ -102,72 +102,72 @@ class TelegramController extends Controller
 
             // Penjelasan status 1
             if ($status->status_1 == 'FINALTEST') {
-               $status->status_1 = 'Unit dalam penguji/pengetesan terakhir';
+                $status->status_1 = 'Unit dalam penguji/pengetesan terakhir';
             } else if ($status->status_1 == 'REPAIR') {
-               $status->status_1 = 'Unit dalam pengejaan – Diagnosa/Pemasangan part';
-            }else if ($status->status_1 == 'SHIP') {
-               $status->status_1 = 'Unit telah selesai proses perbaikan';
-            }else if ($status->status_1 == 'TRANSFER') {
-               $status->status_1 = 'Unit dikirim untuk proses perbaikan';
-            }else if ($status->status_1 == 'WAIT') {
-               $status->status_1 = 'Unit sedang menunggu part/konfirmasi';
-            }else if ($status->status_1 == 'WAITEX') {
-               $status->status_1 = 'Unit sedang menunggu unit baru/pengganti';
-            }else{
-               $status->status_1;
+                $status->status_1 = 'Unit dalam pengejaan – Diagnosa/Pemasangan part';
+            } else if ($status->status_1 == 'SHIP') {
+                $status->status_1 = 'Unit telah selesai proses perbaikan';
+            } else if ($status->status_1 == 'TRANSFER') {
+                $status->status_1 = 'Unit dikirim untuk proses perbaikan';
+            } else if ($status->status_1 == 'WAIT') {
+                $status->status_1 = 'Unit sedang menunggu part/konfirmasi';
+            } else if ($status->status_1 == 'WAITEX') {
+                $status->status_1 = 'Unit sedang menunggu unit baru/pengganti';
+            } else{
+                $status->status_1;
             }
 
             // Penjelasan status 2
             if ($status->status_2 == 'CLOSED') {
-               $status->status_2 = 'Unit transfer sudah selesai perbaikan dan sudah dikirim';
+                $status->status_2 = 'Unit transfer sudah selesai perbaikan dan sudah dikirim';
             } else if ($status->status_2 == 'REPAIR') {
-               $status->status_2 = 'Unit transfer dalam pengejaan – Diagnosa/Pemasangan part';
-            }else if ($status->status_2 == 'SHIP') {
-               $status->status_2 = 'Unit transfer sudah selesai perbaikan';
-            }else{
-               $status->status_2;
+                $status->status_2 = 'Unit transfer dalam pengejaan – Diagnosa/Pemasangan part';
+            } else if ($status->status_2 == 'SHIP') {
+                $status->status_2 = 'Unit transfer sudah selesai perbaikan';
+            } else {
+                $status->status_2;
             }
 
             // Penjelasan KBO STATUS
             if ($status->kbo_status == 'ALLOCATED') {
-               $status->kbo_status = 'Status part baru teralokasi ke unit';
+                $status->kbo_status = 'Status part baru teralokasi ke unit';
             } else if ($status->kbo_status == 'BOOKED') {
-               $status->kbo_status = 'Status part pesanan sudah diteknisi';
-            }else if ($status->kbo_status == 'READY') {
-               $status->kbo_status = 'Unit transfer sudah selesai perbaikan';
-            }else if ($status->kbo_status == 'CLOSED') {
-               $status->kbo_status = 'Status part rusak sudah dipasang dan diganti oleh teknisi';
-            }else if ($status->kbo_status == 'ORDERED') {
-               $status->kbo_status = 'Status part sedang dalam pemesanan';
-            }else if ($status->kbo_status == 'DROP') {
-               $status->kbo_status = 'Status part tidak jadi dipesan/digunakan';
-            }else{
-               $status->kbo_status;
+                $status->kbo_status = 'Status part pesanan sudah diteknisi';
+            } else if ($status->kbo_status == 'READY') {
+                $status->kbo_status = 'Unit transfer sudah selesai perbaikan';
+            } else if ($status->kbo_status == 'CLOSED') {
+                $status->kbo_status = 'Status part rusak sudah dipasang dan diganti oleh teknisi';
+            } else if ($status->kbo_status == 'ORDERED') {
+                $status->kbo_status = 'Status part sedang dalam pemesanan';
+            } else if ($status->kbo_status == 'DROP') {
+                $status->kbo_status = 'Status part tidak jadi dipesan/digunakan';
+            } else{
+                $status->kbo_status;
             }
 
             // Penjelasan FINAL RMA STATUS
             if ($status->final_rma_status == 'Allocated') {
-               $status->final_rma_status = 'Status unit dalam pemasangan part/Status unit sedang pengetesan';
+                $status->final_rma_status = 'Status unit dalam pemasangan part/Status unit sedang pengetesan';
             } else if ($status->final_rma_status == 'NO KBO') {
-               $status->final_rma_status = 'Status unit masih proses Diagnosa kerusakan';
-            }else if ($status->final_rma_status == 'non-allocate') {
-               $status->final_rma_status = 'Status unit masih menunggu part baru/pengganti';
-            }else if ($status->final_rma_status == 'SHIP') {
-               $status->final_rma_status = 'Status unit telah selesai proses perbaikan';
-            }else if ($status->final_rma_status == 'Transfer - Allocated') {
-               $status->final_rma_status = 'Status unit transfer sudah sampai diservice center tujuan';
-            }else if ($status->final_rma_status == 'Transfer - In Transit from 1st site to 2nd site') {
-               $status->final_rma_status = 'Status unit transfer dalam proses pengiriman service center tujuan';
-            }else if ($status->final_rma_status == 'Transfer - In Transit from 2nd site to 1st site') {
-               $status->final_rma_status = 'Status unit transfer dalam proses pengiriman balik ke service center asal';
-            }else if ($status->final_rma_status == 'Under CB/SWAP Process') {
-               $status->final_rma_status = 'Status unit dalam proses pergantian unit';
-            }else if ($status->final_rma_status == 'Wait for customer') {
-               $status->final_rma_status = 'Status unit menunggu konfirmasi dari pengguna';
-            }else if ($status->final_rma_status == 'Waiting For Carrying Out') {
-               $status->final_rma_status = 'Status unit menunggu untuk diambil pengguna';
-            }else{
-               $status->final_rma_status;
+                $status->final_rma_status = 'Status unit masih proses Diagnosa kerusakan';
+            } else if ($status->final_rma_status == 'non-allocate') {
+                $status->final_rma_status = 'Status unit masih menunggu part baru/pengganti';
+            } else if ($status->final_rma_status == 'SHIP') {
+                $status->final_rma_status = 'Status unit telah selesai proses perbaikan';
+            } else if ($status->final_rma_status == 'Transfer - Allocated') {
+                $status->final_rma_status = 'Status unit transfer sudah sampai diservice center tujuan';
+            } else if ($status->final_rma_status == 'Transfer - In Transit from 1st site to 2nd site') {
+                $status->final_rma_status = 'Status unit transfer dalam proses pengiriman service center tujuan';
+            } else if ($status->final_rma_status == 'Transfer - In Transit from 2nd site to 1st site') {
+                $status->final_rma_status = 'Status unit transfer dalam proses pengiriman balik ke service center asal';
+            } else if ($status->final_rma_status == 'Under CB/SWAP Process') {
+                $status->final_rma_status = 'Status unit dalam proses pergantian unit';
+            } else if ($status->final_rma_status == 'Wait for customer') {
+                $status->final_rma_status = 'Status unit menunggu konfirmasi dari pengguna';
+            } else if ($status->final_rma_status == 'Waiting For Carrying Out') {
+                $status->final_rma_status = 'Status unit menunggu untuk diambil pengguna';
+            } else {
+                $status->final_rma_status;
             }
 
             if ($status->status_1 == "TRANSFER") {
@@ -236,7 +236,27 @@ class TelegramController extends Controller
             ]);
 
         } else if ($action == "Booking Service") {
-            $checkBooking = Booking::where('chat_id', $userId)->where('booking_date', Carbon::tomorrow()->format('Y-m-d'))->where('status', 'Waiting')->first();
+            // untuk testing, ganti hari ini ke tanggal yang harinya jumat, sabtu atau minggu
+            // Jumat, 13 Agustus 2021
+            $today = Carbon::parse("2021-08-13");
+            // $today = Carbon::today();
+            $tomorrow = Carbon::tomorrow();
+
+            // Jika booking dilakukan pada hari Sabtu atau Minggu,
+            // atau jika esok hari booking adalah hari Sabtu atau Minggu, 
+            // Maka akan dialihkan ke hari Senin
+            if($tomorrow->dayOfWeek == 6) {
+                // Jika hari ini adalah Jumat dan esok hari adalah hari Sabtu, maka esok hari + 3 hari
+                $tomorrow->addDays(3);
+            } else if($today->dayOfWeek == 6 || $tomorrow->dayOfWeek == 0) {
+                // Jika hari ini adalah Sabtu dan esok hari adalah hari Minggu, maka esok hari + 2 hari
+                $tomorrow->addDays(2);
+            } else if($today->dayOfWeek == 0) {
+                // Jika hari ini adalah Minggu dan esok hari adalah hari Senin, maka esok hari + 1 hari
+                $tomorrow->addDays(1);
+            }
+            
+            $checkBooking = Booking::where('chat_id', $userId)->where('booking_date', $tomorrow->format('Y-m-d'))->where('status', 'Waiting')->first();
 
             if($checkBooking) {
                 if($checkBooking->nama_lengkap == NULL || $checkBooking->no_telp == NULL) {
@@ -364,8 +384,28 @@ class TelegramController extends Controller
             ]);
 
         } else if (in_array($action, $arrBookingTime)) {
+            // untuk testing, ganti hari ini ke tanggal yang harinya jumat, sabtu atau minggu
+            // Jumat
+            $today = Carbon::parse("2021-08-13");
+            // $today = Carbon::today();
+            $tomorrow = Carbon::tomorrow();
+
+            // Jika booking dilakukan pada hari Sabtu atau Minggu,
+            // atau jika esok hari booking adalah hari Sabtu atau Minggu, 
+            // Maka akan dialihkan ke hari Senin
+            if($tomorrow->dayOfWeek == 6) {
+                // Jika hari ini adalah Jumat dan esok hari adalah hari Sabtu, maka esok hari + 3 hari
+                $tomorrow->addDays(3);
+            } else if($today->dayOfWeek == 6 || $tomorrow->dayOfWeek == 0) {
+                // Jika hari ini adalah Sabtu dan esok hari adalah hari Minggu, maka esok hari + 2 hari
+                $tomorrow->addDays(2);
+            } else if($today->dayOfWeek == 0) {
+                // Jika hari ini adalah Minggu dan esok hari adalah hari Senin, maka esok hari + 1 hari
+                $tomorrow->addDays(1);
+            }
+            
             // Cek jadwal booking terlebih dahulu
-            $checkBooking = Booking::where('chat_id', $userId)->where('booking_date', Carbon::tomorrow()->format('Y-m-d'))->where('status', 'Waiting')->first();
+            $checkBooking = Booking::where('chat_id', $userId)->where('booking_date', $tomorrow->format('Y-m-d'))->where('status', 'Waiting')->first();
 
             // $checkBooking = Booking::where('chat_id', $userId)->where('booking_date', Carbon::tomorrow()->format('Y-m-d'))->first();
 
@@ -384,7 +424,7 @@ class TelegramController extends Controller
                     ]);
                 } else {
                     $bookingDetail = Booking::where('chat_id', $userId)
-                        ->where('booking_date', Carbon::tomorrow()->format('Y-m-d'))->where('status', 'Waiting')
+                        ->where('booking_date', $tomorrow->format('Y-m-d'))->where('status', 'Waiting')
                         ->first();
 
                     $text = "Anda telah melakukan booking service untuk esok hari. \n";
@@ -408,7 +448,7 @@ class TelegramController extends Controller
                 $bookingTime = BookingTime::where('booking_time', $action)->first();
                 // Pilih id customer service yang tidak tersedia pada booking time
                 $customerServiceUnavailable = Booking::where('id_booking_time', $bookingTime->id)
-                    ->where('booking_date', Carbon::tomorrow()->format('Y-m-d'))
+                    ->where('booking_date', $tomorrow->format('Y-m-d'))
                     ->whereNotIn('status', ['Cancel'])
                     ->pluck('id_customer_service');
                 // Pilih id customer service yang tersedia
@@ -416,18 +456,18 @@ class TelegramController extends Controller
                 // Jika ada yang tersedia, maka 
                 if($customerServiceAvailable->get()->count() > 0) {
                     // Hitung data booking pada hari esok
-                    $bookingCount = Booking::where('booking_date', Carbon::tomorrow()->format('Y-m-d'))->count();
+                    $bookingCount = Booking::where('booking_date', $tomorrow->format('Y-m-d'))->count();
                     // Ambil data customer service yang pertama
                     $customerService = $customerServiceAvailable->first();
                     // Save booking time dan customer service ke dalam tabel
                     Booking::create([
-                        'booking_id' => Carbon::tomorrow()->format('ymd') . sprintf('%04d', ++$bookingCount),
+                        'booking_id' => $tomorrow->format('ymd') . sprintf('%04d', ++$bookingCount),
                         'nama_lengkap' => NULL,
                         'no_telp' => NULL,
                         'chat_id' => $userId,
                         'id_customer_service' => $customerService->id,
                         'id_booking_time' => $bookingTime->id,
-                        'booking_date' => Carbon::tomorrow()->format('Y-m-d'),
+                        'booking_date' => $tomorrow->format('Y-m-d'),
                         'status' => 'Waiting',
                     ]);
 
