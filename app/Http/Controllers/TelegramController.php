@@ -305,7 +305,7 @@ class TelegramController extends Controller
                 foreach ($customerService as $cs) {
                     $bookingTimeUnavailable = [];
                     // Cek data booking service per customer service
-                    $booking = $cs->booking->where('booking_date' , Carbon::tomorrow()->format('Y-m-d'))->whereNotIn('status', ['Cancel']);;
+                    $booking = $cs->booking->where('booking_date' , $tomorrow->format('Y-m-d'))->whereNotIn('status', ['Cancel']);;
                     // Jika data booking untuk hari esok ada
                     if($booking->count() > 0) {
                         // Maka loop data booking
