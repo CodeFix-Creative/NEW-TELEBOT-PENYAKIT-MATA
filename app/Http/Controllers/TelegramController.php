@@ -245,7 +245,7 @@ class TelegramController extends Controller
             // Jika booking dilakukan pada hari Sabtu atau Minggu,
             // atau jika esok hari booking adalah hari Sabtu atau Minggu, 
             // Maka akan dialihkan ke hari Senin
-            if($tomorrow->dayOfWeek == 6) {
+            if($today->dayOfWeek == 5 || $tomorrow->dayOfWeek == 6) {
                 // Jika hari ini adalah Jumat dan esok hari adalah hari Sabtu, maka esok hari + 3 hari
                 $tomorrow = $today->addDays(3);
             } else if($today->dayOfWeek == 6 || $tomorrow->dayOfWeek == 0) {
@@ -393,7 +393,7 @@ class TelegramController extends Controller
             // Jika booking dilakukan pada hari Sabtu atau Minggu,
             // atau jika esok hari booking adalah hari Sabtu atau Minggu, 
             // Maka akan dialihkan ke hari Senin
-            if($tomorrow->dayOfWeek == 6) {
+            if($today->dayOfWeek == 5 || $tomorrow->dayOfWeek == 6) {
                 // Jika hari ini adalah Jumat dan esok hari adalah hari Sabtu, maka esok hari + 3 hari
                 $tomorrow = $today->addDays(3);
             } else if($today->dayOfWeek == 6 || $tomorrow->dayOfWeek == 0) {
