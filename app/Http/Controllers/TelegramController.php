@@ -515,7 +515,7 @@ class TelegramController extends Controller
                 $text .= "Customer Service: ". $bookingDetail->customer_service->user->nama ."\n\n";
                 $text .= "Harap datang ke ASUS Service Center pada hari dan waktu yang telah ditentukan, terima kasih.\n";
             } else {
-                $text = "Anda belum melakukan booking service. Silahkan pilih jadwal service yang tersedia terlebih dahulu.";
+                $text = "Anda belum melakukan booking service. Silahkan pilih menu Booking Service dan tentukan jadwal service yang tersedia.";
             }
 
             $this->apiRequest('sendMessage', [
