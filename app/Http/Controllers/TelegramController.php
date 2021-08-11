@@ -100,6 +100,8 @@ class TelegramController extends Controller
             
             $status = Service::where('rma_no_1' , $action)->first();
 
+            $statusCheck = $status->status_1;
+
             // Penjelasan status 1
             if ($status->status_1 == 'FINALTEST') {
                 $status->status_1 = 'Unit dalam penguji/pengetesan terakhir';
@@ -170,7 +172,7 @@ class TelegramController extends Controller
                 $status->final_rma_status;
             }
 
-            if ($status->status_1 == "TRANSFER") {
+            if ($statusCheck == "TRANSFER") {
                 $text = "**Informasi Umum/Unit** \n";
                 $text .= "1. NOMOR SERVICE 1       : ". $status->rma_no_1 ."\n";
                 $text .= "2. SERIAL NUMBER UNIT       : ". $status->serial_no ."\n";
