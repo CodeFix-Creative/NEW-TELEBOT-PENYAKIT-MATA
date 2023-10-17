@@ -16,9 +16,9 @@ class BotController extends Controller
     public function index()
     {
       //   $telegram = new Api(env("TELEGRAM_BOT_TOKEN"));
-        $telegram = new Api('1907491983:AAGY5f9Cm-JNc2g1TswjHrpWSmU2_YZJWYA');
+        $telegram = new Api('6685862400:AAHZHz7MbKJV7AvYhrkhtYxtlGX7d5YoX98');
 
-         // dd($response = $telegram->getMe());
+         dd($response = $telegram->getMe());
 
          // $response = $telegram->getUpdates();
 

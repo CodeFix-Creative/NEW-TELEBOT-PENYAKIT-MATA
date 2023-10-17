@@ -1,6 +1,12 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\GejalaController;
+use App\Http\Controllers\DiagnosaController;
+use App\Http\Controllers\PenyakitController;
+use App\Http\Controllers\TelegramController;
 
 /*
 |--------------------------------------------------------------------------
@@ -12,12 +18,36 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/', [App\Http\Controllers\DashboardController::class, 'index'])->middleware('auth')->name('dashboard');
 
 Route::get('/webhook', [App\Http\Controllers\TelegramController::class, 'webhook']);
 
 Route::get('/dev/part', [App\Http\Controllers\DevController::class, 'part']);
 Route::get('/test-bot', [App\Http\Controllers\BotController::class, 'index'])->name('bot');
+
+Route::get('/', function () {
+ return redirect()->route('dashboard.index');
+});
+
+// Route::get('test-bot', [TelegramController::class, 'testBot'])->name('test.bot');
+
+// DASHBOARD
+Route::resource('dashboard', DashboardController::class);
+
+// USER
+Route::resource('user', UserController::class);
+
+// Gejala
+Route::resource('gejala', GejalaController::class);
+
+// Penyakit
+Route::resource('penyakit', PenyakitController::class);
+
+// Manual Diagnosa
+Route::resource('diagnosa', DiagnosaController::class);
+
+// record Diagnosa
+Route::get('record-diagnosa', [DiagnosaController::class, 'recordDiagnosa'])->name('record.index');
+
 
 Route::prefix('admin')->middleware('auth')->group(function(){
 

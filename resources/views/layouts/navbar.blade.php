@@ -1,59 +1,33 @@
-<nav class="navbar navbar-header navbar-expand-lg" data-background-color="white">
-    <div class="container-fluid">
-        <!-- <div class="collapse" id="search-nav">
-            <form class="navbar-left navbar-form nav-search mr-md-3">
-                <div class="input-group">
-                    <div class="input-group-prepend">
-                        <button type="submit" class="btn btn-search pr-1">
-                            <i class="fa fa-search search-icon"></i>
-                        </button>
-                    </div>
-                    <input type="text" placeholder="Search ..." class="form-control">
-                </div>
-            </form>
-        </div> -->
-        <ul class="navbar-nav topbar-nav ml-md-auto align-items-center">
-            <li class="nav-item toggle-nav-search hidden-caret">
-                <a class="nav-link" data-toggle="collapse" href="#search-nav" role="button" aria-expanded="false"
-                    aria-controls="search-nav">
-                    <i class="fa fa-search"></i>
-                </a>
-            </li>
-            <li class="nav-item dropdown hidden-caret">
-                <a class="dropdown-toggle profile-pic" data-toggle="dropdown" href="#" aria-expanded="false">
-                    <div class="avatar-sm">
-                        <img src="https://ui-avatars.com/api/?name={{ Auth::user()->nama ?? 'User' }}" alt="..." class="avatar-img rounded-circle">
-                    </div>
-                </a>
-                <ul class="dropdown-menu dropdown-user animated fadeIn">
-                    <div class="dropdown-user-scroll scrollbar-outer">
-                        <li>
-                            <div class="user-box">
-                                <div class="avatar-lg"><img src="https://ui-avatars.com/api/?name={{ Auth::user()->nama ?? 'User' }}" alt="image profile"
-                                        class="avatar-img rounded"></div>
-                                <div class="u-text">
-                                    <h4>{{ Auth::user()->nama ?? 'Guest' }}</h4>
-                                    <p class="text-muted">{{ Auth::user()->role ?? 'Guest' }}</p>
-                                </div>
-                            </div>
-                        </li>
-                        <li>
-                            <div class="dropdown-divider"></div>
-                            <form action="{{ route('change_password.index') }}" method="get">
-                                @csrf
-                                <button type="submit" class="dropdown-item" href="{{ route('change_password.index') }}">Change Password</button>
-                            </form>
-                        </li>
-                        <li>
-                            <div class="dropdown-divider"></div>
-                            <form action="{{ route('logout') }}" method="POST">
-                                @csrf
-                                <button type="submit" class="dropdown-item" href="{{ route('logout') }}">Logout</button>
-                            </form>
-                        </li>
-                    </div>
-                </ul>
-            </li>
+<div class="navbar-bg"></div>
+<nav class="navbar navbar-expand-lg main-navbar">
+    <form class="form-inline mr-auto">
+        <ul class="navbar-nav mr-3">
+            <li><a href="#" data-toggle="sidebar" class="nav-link nav-link-lg"><i class="fas fa-bars"></i></a></li>
+            <li><a href="#" data-toggle="search" class="nav-link nav-link-lg d-sm-none"><i
+                        class="fas fa-search"></i></a></li>
         </ul>
-    </div>
+
+
+    </form>
+
+    {{-- RIGHT NAVBAR --}}
+    <ul class="navbar-nav navbar-right">
+        <li class="dropdown"><a href="#" data-toggle="dropdown"
+                class="nav-link dropdown-toggle nav-link-lg nav-link-user">
+                <img alt="image" src="{{ asset('assets/img/avatar/avatar-1.png') }}" class="rounded-circle mr-1">
+                <div class="d-sm-none d-lg-inline-block">Hi, {{ Auth::user()->nama ?? 'Guest' }}</div>
+            </a>
+            <div class="dropdown-menu dropdown-menu-right">
+                <div class="dropdown-title">{{ Auth::user()->role ?? '-' }}</div>
+                <a href="#!" class="dropdown-item has-icon">
+                    <i class="fas fa-cog"></i> Ubah Password
+                </a>
+                <div class="dropdown-divider"></div>
+                <form action="#!" method="POST">
+                    @csrf
+                    <button type="submit" class="dropdown-item text-danger" href="#!"><i class="fas fa-sign-out-alt mr-2"></i> Logout</button>
+                </form>
+            </div>
+        </li>
+    </ul>
 </nav>

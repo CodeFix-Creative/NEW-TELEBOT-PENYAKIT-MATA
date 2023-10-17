@@ -4,9 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
-use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Auth; 
 
 class UserController extends Controller
 {
@@ -17,7 +14,9 @@ class UserController extends Controller
      */
     public function index()
     {
-        return view('auth.passwords.changePassword');
+        $datas = User::all();
+
+        return view('admin.user.index' , compact('datas'));
     }
 
     /**
@@ -27,7 +26,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        return view('admin.user.add');
+        return view('admin.user.create');
     }
 
     /**
@@ -38,7 +37,20 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-         
+        $validated = $request->validate([
+            'email' => 'required|unique:users',
+            'nama' => 'required',
+         ]);
+
+         $user = User::create([
+            'nama' => $request->nama,
+            'email' => $request->email,
+            'role' => $request->role,
+            'status' => $request->status,
+            'password' => bcrypt('123'),
+         ]);
+
+         return redirect()->route('user.index')->with('toast_success', 'Data berhasil ditambahkan!');
     }
 
     /**
@@ -47,9 +59,9 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function show(/* User */ $user)
+    public function show(User $user)
     {
-        //
+        // 
     }
 
     /**
@@ -58,9 +70,11 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function edit(/* User */ $user)
+    public function edit(User $user)
     {
-        
+        $data = $user;
+
+        return view('admin.user.edit' , compact('data'));
     }
 
     /**
@@ -72,19 +86,13 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-         if($request->password_baru == $request->confirm_password_baru){
-          if (Hash::check($request->password_lama, Auth::user()->password)) {
-             auth()->user()->update([
-                'password' => bcrypt($request->password_baru),
-             ]);
+        $user->nama = $request->nama; 
+        $user->email = $request->email; 
+        $user->status = $request->status; 
+        $user->role = $request->role; 
+        $user->save();
 
-             return redirect()->route('change_password.index')->with('toast_success', 'Password Anda Berhasil Di Ubah!!');
-          }else{
-             return back()->with('toast_error', 'Password Lama Anda Tidak Sama !!');
-          }
-        } else {
-            return back()->with('toast_error', 'Confirmasi Password Tidak Sama !!');
-        }
+        return redirect()->route('user.index')->with('toast_success' , 'Data berhasil di ubah!');
     }
 
     /**
@@ -93,15 +101,8 @@ class UserController extends Controller
      * @param  \App\Models\User  $user
      * @return \Illuminate\Http\Response
      */
-    public function destroy(/* User */ $user)
+    public function destroy(User $user)
     {
-        // $user->update(['status_user' => 0]);
-
-        return redirect()
-            ->route('user.index')
-            ->with([
-                'message' => 'Data berhasil dihapus.', 
-                'status' => 'success'
-            ]);
+        //
     }
 }

@@ -3,12 +3,6 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\User;
-use App\Models\BookingTime;
-use App\Models\Booking;
-use App\Models\Part;
-use App\Models\Service;
-use Carbon\Carbon;
 
 class DashboardController extends Controller
 {
@@ -19,30 +13,7 @@ class DashboardController extends Controller
      */
     public function index()
     {
-         $adminAktif = User::where('status' , 'Aktif')->where('role' , '!=' ,'Customer Service')->count();
-         $adminTidakAktif = User::where('status' , 'Tidak Aktif')->where('role' , '!=' ,'Customer Service')->count();
-
-         $CustomerServiceAktif = User::whereStatus('Aktif')->where('role' ,'Customer Service')->count();
-         $CustomerServiceTidakAktif = User::whereStatus('Tidak Aktif')->where('role' ,'Customer Service')->count();
-
-         $bookingTime = count(BookingTime::all());
-         $booking = Booking::where('booking_date' , Carbon::now()->format('Y-m-d'))->count();
-
-         $part = Part::first();
-         $countPart = count(Part::all());
-         if ($countPart == 0) {
-            $part = 'Kosong';
-         }
-         
-         $service = Service::first();
-         $countService = count(Service::all());
-         if ($countService == 0) {
-            $service = 'Kosong';
-         }
-         // dd($service);
-
-
-        return view('admin.dashboard.index', compact('adminAktif','adminTidakAktif','CustomerServiceAktif' , 'CustomerServiceTidakAktif' , 'bookingTime' , 'booking' , 'part' , 'countPart' , 'service', 'countService'));
+        return view('admin.dashboard.index');
     }
 
     /**
