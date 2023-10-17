@@ -20,22 +20,27 @@ class BotController extends Controller
 
         //  dd($response = $telegram->getMe());
 
-         $response = $telegram->getUpdates();
+        //  $response = $telegram->getUpdates();
 
          // $response = Telegram::getWebhookUpdates();
 
          // $response = Telegram::getMe();
 
-         // $response = $telegram->removeWebhook();
+         $response = $telegram->removeWebhook();
 
-         // $response = Telegram::getUpdates();
+         $response = Telegram::getUpdates();
 
-         $response = $telegram->setWebhook([
-            'url' => url(route('webhook')),
-            // 'certificate' => '/path/to/public_key_certificate.pub'
-         ]);
+        //  $response = $telegram->setWebhook([
+        //     'url' => url(route('webhook')),
+        //     // 'certificate' => '/path/to/public_key_certificate.pub'
+        //  ]);
          
-         $response = Telegram::getWebhookInfo();
+        //  $response = Telegram::getWebhookInfo();
+
+        $telegram->sendMessage([
+          'chat_id' => 1144046082,
+          'text' => 'Hello Taufik'
+        ]);
 
          dd($response);
     }

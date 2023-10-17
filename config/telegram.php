@@ -33,10 +33,10 @@ return [
     */
     'bots'                         => [
         'mybot' => [
-            'username'            => 'asus_service_center_bot',
-            'token'               => env('TELEGRAM_BOT_TOKEN', '1907491983:AAGY5f9Cm-JNc2g1TswjHrpWSmU2_YZJWYA'),
+            'username'            => 'PenyakitMata_bot',
+            'token'               => env('TELEGRAM_BOT_TOKEN', '6685862400:AAHZHz7MbKJV7AvYhrkhtYxtlGX7d5YoX98'),
             'certificate_path'    => env('TELEGRAM_CERTIFICATE_PATH', 'YOUR-CERTIFICATE-PATH'),
-            'webhook_url'         => env('TELEGRAM_WEBHOOK_URL', 'https://asus-service-center.online/api'),
+            'webhook_url'         => env('TELEGRAM_WEBHOOK_URL', 'https://telebot.purebali.info/api'),
             'commands'            => [
                //  Acme\Project\Commands\MyTelegramBot\BotCommand::class,
                //  App\Telegram\Commands\HelpCommand::class,
