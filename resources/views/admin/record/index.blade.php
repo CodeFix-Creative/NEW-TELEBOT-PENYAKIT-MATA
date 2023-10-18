@@ -53,6 +53,7 @@
                                     <td>{{ $data->umur }}</td>
                                     <td>{{ $data->jenis_kelamin }}</td>
                                     <td>{{ $data->nomor_telephone }}</td>
+                                    @if ($data->record_gejala != null)
                                     <td>
                                       <ul>
                                         @foreach (json_decode($data->record_gejala) as $item)
@@ -60,6 +61,13 @@
                                         @endforeach
                                       </ul>
                                     </td>
+                                    @else
+                                    <td>
+                                      -
+                                    </td>
+                                    @endif
+
+                                    @if ($data->record_penyakit != null)
                                     <td>
                                       <ul>
                                         @foreach (json_decode($data->record_penyakit) as $key => $value)
@@ -67,6 +75,11 @@
                                         @endforeach
                                       </ul>
                                     </td>
+                                    @else
+                                    <td>
+                                      -
+                                    </td>
+                                    @endif
                                 </tr>
                                 @endforeach
                             </tbody>
