@@ -76,7 +76,7 @@ class TelegramController extends Controller
         // Check Pertanyan YA
         }else if ($action == "Ya"){
 
-            $text .= "Silahkan pilih gajala penyakit yang anda rasakan : \n";
+            $text = "Silahkan pilih gajala penyakit yang anda rasakan : \n";
 
             $gejala = Gejala::where('status' , 'Aktif')->get();
 
