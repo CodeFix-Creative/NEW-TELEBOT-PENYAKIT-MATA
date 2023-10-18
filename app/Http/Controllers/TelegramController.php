@@ -221,7 +221,23 @@ class TelegramController extends Controller
 
         // Check History Diagnosa Kalau Ada
         }else if (Diagnosa::where('nomor_telephone' , $action)->exists() == true){
-            $text = "Berikut Adalah History terakhir diagnosa penyakit anda \n";
+
+            // Record Diagnosa
+            $diagnosa = Diagnosa::where('nomor_telephone' , $action)->first();
+
+            $text = "Berikut Adalah History terakhir diagnosa penyakit anda \n\n";
+
+            $text .= "GEJALA ANDA : \n";
+            foreach (json_decode($diagnosa->record_gejala) as $gejala) {
+                $text .= "- " . $gejala . "\n";
+            }
+
+            $text .= "\n\n";
+            $text .= "DIAGNOSA PENYAKIT ANDA : \n";
+
+            foreach (json_decode($diagnosa->record_penyakit) as $key => $value) {
+                $text .= "- " . $key . " : " . $value . "\n";
+            }
 
             $this->apiRequest('sendMessage', [
                 'chat_id' => $userId,
