@@ -81,7 +81,10 @@ class TelegramController extends Controller
 
           $gejala = Gejala::where('status' , 'Aktif')->get();
 
-          $gejalaKeyboard[] = [$gejala->nama_gejala];
+          foreach ($gejala as $gejala) {
+            $gejalaKeyboard[] = [$gejala->nama_gejala];
+          }
+
 
           $this->apiRequest('sendMessage', [
               'chat_id' => $userId,
