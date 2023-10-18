@@ -98,7 +98,7 @@ class TelegramController extends Controller
           $penyakitGejala = [];
 
           // Cari History Berdasarkan Chat Id
-          $diagnosa = Diagnosa::where('chat_id' , $userId)->first();
+          $diagnosa = Diagnosa::where('chat_id' , $userId)->orderBy('created_at' , 'DESC')->first();
 
           $totalGejala = count(json_decode($diagnosa->record_gejala));
 
@@ -166,7 +166,7 @@ class TelegramController extends Controller
 
         // Check Gejala
         }else if (in_array($action, $arrGejala)){
-            $diagnosa = Diagnosa::where('chat_id' , $userId)->first();
+            $diagnosa = Diagnosa::where('chat_id' , $userId)->orderBy('created_at' , 'DESC')->first();
 
             if ($diagnosa->record_gejala != null) {
               $inputGejala = json_decode($diagnosa->record_gejala);
@@ -223,7 +223,7 @@ class TelegramController extends Controller
         }else if (Diagnosa::where('nomor_telephone' , $action)->exists() == true){
 
             // Record Diagnosa
-            $diagnosa = Diagnosa::where('nomor_telephone' , $action)->first();
+            $diagnosa = Diagnosa::where('nomor_telephone' , $action)->where('record_penyakit', '!=' , null)->orderBy('created_at' , 'DESC')->first();
 
             $text = "Berikut Adalah History terakhir diagnosa penyakit anda \n\n";
 
