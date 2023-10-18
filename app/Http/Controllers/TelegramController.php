@@ -94,6 +94,8 @@ class TelegramController extends Controller
         }else if ($action == "Tidak"){
 
           $listIdGejala = [];
+          $idPenyakit = [];
+          $penyakitGejala = [];
 
           // Cari History Berdasarkan Chat Id
           $diagnosa = Diagnosa::where('chat_id' , $userId)->first();
