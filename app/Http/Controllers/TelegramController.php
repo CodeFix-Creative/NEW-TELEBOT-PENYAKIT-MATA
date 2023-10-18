@@ -30,6 +30,15 @@ class TelegramController extends Controller
         $action = $result->message->text;
         $userId = $result->message->from->id;
 
+        $arrGejala = [];
+
+        // List Gejala
+        $gejala = Gejala::where('status' , 'Aktif')->get();
+
+        foreach ($gejala as $item) {
+           $arrGejala[] = $item->nama_gejala;
+        }
+
         
         // Inisiasi Reply
         if($action == "/start") {
@@ -64,6 +73,49 @@ class TelegramController extends Controller
                 'text' => $text,
             ]);
 
+        // Check Pertanyan YA
+        }else if ($action == "Ya"){
+            $diagnosa = Diagnosa::where('chat_id' , $userId)->first();
+
+            if ($diagnosa->record_gejala != null) {
+              $inputGejala = json_decode($diagnosa->record_gejala);
+              $inputGejala[] = $action;
+            }else{
+              $inputGejala[] = $action;
+            }
+
+            $diagnosa->record_gejala = json_encode($inputGejala);
+            $diagnosa->save();
+
+            $text .= "Silahkan pilih gajala penyakit yang anda rasakan : \n";
+
+            $gejala = Gejala::where('status' , 'Aktif')->get();
+
+            foreach ($gejala as $gejala) {
+              $gejalaKeyboard[] = [$gejala->nama_gejala];
+            }
+
+            $this->apiRequest('sendMessage', [
+                'chat_id' => $userId,
+                'text' => $text,
+                'reply_markup' => $this->keyboardBtn($gejalaKeyboard),
+            ]);
+
+        // Check Gejala
+        }else if (in_array($action, $arrGejala)){
+            $text = "Apakah ada gejala lain yang anda rasakan ?";
+
+            $keyboard = [
+              ["Ya"],
+              ["Tidak"],
+            ];
+
+            $this->apiRequest('sendMessage', [
+              'chat_id' => $userId,
+              'text' => $text,
+              'reply_markup' => $this->keyboardBtn($gejalaKeyboard),
+          ]);
+        
         // Response Setelah Memasukan Biodata
         }else if(strpos($action, '#') == true){
           $customerData = explode("#", $action);
