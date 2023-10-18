@@ -4,6 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Telegram;
+use App\Models\Diagnosa;
+use App\Models\Gejala;
+use App\Models\Penyakit;
+use App\Models\PenyakitGejala;
 use App\Exports\BookingExport;
 use App\Traits\RequestTrait;
 use App\Traits\MakeComponents;
@@ -37,6 +41,31 @@ class TelegramController extends Controller
                 'reply_markup' => $this->keyboardBtn($this->mainMenu),
             ]);
 
+        }else if ($action == "History Diagnosa Saya"){
+            $text = "Anda memilih menu History Diagnosa Saya \n";
+            $text .= "Silahkan beritahu kami nomor telephone yang pernah anda masukan :";
+
+            $this->apiRequest('sendMessage', [
+                'chat_id' => $userId,
+                'text' => $text,
+            ]);
+        }else if (Diagnosa::where('nomor_telephone' , $action)->exists() == true){
+            $text = "Berikut Adalah History terakhir diagnosa penyakit anda \n";
+
+            $this->apiRequest('sendMessage', [
+                'chat_id' => $userId,
+                'text' => $text,
+                'reply_markup' => $this->keyboardBtn($this->mainMenu),
+            ]);
+        }else if (Diagnosa::where('nomor_telephone' , $action)->exists() == false){
+            $text = "Anda belum memiliki history diagnosa penyakit \n";
+            $text .= "Silahkan lakukan konsultasi diagnosa penyakit anda terlebih dahulu";
+
+            $this->apiRequest('sendMessage', [
+                'chat_id' => $userId,
+                'text' => $text,
+                'reply_markup' => $this->keyboardBtn($this->mainMenu),
+            ]);
         } else {
             $text = "maaf, input yang anda masukkan salah, silahkan input sesuai format atau silahkan pilih menu dibawah ini: ";
 
