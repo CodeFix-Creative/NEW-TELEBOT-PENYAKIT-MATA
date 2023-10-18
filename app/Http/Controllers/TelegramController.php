@@ -69,6 +69,7 @@ class TelegramController extends Controller
           $customerData = explode("#", $action);
 
           $diagnosa = new Diagnosa;
+          $diagnosa->chat_id = $userId;
           $diagnosa->nama = $customerData[0];
           $diagnosa->umur = $customerData[1];
           $diagnosa->jenis_kelamin = $customerData[2];
