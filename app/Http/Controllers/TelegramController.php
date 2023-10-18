@@ -90,6 +90,76 @@ class TelegramController extends Controller
                 'reply_markup' => $this->keyboardBtn($gejalaKeyboard),
             ]);
 
+        // Check Pertanyan Tidak sekaligus Result
+        }else if ($action == "Tidak"){
+
+          $listIdGejala = [];
+
+          // Cari History Berdasarkan Chat Id
+          $Diagnosa = Diagnosa::where('chat_id' , $userId)->first();
+
+          foreach (json_decode($diagnosa->record_gejala) as $namaGejala) {
+              $gejala = Gejala::where('nama_gejala' , $namaGejala)->first();
+
+              if (!in_array($gejala->id , $listIdGejala)) {
+                 $listIdGejala[] = $gejala->id;
+              }
+          }
+
+          foreach ($listIdGejala as $idGejala) {
+              $data = PenyakitGejala::where('id_gejala' , $idGejala)->get();
+
+              foreach ($data as $item) {
+                  if (!in_array($item->id_penyakit, $idPenyakit)) {
+                      $idPenyakit[] = $item->id_penyakit;
+                  }
+
+                  $penyakitGejala[] = $item->id_penyakit;
+              }
+          }
+
+          $probPenyakit = array_count_values($penyakitGejala);
+
+          foreach ($probPenyakit as $key => $value) {
+              $persentase = ($value / $totalGejala) * 100;
+              $probPenyakit[$key] = round($persentase);
+          }
+
+          foreach ($probPenyakit as $key => $value) {
+            $penyakit = Penyakit::where('id' , $key)->first();
+            $diagnosaPenyakit[$penyakit->nama_penyakit] = $value."%";
+          }
+
+          $diagnosa->record_penyakit = json_encode($diagnosaPenyakit);
+          $diagnosa->save();
+
+          $text = "Berikut hasil diagnosa penyakit mata yang anda alami sesuai gejala yang anda inputkan \n\n";
+          $text .= "GEJALA ANDA: \n";
+
+          foreach (json_decode($diagnosa->record_gejala) as $namaGejala) {
+              $text .= "- " . $namaGejala . "\n";
+          }
+
+          $text .= "\n\n";
+          $text .= "DIAGNOSA PENYAKIT ANDA :\n";
+          
+          foreach ($diagnosaPenyakit as $key => $value) {
+            $text .= "- " . $key . " : " . $value . "\n";
+          }
+
+          $text .= "\n\n";
+          $text .= "Hasil diagnosa merupakan prakiraan penyakit berdasarkan diagnosa yang anda inputkan dengan menggunakan metode NAIVE BAYES";
+          $text .= "Untuk hasil yang lebih akurat, anda dapat mengunjungi Klinik Mata Terdekat di sekitar anda.";
+
+
+
+          $this->apiRequest('sendMessage', [
+              'chat_id' => $userId,
+              'text' => $text,
+              'reply_markup' => $this->keyboardBtn($this->mainMenu),
+          ]);
+
+
         // Check Gejala
         }else if (in_array($action, $arrGejala)){
             $diagnosa = Diagnosa::where('chat_id' , $userId)->first();
