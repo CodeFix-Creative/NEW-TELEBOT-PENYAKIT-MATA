@@ -152,7 +152,7 @@ class TelegramController extends Controller
           }
 
           $text .= "\n\n";
-          $text .= "Hasil diagnosa merupakan prakiraan penyakit berdasarkan diagnosa yang anda inputkan dengan menggunakan metode NAIVE BAYES";
+          $text .= "Hasil diagnosa merupakan prakiraan penyakit berdasarkan diagnosa yang anda inputkan dengan menggunakan metode NAIVE BAYES\n\n";
           $text .= "Untuk hasil yang lebih akurat, anda dapat mengunjungi Klinik Mata Terdekat di sekitar anda.";
 
 
