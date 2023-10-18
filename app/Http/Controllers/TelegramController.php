@@ -106,7 +106,7 @@ class TelegramController extends Controller
 
             $text = "Apakah ada gejala lain yang anda rasakan ?";
 
-            $keyboard = [
+            $Optionkeyboard = [
               ["Ya"],
               ["Tidak"],
             ];
@@ -114,7 +114,7 @@ class TelegramController extends Controller
             $this->apiRequest('sendMessage', [
               'chat_id' => $userId,
               'text' => $text,
-              'reply_markup' => $this->keyboardBtn($gejalaKeyboard),
+              'reply_markup' => $this->keyboardBtn($Optionkeyboard),
           ]);
         
         // Response Setelah Memasukan Biodata
