@@ -75,17 +75,6 @@ class TelegramController extends Controller
 
         // Check Pertanyan YA
         }else if ($action == "Ya"){
-            $diagnosa = Diagnosa::where('chat_id' , $userId)->first();
-
-            if ($diagnosa->record_gejala != null) {
-              $inputGejala = json_decode($diagnosa->record_gejala);
-              $inputGejala[] = $action;
-            }else{
-              $inputGejala[] = $action;
-            }
-
-            $diagnosa->record_gejala = json_encode($inputGejala);
-            $diagnosa->save();
 
             $text .= "Silahkan pilih gajala penyakit yang anda rasakan : \n";
 
@@ -103,6 +92,18 @@ class TelegramController extends Controller
 
         // Check Gejala
         }else if (in_array($action, $arrGejala)){
+            $diagnosa = Diagnosa::where('chat_id' , $userId)->first();
+
+            if ($diagnosa->record_gejala != null) {
+              $inputGejala = json_decode($diagnosa->record_gejala);
+              $inputGejala[] = $action;
+            }else{
+              $inputGejala[] = $action;
+            }
+
+            $diagnosa->record_gejala = json_encode($inputGejala);
+            $diagnosa->save();
+
             $text = "Apakah ada gejala lain yang anda rasakan ?";
 
             $keyboard = [
