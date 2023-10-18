@@ -100,6 +100,8 @@ class TelegramController extends Controller
           // Cari History Berdasarkan Chat Id
           $diagnosa = Diagnosa::where('chat_id' , $userId)->first();
 
+          $totalGejala = count(json_decode($diagnosa->record_gejala));
+
           foreach (json_decode($diagnosa->record_gejala) as $namaGejala) {
               $gejala = Gejala::where('nama_gejala' , $namaGejala)->first();
 
