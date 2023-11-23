@@ -15,6 +15,10 @@ class Penyakit extends Model
     public $timestamps = true;
     protected $fillable = [
         'nama_penyakit',
+        'detail',
+        'penyebab',
+        'solusi',
+        'score',
         'status',
     ];
 

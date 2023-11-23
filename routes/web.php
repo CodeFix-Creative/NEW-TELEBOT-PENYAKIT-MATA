@@ -6,6 +6,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\GejalaController;
 use App\Http\Controllers\DiagnosaController;
 use App\Http\Controllers\PenyakitController;
+use App\Http\Controllers\PenyakitGejalaController;
 use App\Http\Controllers\TelegramController;
 
 /*
@@ -41,6 +42,9 @@ Route::resource('gejala', GejalaController::class);
 
 // Penyakit
 Route::resource('penyakit', PenyakitController::class);
+
+// Penyakit Gejala
+Route::resource('penyakit-gejala', PenyakitGejalaController::class);
 
 // Manual Diagnosa
 Route::resource('diagnosa', DiagnosaController::class);

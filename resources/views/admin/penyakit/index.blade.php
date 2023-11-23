@@ -30,7 +30,11 @@
                                         #
                                     </th>
                                     <th>Nama Penyakit</th>
+                                    <th>Detail Penyakit</th>
+                                    <th>Penyebab Penyakit</th>
+                                    <th>Solusi Penyakit</th>
                                     <th>Gejala</th>
+                                    <th>Score</th>
                                     <th>Status</th>
                                     <th>Action</th>
                                 </tr>
@@ -42,13 +46,17 @@
                                         {{ $loop->iteration }}
                                     </td>
                                     <td>{{ $data->nama_penyakit }}</td>
+                                    <td>{{ $data->detail }}</td>
+                                    <td>{{ $data->penyebab }}</td>
+                                    <td>{{ $data->solusi }}</td>
                                     <td>
                                       <ul>
                                         @foreach ($data->gejalaRelations() as $item)
-                                          <li>{{ $item->gejala->nama_gejala }}</li>
+                                          <li>{{ $item->gejala->nama_gejala }} ({{ $item->bobot }})</li>
                                         @endforeach
                                       </ul>
                                     </td>
+                                    <td>{{ $data->score }}</td>
                                     <td>
                                         @if ($data->status == "Aktif")
                                         <div class="badge badge-success">{{ $data->status }}</div>

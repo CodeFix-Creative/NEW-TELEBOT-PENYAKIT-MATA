@@ -17,6 +17,7 @@ class CreatePenyakitGejalaTable extends Migration
             $table->id();
             $table->unsignedBigInteger('id_penyakit');
             $table->unsignedBigInteger('id_gejala');
+            $table->string('bobot');
             $table->timestamps();
         });
     }

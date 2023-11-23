@@ -33,6 +33,30 @@
                             </div>
                         </div>
                         <div class="form-group row mb-4">
+                            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Detail penyakit</label>
+                            <div class="col-sm-12 col-md-7">
+                                <input type="text" class="form-control" name="detail">
+                            </div>
+                        </div>
+                        <div class="form-group row mb-4">
+                            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Penyebab penyakit</label>
+                            <div class="col-sm-12 col-md-7">
+                                <input type="text" class="form-control" name="penyebab">
+                            </div>
+                        </div>
+                        <div class="form-group row mb-4">
+                            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Solusi penyakit</label>
+                            <div class="col-sm-12 col-md-7">
+                                <input type="text" class="form-control" name="solusi">
+                            </div>
+                        </div>
+                        <div class="form-group row mb-4">
+                            <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Score penyakit</label>
+                            <div class="col-sm-12 col-md-7">
+                                <input type="number" class="form-control" name="score" min="0">
+                            </div>
+                        </div>
+                        {{-- <div class="form-group row mb-4">
                             <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Gejala</label>
                             <div class="col-sm-12 col-md-7">
                                 <select class="form-control select2" multiple="" name="gejala[]" >
@@ -41,7 +65,7 @@
                                     @endforeach
                                 </select>
                             </div>
-                        </div>
+                        </div> --}}
                         <div class="form-group row mb-4">
                             <label class="col-form-label text-md-right col-12 col-md-3 col-lg-3">Status</label>
                             <div class="col-sm-12 col-md-7">

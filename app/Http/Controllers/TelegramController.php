@@ -100,41 +100,55 @@ class TelegramController extends Controller
           // Cari History Berdasarkan Chat Id
           $diagnosa = Diagnosa::where('chat_id' , $userId)->orderBy('created_at' , 'DESC')->first();
 
-          $totalGejala = count(json_decode($diagnosa->record_gejala));
+          // $totalGejala = count(json_decode($diagnosa->record_gejala));
+          $diagnosaGejala = [];
 
           foreach (json_decode($diagnosa->record_gejala) as $namaGejala) {
               $gejala = Gejala::where('nama_gejala' , $namaGejala)->first();
+              $penyakitGejala = PenyakitGejala::where('id_gejala' , $gejala->id)->get();
 
-              if (!in_array($gejala->id , $listIdGejala)) {
-                 $listIdGejala[] = $gejala->id;
+              $diagnosaGejala[] = $gejala->nama_gejala;
+
+              $jumlahAtas = 0;
+              $jumlahBawah = 0;
+
+              // Hitungan Bawah Selalu Sama
+              foreach ($penyakitGejala as $data) {
+                  $jumlahBawah += $data->bobot * $data->penyakit->score;
+              }
+              
+              // Hitungan Atas
+              foreach ($penyakitGejala as $data) {
+                  $jumlahAtas = $data->bobot * $data->penyakit->score;
+                  $totalBagi = round($jumlahAtas / $jumlahBawah , 3);
+
+                  $diagnosaPenyakit[] = [
+                      'id_penyakit' => $data->penyakit->id,
+                      'total_probabilitas' => $totalBagi,
+                      'persentase' => $totalBagi * 100,
+                  ];
+              }
+
+              
+
+              $diagnosaPenyakitFinal = [];
+
+              // Check Penyakit Paling Tinggi
+              $persentaseTertinggi = 0;
+              foreach ($diagnosaPenyakit as $data) {
+
+                if($data['persentase'] > $persentaseTertinggi){
+                    $persentaseTertinggi = $data['persentase'];
+                    $diagnosaPenyakitFinal = [
+                        'id_penyakit' => $data['id_penyakit'],
+                        'total_probabilitas' => $data['total_probabilitas'],
+                        'persentase' => $data['persentase'] . "%",
+                    ]; 
+                }
               }
           }
 
-          foreach ($listIdGejala as $idGejala) {
-              $data = PenyakitGejala::where('id_gejala' , $idGejala)->get();
-
-              foreach ($data as $item) {
-                  if (!in_array($item->id_penyakit, $idPenyakit)) {
-                      $idPenyakit[] = $item->id_penyakit;
-                  }
-
-                  $penyakitGejala[] = $item->id_penyakit;
-              }
-          }
-
-          $probPenyakit = array_count_values($penyakitGejala);
-
-          foreach ($probPenyakit as $key => $value) {
-              $persentase = ($value / $totalGejala) * 100;
-              $probPenyakit[$key] = round($persentase);
-          }
-
-          foreach ($probPenyakit as $key => $value) {
-            $penyakit = Penyakit::where('id' , $key)->first();
-            $diagnosaPenyakit[$penyakit->nama_penyakit] = $value."%";
-          }
-
-          $diagnosa->record_penyakit = json_encode($diagnosaPenyakit);
+          $diagnosa->record_penyakit = json_encode($diagnosaPenyakitFinal);
           $diagnosa->save();
 
           $text = "Berikut hasil diagnosa penyakit mata yang anda alami sesuai gejala yang anda inputkan \n\n";
@@ -147,13 +161,18 @@ class TelegramController extends Controller
           $text .= "\n\n";
           $text .= "DIAGNOSA PENYAKIT ANDA :\n";
           
-          foreach ($diagnosaPenyakit as $key => $value) {
-            $text .= "- " . $key . " : " . $value . "\n";
-          }
+          $penyakit = Penyakit::where('id' , $diagnosaPenyakitFinal['id_penyakit'])->first();
+          $namaPenyakit = $penyakit->nama_penyakit;
+          $solusi = $penyakit->solusi;
+          $penyebab = $penyakit->penyebab;
+          $probabilitas = $diagnosaPenyakitFinal['total_probabilitas'];
+          $persentase = $diagnosaPenyakitFinal['persentase'];
 
-          $text .= "\n\n";
-          $text .= "Hasil diagnosa merupakan prakiraan penyakit berdasarkan diagnosa yang anda inputkan dengan menggunakan metode NAIVE BAYES\n\n";
-          $text .= "Untuk hasil yang lebih akurat, anda dapat mengunjungi Klinik Mata Terdekat di sekitar anda.";
+          $text .= "Penyakit yang anda derita dari gejala yang anda beritahukan adalah " . $namaPenyakit . " dengan probabilitas sebesar " . $probabilitas . " atau " . $persentase . "\n\n";
+
+          $text .= "Penyebabnya adalah " . $penyebab . "\n\n";
+
+          $text .= "Solusi yang dapat di lakukan adalah " . $solusi;
 
 
 
