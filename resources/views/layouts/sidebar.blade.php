@@ -12,7 +12,7 @@
     <li class="@yield('penyakit')"><a class="nav-link" href="{{ route('penyakit.index') }}"><i class="fa-solid fa-heart-pulse"></i>
             <span>Penyakit</span></a>
     </li>
-    <li class="@yield('penyakit-gejala')"><a class="nav-link" href="{{ route('penyakit-gejala.index') }}"><i class="fa-solid fa-hospital-user"></i> <span>Penyaki Gejala</span></a>
+    <li class="@yield('penyakit-gejala')"><a class="nav-link" href="{{ route('penyakit-gejala.index') }}"><i class="fa-solid fa-hospital-user"></i> <span>Penyakit Gejala</span></a>
     </li>
     <li class="@yield('manual')"><a class="nav-link" href="{{ route('diagnosa.index') }}"><i class="fa-solid fa-briefcase-medical"></i> <span>Manual Diagnosis</span></a>
     </li>
