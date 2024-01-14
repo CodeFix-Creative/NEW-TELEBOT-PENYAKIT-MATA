@@ -112,7 +112,8 @@ class DiagnosaController extends Controller
                   if (in_array($data->penyakit->id, $idPenyakitinArray)) {
                       foreach ($diagnosaPenyakit as $value) {
                          if($value['id_penyakit'] == $data->penyakit->id){
-                            $value['total_probabilitas'] = $value['total_probabilitas'] + $totalBagi;
+                            $Prob = $value['total_probabilitas'];
+                            $value['total_probabilitas'] = $Prob + $totalBagi;
                             $value['persentase'] = $value['total_probabilitas'] * 100;
                          }
                       }
