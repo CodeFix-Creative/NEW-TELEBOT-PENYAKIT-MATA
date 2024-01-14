@@ -160,7 +160,7 @@ class DiagnosaController extends Controller
 
             
           }
-        dd($diagnosaPenyakit);
+        dd($diagnosaPenyakitFinal);
         $diagnosa = new Diagnosa;
         $diagnosa->nama = $request->nama;
         $diagnosa->umur = $request->umur;
