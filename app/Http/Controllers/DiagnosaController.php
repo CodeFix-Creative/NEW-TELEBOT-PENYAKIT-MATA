@@ -146,15 +146,15 @@ class DiagnosaController extends Controller
             $JumGejala = count($request->gejala);
 
             // Check Penyakit Paling Tinggi
-            $persentaseTertinggi = 0;
+            $probailitasTertinggi = 0;
             foreach ($diagnosaPenyakit as $data) {
 
-              if($data['persentase'] > $persentaseTertinggi){
-                  $persentaseTertinggi = $data['persentase'];
+              if($data['total_probabilitas'] > $probailitasTertinggi){
+                  $probailitasTertinggi = $data['total_probabilitas'];
                   $diagnosaPenyakitFinal = [
                       'id_penyakit' => $data['id_penyakit'],
-                      'total_probabilitas' => $data['total_probabilitas'],
-                      'persentase' => $data['persentase'],
+                      'total_probabilitas' => $probailitasTertinggi,
+                      'persentase' => $probailitasTertinggi * 100,
                   ]; 
               }
             }
