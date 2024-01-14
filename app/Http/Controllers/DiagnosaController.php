@@ -110,14 +110,19 @@ class DiagnosaController extends Controller
                   $idPenyakitinArray  = array_column($diagnosaPenyakit, 'id_penyakit');
 
                   if (in_array($data->penyakit->id, $idPenyakitinArray)) {
-                      foreach ($diagnosaPenyakit as $value) {
+                      foreach ($diagnosaPenyakit as $key => $value) {
                          if($value['id_penyakit'] == $data->penyakit->id){
-                            foreach ($value as $key => $item) {
-                                dd($item);
-                            }
-                          $Prob = $value['total_probabilitas'];
-                          $value['total_probabilitas'] = $Prob + $totalBagi;
-                          $value['persentase'] = $value['total_probabilitas'] * 100;
+                           $Prob = $value['total_probabilitas'];
+                           $value['total_probabilitas'] = $Prob + $totalBagi;
+                           $value['persentase'] = $value['total_probabilitas'] * 100;
+                           foreach ($value as $subkey => $item) {
+                               if ($subkey == 'total_probabilitas') {
+                                   $diagnosaPenyakit[$key][$subkey] = $Prob + $totalBagi;
+                               }
+                               if ($subkey == 'persentase') {
+                                   $diagnosaPenyakit[$key][$subkey] = $value['total_probabilitas'] * 100;
+                               }
+                           }
                           // dd($diagnosaPenyakit , $totalBagi , $value['total_probabilitas'] , $value['persentase']);
                           }
                       }
