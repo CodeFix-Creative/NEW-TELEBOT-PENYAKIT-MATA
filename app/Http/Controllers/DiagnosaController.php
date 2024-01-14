@@ -84,14 +84,13 @@ class DiagnosaController extends Controller
         // $diagnosa->save();
         
         $diagnosaGejala = [];
+        $diagnosaPenyakit = [];
         
         foreach ($request->gejala as $idGejala) {
             $penyakitGejala = PenyakitGejala::where('id_gejala' , $idGejala)->get();
             $gejala = Gejala::where('id' , $idGejala)->first();
 
             $diagnosaGejala[] = $gejala->nama_gejala;
-
-            $diagnosaPenyakit = [];
 
             $jumlahAtas = 0;
             $jumlahBawah = 0;
@@ -128,9 +127,9 @@ class DiagnosaController extends Controller
                   ]; 
               }
             }
-
-            
           }
+
+        dd($diagnosaPenyakit);
         
         $diagnosa = new Diagnosa;
         $diagnosa->nama = $request->nama;
