@@ -127,8 +127,9 @@ class DiagnosaController extends Controller
               }
             }
           }
-
-        dd($diagnosaPenyakit);
+        foreach($diagnosaPenyakit as $key => $value){
+          dd($key);
+        }
         
         $diagnosa = new Diagnosa;
         $diagnosa->nama = $request->nama;
