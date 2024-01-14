@@ -105,12 +105,12 @@ class DiagnosaController extends Controller
                 $jumlahAtas = $data->bobot * $data->penyakit->score;
                 $totalBagi = round($jumlahAtas / $jumlahBawah , 3);
                 if(!empty($diagnosaPenyakit)){
-                  // dd($diagnosaPenyakit);
-                  foreach ($diagnosaPenyakit as $data) {
-                     if($data['id_penyakit'] == $data->penyakit->id){
+                  
+                  foreach ($diagnosaPenyakit as $item) {
+                     if($item['id_penyakit'] == $data->penyakit->id){
                       
-                      $data['total_probabilitas'] += $totalBagi;
-                      $data['persentase'] += $totalBagi * 100;
+                      $item['total_probabilitas'] += $totalBagi;
+                      $item['persentase'] = $totalBagi * 100;
   
                      }else{
                         $diagnosaPenyakit[] = [
