@@ -127,8 +127,12 @@ class DiagnosaController extends Controller
               }
             }
           }
+        $no = 0;;
         foreach($diagnosaPenyakit as $key => $value){
-          dd($key);
+          if ($no != $key) {
+            # code...
+          }
+          dd($value);
         }
         
         $diagnosa = new Diagnosa;
