@@ -102,6 +102,7 @@ class TelegramController extends Controller
 
           // $totalGejala = count(json_decode($diagnosa->record_gejala));
           $diagnosaGejala = [];
+          $diagnosaPenyakit = [];
 
           foreach (json_decode($diagnosa->record_gejala) as $namaGejala) {
               $gejala = Gejala::where('nama_gejala' , $namaGejala)->first();
@@ -122,27 +123,58 @@ class TelegramController extends Controller
                   $jumlahAtas = $data->bobot * $data->penyakit->score;
                   $totalBagi = round($jumlahAtas / $jumlahBawah , 3);
 
-                  $diagnosaPenyakit[] = [
-                      'id_penyakit' => $data->penyakit->id,
-                      'total_probabilitas' => $totalBagi,
-                      'persentase' => $totalBagi * 100,
-                  ];
+                  if (!empty($diagnosaPenyakit)) {
+                    $idPenyakitinArray  = array_column($diagnosaPenyakit, 'id_penyakit');
+
+                    if (in_array($data->penyakit->id, $idPenyakitinArray)) {
+                        foreach ($diagnosaPenyakit as $key => $value) {
+                          if($value['id_penyakit'] == $data->penyakit->id){
+                            $Prob = $value['total_probabilitas'];
+                            $value['total_probabilitas'] = $Prob + $totalBagi;
+                            $value['persentase'] = $value['total_probabilitas'] * 100;
+                            foreach ($value as $subkey => $item) {
+                                if ($subkey == 'total_probabilitas') {
+                                    $diagnosaPenyakit[$key][$subkey] = $Prob + $totalBagi;
+                                }
+                                if ($subkey == 'persentase') {
+                                    $diagnosaPenyakit[$key][$subkey] = $value['total_probabilitas'] * 100;
+                                }
+                            }
+                            // dd($diagnosaPenyakit , $totalBagi , $value['total_probabilitas'] , $value['persentase']);
+                            }
+                        }
+                    }else{
+                        $diagnosaPenyakit[] = [
+                          'id_penyakit' => $data->penyakit->id,
+                          'total_probabilitas' => $totalBagi,
+                          'persentase' => $totalBagi * 100,
+                      ];
+                    }
+                  }else{
+                    $diagnosaPenyakit[] = [
+                        'id_penyakit' => $data->penyakit->id,
+                        'total_probabilitas' => $totalBagi,
+                        'persentase' => $totalBagi * 100,
+                    ];
+                  }
               }
 
               
 
               $diagnosaPenyakitFinal = [];
+              $JumGejala = count($request->gejala);
 
               // Check Penyakit Paling Tinggi
-              $persentaseTertinggi = 0;
+              $probailitasTertinggi = 0;
               foreach ($diagnosaPenyakit as $data) {
 
-                if($data['persentase'] > $persentaseTertinggi){
-                    $persentaseTertinggi = $data['persentase'];
+                $probNow = $data['total_probabilitas'] / 2;
+                if($probNow > $probailitasTertinggi){
+                    $probailitasTertinggi = $probNow;
                     $diagnosaPenyakitFinal = [
                         'id_penyakit' => $data['id_penyakit'],
-                        'total_probabilitas' => $data['total_probabilitas'],
-                        'persentase' => $data['persentase'] . "%",
+                        'total_probabilitas' => $probNow,
+                        'persentase' => $probNow * 100,
                     ]; 
                 }
               }
