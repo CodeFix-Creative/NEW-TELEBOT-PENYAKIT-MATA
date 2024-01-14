@@ -115,7 +115,7 @@ class DiagnosaController extends Controller
                           $Prob = $value['total_probabilitas'];
                           $value['total_probabilitas'] = $Prob + $totalBagi;
                           $value['persentase'] = $value['total_probabilitas'] * 100;
-                          dd($diagnosaPenyakit , $totalBagi , $value['total_probabilitas'] , $value['persentase']);
+                          // dd($diagnosaPenyakit , $totalBagi , $value['total_probabilitas'] , $value['persentase']);
                           }
                       }
                   }else{
