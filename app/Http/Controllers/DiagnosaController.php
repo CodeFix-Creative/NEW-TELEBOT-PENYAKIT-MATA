@@ -143,6 +143,7 @@ class DiagnosaController extends Controller
             }
 
             $diagnosaPenyakitFinal = [];
+            $JumGejala = count($request->gejala);
 
             // Check Penyakit Paling Tinggi
             $persentaseTertinggi = 0;
@@ -160,6 +161,7 @@ class DiagnosaController extends Controller
 
             
           }
+        // $JumGejala = count($request->gejala);
         dd($diagnosaPenyakitFinal);
         $diagnosa = new Diagnosa;
         $diagnosa->nama = $request->nama;
