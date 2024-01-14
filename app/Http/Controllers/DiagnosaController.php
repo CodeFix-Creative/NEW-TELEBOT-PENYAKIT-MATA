@@ -106,11 +106,30 @@ class DiagnosaController extends Controller
                 $jumlahAtas = $data->bobot * $data->penyakit->score;
                 $totalBagi = round($jumlahAtas / $jumlahBawah , 3);
 
-                $diagnosaPenyakit[] = [
-                    'id_penyakit' => $data->penyakit->id,
-                    'total_probabilitas' => $totalBagi,
-                    'persentase' => $totalBagi * 100,
-                ];
+                if (!empty($diagnosaPenyakit)) {
+                  $idPenyakitinArray  = array_column($diagnosaPenyakit, 'id_penyakit');
+
+                  if (in_array($data->penyakit->id, $idPenyakitinArray)) {
+                      foreach ($diagnosaPenyakit as $value) {
+                         if($value['id_penyakit'] == $data->penyakit->id){
+                            $value['total_probabilitas'] += $totalBagi;
+                            $value['persentase'] = $value['total_probabilitas'] * 100;
+                         }
+                      }
+                  }else{
+                      $diagnosaPenyakit[] = [
+                        'id_penyakit' => $data->penyakit->id,
+                        'total_probabilitas' => $totalBagi,
+                        'persentase' => $totalBagi * 100,
+                    ];
+                  }
+                }else{
+                  $diagnosaPenyakit[] = [
+                      'id_penyakit' => $data->penyakit->id,
+                      'total_probabilitas' => $totalBagi,
+                      'persentase' => $totalBagi * 100,
+                  ];
+                }
             }
 
             $diagnosaPenyakitFinal = [];
