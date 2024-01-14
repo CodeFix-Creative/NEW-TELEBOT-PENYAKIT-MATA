@@ -149,12 +149,13 @@ class DiagnosaController extends Controller
             $probailitasTertinggi = 0;
             foreach ($diagnosaPenyakit as $data) {
 
-              if($data['total_probabilitas'] > $probailitasTertinggi){
-                  $probailitasTertinggi = $data['total_probabilitas'];
+              $probNow = $data['total_probabilitas'] / 2;
+              if($probNow > $probailitasTertinggi){
+                  $probailitasTertinggi = $probNow;
                   $diagnosaPenyakitFinal = [
                       'id_penyakit' => $data['id_penyakit'],
-                      'total_probabilitas' => $probailitasTertinggi,
-                      'persentase' => $probailitasTertinggi * 100,
+                      'total_probabilitas' => $probNow,
+                      'persentase' => $probNow * 100,
                   ]; 
               }
             }
