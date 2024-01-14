@@ -200,7 +200,7 @@ class TelegramController extends Controller
           $probabilitas = $diagnosaPenyakitFinal['total_probabilitas'];
           $persentase = $diagnosaPenyakitFinal['persentase'];
 
-          $text .= "Penyakit yang anda derita dari gejala yang anda beritahukan adalah " . $namaPenyakit . " dengan probabilitas sebesar " . $probabilitas . " atau " . $persentase . "\n\n";
+          $text .= "Penyakit yang anda derita dari gejala yang anda beritahukan adalah " . $namaPenyakit . " dengan probabilitas sebesar " . $probabilitas . " atau " . $persentase . "% \n\n";
 
           $text .= "Penyebabnya adalah " . $penyebab . "\n\n";
 
