@@ -162,7 +162,7 @@ class TelegramController extends Controller
               
 
               $diagnosaPenyakitFinal = [];
-              $JumGejala = count($request->gejala);
+              $JumGejala = count(json_decode($diagnosa->record_gejala));
 
               // Check Penyakit Paling Tinggi
               $probailitasTertinggi = 0;
