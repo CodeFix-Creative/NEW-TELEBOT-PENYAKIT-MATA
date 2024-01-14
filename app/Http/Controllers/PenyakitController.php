@@ -40,21 +40,25 @@ class PenyakitController extends Controller
      */
     public function store(Request $request)
     {
-        // dd($request->gejala);
+        // dd($request->all());
 
         $penyakit = new Penyakit;
         $penyakit->nama_penyakit = $request->nama;
+        $penyakit->detail = $request->detail;
+        $penyakit->penyebab = $request->penyebab;
+        $penyakit->solusi = $request->solusi;
+        $penyakit->score = $request->score;
         $penyakit->status = 'Aktif';
         $penyakit->save();
 
         // dd($penyakit);
 
-        foreach ($request->gejala as $item) {
-            $gejala = PenyakitGejala::create([
-                'id_penyakit' => $penyakit->id,
-                'id_gejala' => $item,
-            ]);
-        }
+        // foreach ($request->gejala as $item) {
+        //     $gejala = PenyakitGejala::create([
+        //         'id_penyakit' => $penyakit->id,
+        //         'id_gejala' => $item,
+        //     ]);
+        // }
 
          return redirect()->route('penyakit.index')->with('toast_success', 'Data berhasil ditambahkan!');
     }
@@ -79,14 +83,14 @@ class PenyakitController extends Controller
     public function edit(Penyakit $penyakit)
     {
         $data = $penyakit;
-        $gejalaPenyakit = PenyakitGejala::where('id_penyakit' , $data->id)->get();
-        $gejala = Gejala::all();
+        // $gejalaPenyakit = PenyakitGejala::where('id_penyakit' , $data->id)->get();
+        // $gejala = Gejala::all();
 
-        foreach ($gejalaPenyakit as $item) {
-            $gejalaId[] = $item->id;
-        }
+        // foreach ($gejalaPenyakit as $item) {
+        //     $gejalaId[] = $item->id;
+        // }
 
-        return view('admin.penyakit.edit' , compact('data' , 'gejala' , 'gejalaId'));
+        return view('admin.penyakit.edit' , compact('data'));
     }
 
     /**
@@ -99,17 +103,21 @@ class PenyakitController extends Controller
     public function update(Request $request, Penyakit $penyakit)
     {
         $penyakit->nama_penyakit = $request->nama;
+        $penyakit->detail = $request->detail;
+        $penyakit->penyebab = $request->penyebab;
+        $penyakit->solusi = $request->solusi;
+        $penyakit->score = $request->score;
         $penyakit->status = $request->status;  
         $penyakit->save();
 
-        PenyakitGejala::where('id_penyakit' , $penyakit->id)->delete();
+        // PenyakitGejala::where('id_penyakit' , $penyakit->id)->delete();
 
-        foreach ($request->gejala as $item) {
-            $gejala = PenyakitGejala::create([
-                'id_penyakit' => $penyakit->id,
-                'id_gejala' => $item,
-            ]);
-        }
+        // foreach ($request->gejala as $item) {
+        //     $gejala = PenyakitGejala::create([
+        //         'id_penyakit' => $penyakit->id,
+        //         'id_gejala' => $item,
+        //     ]);
+        // }
 
         return redirect()->route('penyakit.index')->with('toast_success', 'Data berhasil diubah!');
     }
