@@ -104,11 +104,30 @@ class DiagnosaController extends Controller
             foreach ($penyakitGejala as $data) {
                 $jumlahAtas = $data->bobot * $data->penyakit->score;
                 $totalBagi = round($jumlahAtas / $jumlahBawah , 3);
-                $diagnosaPenyakit[] = [
+                if (!empty($diagnosaPenyakit)) {
+                  $idPenyakitinArray  = array_column($diagnosaPenyakit, 'id_penyakit');
+
+                  if (in_array($data->penyakit->id, $idPenyakitinArray)) {
+                      foreach ($diagnosaPenyakit as $value) {
+                         if($value['id_penyakit'] == $data->penyakit->id){
+                            $value['total_probabilitas'] += $totalBagi;
+                            $value['persentase'] = $value['total_probabilitas'] * 100;
+                         }
+                      }
+                  }else{
+                      $diagnosaPenyakit[] = [
                         'id_penyakit' => $data->penyakit->id,
                         'total_probabilitas' => $totalBagi,
                         'persentase' => $totalBagi * 100,
                     ];
+                  }
+                }else{
+                  $diagnosaPenyakit[] = [
+                      'id_penyakit' => $data->penyakit->id,
+                      'total_probabilitas' => $totalBagi,
+                      'persentase' => $totalBagi * 100,
+                  ];
+                }
             }
 
             $diagnosaPenyakitFinal = [];
@@ -127,13 +146,16 @@ class DiagnosaController extends Controller
               }
             }
           }
-        $no = 0;;
-        foreach($diagnosaPenyakit as $key => $value){
-          if ($no != $key) {
-            # code...
-          }
-          dd($value);
-        }
+        // $name = 8;
+        // $userNames  = array_column($diagnosaPenyakit, 'id_penyakit');
+        
+        // if (in_array($name, $userNames)) {
+        //     $test =  "Yes, The Value exists in the array";
+        // } else {
+        //     $test = "No, The Value does not exists in the array";
+        // }
+
+        dd($diagnosaPenyakit);
         
         $diagnosa = new Diagnosa;
         $diagnosa->nama = $request->nama;
