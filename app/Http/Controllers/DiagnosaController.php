@@ -163,7 +163,7 @@ class DiagnosaController extends Controller
             
           }
         // $JumGejala = count($request->gejala);
-        dd($diagnosaPenyakitFinal);
+        // dd($diagnosaPenyakitFinal);
         $diagnosa = new Diagnosa;
         $diagnosa->nama = $request->nama;
         $diagnosa->umur = $request->umur;
