@@ -168,7 +168,7 @@ class TelegramController extends Controller
               $probailitasTertinggi = 0;
               foreach ($diagnosaPenyakit as $data) {
 
-                $probNow = $data['total_probabilitas'] / 2;
+                $probNow = $data['total_probabilitas'] / $JumGejala;
                 if($probNow > $probailitasTertinggi){
                     $probailitasTertinggi = $probNow;
                     $diagnosaPenyakitFinal = [
