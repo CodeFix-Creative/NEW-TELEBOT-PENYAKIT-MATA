@@ -289,7 +289,7 @@ class TelegramController extends Controller
             foreach (json_decode($diagnosa->record_penyakit) as $key => $value) {
                 if ($key == 'id_penyakit') {
                   $penyakit = Penyakit::find($value);
-                  $text .= "- Penyakit Anda" . " : " . $value . "\n";
+                  $text .= "- Penyakit Anda" . " : " . $penyakit->nama_penyakit . "\n";
                 }
 
                 if ($key == 'total_probabilitas') {
