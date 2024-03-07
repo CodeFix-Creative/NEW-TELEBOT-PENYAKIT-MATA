@@ -20,8 +20,8 @@ class TelegramController extends Controller
     use RequestTrait, MakeComponents;
 
     private $mainMenu = [
-        ["History Diagnosa Saya"],
-        ["Diagnosa Penyakit"],
+        ["History Diagnosis Saya"],
+        ["Diagnosis Penyakit"],
     ];
 
     public function index()
@@ -51,8 +51,8 @@ class TelegramController extends Controller
             ]);
         
         // Response History Diagnosa Saya
-        }else if ($action == "History Diagnosa Saya"){
-            $text = "Anda memilih menu History Diagnosa Saya \n";
+        }else if ($action == "History Diagnosis Saya"){
+            $text = "Anda memilih menu History Diagnosis Saya \n";
             $text .= "Silahkan beritahu kami nomor telephone yang pernah anda masukan :";
 
             $this->apiRequest('sendMessage', [
@@ -61,8 +61,8 @@ class TelegramController extends Controller
             ]);
 
         // Response Diagnosa Penyakit
-        }else if ($action == "Diagnosa Penyakit"){
-            $text = "Anda memilih menu Diagnosa Penyakit \n";
+        }else if ($action == "Diagnosis Penyakit"){
+            $text = "Anda memilih menu Diagnosis Penyakit \n";
             $text .= "Silahkan beritahu kami data diri anda terlebih dahulu \n";
             $text .= "Nama Lengkap#Umur Anda#Jenis Kelamin#NomorTelephone\n\n";
             $text .= "Contoh\n";
@@ -167,13 +167,13 @@ class TelegramController extends Controller
               // Check Penyakit Paling Tinggi
               $probailitasTertinggi = 0;
               foreach ($diagnosaPenyakit as $data) {
-
+                $probBefore = $data['total_probabilitas'];
                 $probNow = $data['total_probabilitas'] / $JumGejala;
                 if($probNow > $probailitasTertinggi){
                     $probailitasTertinggi = $probNow;
                     $diagnosaPenyakitFinal = [
                         'id_penyakit' => $data['id_penyakit'],
-                        'total_probabilitas' => $probNow,
+                        'total_probabilitas' => $probBefore,
                         'persentase' => $probNow * 100,
                     ]; 
                 }
