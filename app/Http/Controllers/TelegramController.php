@@ -183,7 +183,7 @@ class TelegramController extends Controller
           $diagnosa->record_penyakit = json_encode($diagnosaPenyakitFinal);
           $diagnosa->save();
 
-          $text = "Berikut hasil diagnosa penyakit mata yang anda alami sesuai gejala yang anda inputkan \n\n";
+          $text = "Berikut hasil diagnosis penyakit mata yang anda alami sesuai gejala yang anda inputkan \n\n";
           $text .= "GEJALA ANDA: \n";
 
           foreach (json_decode($diagnosa->record_gejala) as $namaGejala) {
@@ -191,7 +191,7 @@ class TelegramController extends Controller
           }
 
           $text .= "\n\n";
-          $text .= "DIAGNOSA PENYAKIT ANDA :\n";
+          $text .= "DIAGNOSIS PENYAKIT ANDA :\n";
           
           $penyakit = Penyakit::where('id' , $diagnosaPenyakitFinal['id_penyakit'])->first();
           $namaPenyakit = $penyakit->nama_penyakit;
@@ -276,7 +276,7 @@ class TelegramController extends Controller
             // Record Diagnosa
             $diagnosa = Diagnosa::where('nomor_telephone' , $action)->where('record_penyakit', '!=' , null)->orderBy('created_at' , 'DESC')->first();
 
-            $text = "Berikut Adalah History terakhir diagnosa penyakit anda \n\n";
+            $text = "Berikut Adalah History terakhir diagnosis penyakit anda \n\n";
 
             $text .= "GEJALA ANDA : \n";
             foreach (json_decode($diagnosa->record_gejala) as $gejala) {
