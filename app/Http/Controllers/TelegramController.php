@@ -183,7 +183,7 @@ class TelegramController extends Controller
           $diagnosa->record_penyakit = json_encode($diagnosaPenyakitFinal);
           $diagnosa->save();
 
-          $text = "Berikut hasil diagnosis penyakit mata yang anda alami sesuai gejala yang anda inputkan \n\n";
+          $text = "Berikut hasil diagnosis penyakit mata yang anda alami sesuai gejala yang anda pilih \n\n";
           $text .= "GEJALA ANDA: \n";
 
           foreach (json_decode($diagnosa->record_gejala) as $namaGejala) {
@@ -200,7 +200,8 @@ class TelegramController extends Controller
           $probabilitas = $diagnosaPenyakitFinal['total_probabilitas'];
           $persentase = $diagnosaPenyakitFinal['persentase'];
 
-          $text .= "Penyakit yang anda derita dari gejala yang anda beritahukan adalah " . $namaPenyakit . " dengan probabilitas sebesar " . $probabilitas . " atau " . $persentase . "% \n\n";
+          // $text .= "Penyakit yang anda derita dari gejala yang anda beritahukan adalah " . $namaPenyakit . " dengan probabilitas sebesar " . $probabilitas . " atau " . $persentase . "% \n\n";
+          $text .= "Penyakit yang anda derita dari gejala yang anda beritahukan adalah " . $namaPenyakit . " dengan persentase sebesar " . $persentase . "% \n\n";
 
           $text .= "Penyebabnya adalah " . $penyebab . "\n\n";
 
@@ -292,12 +293,12 @@ class TelegramController extends Controller
                   $text .= "- Penyakit Anda" . " : " . $penyakit->nama_penyakit . "\n";
                 }
 
-                if ($key == 'total_probabilitas') {
-                  $text .= "- Probabilitas" . " : " . $value . "\n";
-                }
+                // if ($key == 'total_probabilitas') {
+                //   $text .= "- Probabilitas" . " : " . $value . "\n";
+                // }
 
                 if ($key == 'persentase') {
-                  $text .= "- Persentase Diagnosis" . " : " . $value . "\n";
+                  $text .= "- Persentase Diagnosis" . " : " . $value . "%\n";
                 }
             }
 
