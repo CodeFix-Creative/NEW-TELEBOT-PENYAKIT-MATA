@@ -20,8 +20,8 @@ class TelegramController extends Controller
     use RequestTrait, MakeComponents;
 
     private $mainMenu = [
-        ["My Diagnosis History"],
-        ["Disease Diagnosis"],
+        ["History Diagnosis Saya"],
+        ["Diagnosis Penyakit"],
     ];
 
     public function index()
@@ -42,7 +42,7 @@ class TelegramController extends Controller
         
         // Inisiasi Reply
         if($action == "/start") {
-            $text = "Welcome to the EYE DISEASE DETECTION Telegram Bot. Please select the menu below: ";
+            $text = "Selamat datang di Bot Telegram DETEKSI PENYAKIT MATA . Silahkan pilih menu di bawah ini: ";
 
             $this->apiRequest('sendMessage', [
                 'chat_id' => $userId,
@@ -51,9 +51,9 @@ class TelegramController extends Controller
             ]);
         
         // Response History Diagnosa Saya
-        }else if ($action == "My Diagnosis History"){
-            $text = "You select the My Diagnosis History menu \n";
-            $text .= "Please tell us the telephone number you have entered :";
+        }else if ($action == "History Diagnosis Saya"){
+            $text = "Anda memilih menu History Diagnosis Saya \n";
+            $text .= "Silahkan beritahu kami nomor telephone yang pernah anda masukan :";
 
             $this->apiRequest('sendMessage', [
                 'chat_id' => $userId,
@@ -61,11 +61,11 @@ class TelegramController extends Controller
             ]);
 
         // Response Diagnosa Penyakit
-        }else if ($action == "Disease Diagnosis"){
-            $text = "You select the Disease Diagnosis menu \n";
-            $text .= "Please tell us your personal details first. \n";
-            $text .= "Full Name#Your Age#Gender#Telephone Number\n\n";
-            $text .= "Example\n";
+        }else if ($action == "Diagnosis Penyakit"){
+            $text = "Anda memilih menu Diagnosis Penyakit \n";
+            $text .= "Silahkan beritahu kami data diri anda terlebih dahulu \n";
+            $text .= "Nama Lengkap#Umur Anda#Jenis Kelamin#NomorTelephone\n\n";
+            $text .= "Contoh\n";
             $text .= "Tifani Angga#23#L#081231XXXXXXX\n\n";
 
             $this->apiRequest('sendMessage', [
@@ -74,9 +74,9 @@ class TelegramController extends Controller
             ]);
 
         // Check Pertanyan YA
-        }else if ($action == "Yes"){
+        }else if ($action == "Ya"){
 
-            $text = "Please select the symptoms of the disease you feel : \n";
+            $text = "Silahkan pilih gajala penyakit yang anda rasakan : \n";
 
             $gejala = Gejala::where('status' , 'Aktif')->get();
 
@@ -91,7 +91,7 @@ class TelegramController extends Controller
             ]);
 
         // Check Pertanyan Tidak sekaligus Result
-        }else if ($action == "No"){
+        }else if ($action == "Tidak"){
 
           $listIdGejala = [];
           $idPenyakit = [];
@@ -183,15 +183,15 @@ class TelegramController extends Controller
           $diagnosa->record_penyakit = json_encode($diagnosaPenyakitFinal);
           $diagnosa->save();
 
-          $text = "Here are the results of your eye disease diagnosis according to the symptoms you selected \n\n";
-          $text .= "YOUR SYMPTOMS: \n";
+          $text = "Berikut hasil diagnosis penyakit mata yang anda alami sesuai gejala yang anda pilih \n\n";
+          $text .= "GEJALA ANDA: \n";
 
           foreach (json_decode($diagnosa->record_gejala) as $namaGejala) {
               $text .= "- " . $namaGejala . "\n";
           }
 
           $text .= "\n\n";
-          $text .= "DIAGNOSIS OF YOUR DISEASE :\n";
+          $text .= "DIAGNOSIS PENYAKIT ANDA :\n";
           
           $penyakit = Penyakit::where('id' , $diagnosaPenyakitFinal['id_penyakit'])->first();
           $namaPenyakit = $penyakit->nama_penyakit;
@@ -201,11 +201,11 @@ class TelegramController extends Controller
           $persentase = $diagnosaPenyakitFinal['persentase'];
 
           // $text .= "Penyakit yang anda derita dari gejala yang anda beritahukan adalah " . $namaPenyakit . " dengan probabilitas sebesar " . $probabilitas . " atau " . $persentase . "% \n\n";
-          $text .= "The diseases you suffer from the symptoms you have described are " . $namaPenyakit . " with a percentage of " . $persentase . "% \n\n";
+          $text .= "Penyakit yang anda derita dari gejala yang anda beritahukan adalah " . $namaPenyakit . " dengan persentase sebesar " . $persentase . "% \n\n";
 
-          $text .= "The cause is " . $penyebab . "\n\n";
+          $text .= "Penyebabnya adalah " . $penyebab . "\n\n";
 
-          $text .= "Solutions that can be done are " . $solusi;
+          $text .= "Solusi yang dapat di lakukan adalah " . $solusi;
 
 
 
@@ -230,11 +230,11 @@ class TelegramController extends Controller
             $diagnosa->record_gejala = json_encode($inputGejala);
             $diagnosa->save();
 
-            $text = "Do you have any other symptoms?";
+            $text = "Apakah ada gejala lain yang anda rasakan ?";
 
             $Optionkeyboard = [
-              ["Yes"],
-              ["No"],
+              ["Ya"],
+              ["Tidak"],
             ];
 
             $this->apiRequest('sendMessage', [
@@ -255,8 +255,8 @@ class TelegramController extends Controller
           $diagnosa->nomor_telephone = $customerData[3];
           $diagnosa->save();
 
-          $text = "Your personal data has been successfully saved \n";
-          $text .= "Please select the symptoms of the disease you feel : \n";
+          $text = "Data diri anda berhasil disimpan \n";
+          $text .= "Silahkan pilih gajala penyakit yang anda rasakan : \n";
 
           $gejala = Gejala::where('status' , 'Aktif')->get();
 
@@ -277,20 +277,20 @@ class TelegramController extends Controller
             // Record Diagnosa
             $diagnosa = Diagnosa::where('nomor_telephone' , $action)->where('record_penyakit', '!=' , null)->orderBy('created_at' , 'DESC')->first();
 
-            $text = "Here is the last history of your diagnosis \n\n";
+            $text = "Berikut Adalah History terakhir diagnosis penyakit anda \n\n";
 
-            $text .= "YOUR SYMPTOMS : \n";
+            $text .= "GEJALA ANDA : \n";
             foreach (json_decode($diagnosa->record_gejala) as $gejala) {
                 $text .= "- " . $gejala . "\n";
             }
 
             $text .= "\n\n";
-            $text .= "DIAGNOSE YOUR DISEASE : \n";
+            $text .= "DIAGNOSA PENYAKIT ANDA : \n";
 
             foreach (json_decode($diagnosa->record_penyakit) as $key => $value) {
                 if ($key == 'id_penyakit') {
                   $penyakit = Penyakit::find($value);
-                  $text .= "- Your illness" . " : " . $penyakit->nama_penyakit . "\n";
+                  $text .= "- Penyakit Anda" . " : " . $penyakit->nama_penyakit . "\n";
                 }
 
                 // if ($key == 'total_probabilitas') {
@@ -298,7 +298,7 @@ class TelegramController extends Controller
                 // }
 
                 if ($key == 'persentase') {
-                  $text .= "- Percentage of Diagnosis" . " : " . $value . "%\n";
+                  $text .= "- Persentase Diagnosis" . " : " . $value . "%\n";
                 }
             }
 
@@ -310,8 +310,8 @@ class TelegramController extends Controller
 
         // Check History Diagnosa Kalau Tidak Ada
         }else if (Diagnosa::where('nomor_telephone' , $action)->exists() == false){
-            $text = "You don't have a history of disease diagnosis \n";
-            $text .= "Please consult your disease diagnosis first";
+            $text = "Anda belum memiliki history diagnosa penyakit \n";
+            $text .= "Silahkan lakukan konsultasi diagnosa penyakit anda terlebih dahulu";
 
             $this->apiRequest('sendMessage', [
                 'chat_id' => $userId,
@@ -321,7 +321,7 @@ class TelegramController extends Controller
 
         
         } else {
-            $text = "Sorry, your input is wrong, please input according to the format or please select the menu below: ";
+            $text = "maaf, input yang anda masukkan salah, silahkan input sesuai format atau silahkan pilih menu dibawah ini: ";
 
             $this->apiRequest('sendMessage', [
                 'chat_id' => $userId,
